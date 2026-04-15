@@ -324,43 +324,67 @@
     .step-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; }
     .step-body { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
 
-    /* ─── STEELMAKING DIAGRAM ─── */
-    .diag-scroll { overflow-x: auto; margin: 0 -0.5rem; border-radius: var(--radius); }
-    .diag-scroll svg { min-width: 820px; display: block; }
-    .hs-group { cursor: pointer; }
-    .hs-pulse { transform-origin: center; transform-box: fill-box; }
-    @keyframes hsPulse { 0%,100% { opacity:0.15; transform:scale(1); } 50% { opacity:0.3; transform:scale(1.18); } }
-    .hs-group.active .hs-pulse { animation: hsPulse 2s ease-in-out infinite; }
-    .hs-group.active .hs-dot { fill: #f0a500; }
-    .hs-group.active .hs-num { fill: #0c1118; }
-    .hs-group:hover .hs-dot { fill: rgba(240,165,0,0.5); }
-    @keyframes flowDash { to { stroke-dashoffset: -20; } }
-    .flow-bf   { stroke-dasharray:7 4; animation: flowDash 1.1s linear infinite; }
-    .flow-eaf  { stroke-dasharray:7 4; animation: flowDash 1.3s linear infinite; }
-    .flow-cmn  { stroke-dasharray:7 4; animation: flowDash 0.95s linear infinite; }
-
-    .diag-panel {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.5rem; margin-top: 1rem;
-      min-height: 170px; transition: border-color 0.25s;
-    }
-    .diag-panel.loaded { border-color: var(--border-hover); }
-    .dp-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
-    .dp-n { font-size: 1.8rem; font-family: var(--mono); font-weight: 500; color: var(--amber); opacity: 0.5; line-height:1; }
-    .dp-title { font-size: 1rem; font-weight: 700; }
-    .dp-badge { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 3px; }
-    .dp-badge.bf  { background: var(--amber-dim); color: var(--amber); }
-    .dp-badge.eaf { background: var(--steel-dim);  color: var(--steel); }
-    .dp-badge.cmn { background: rgba(255,255,255,0.07); color: var(--text-muted); }
-    .dp-desc { font-size: 0.82rem; line-height: 1.78; color: var(--text); margin-bottom: 1rem; }
-    .dp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .dp-col-hd { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.45rem; }
-    .dp-col ul { list-style: none; padding: 0; }
-    .dp-col ul li { font-size: 0.77rem; color: var(--text-muted); padding: 0.18rem 0 0.18rem 1rem; position: relative; }
-    .dp-col ul li::before { content: '→'; position: absolute; left: 0; color: var(--text-faint); font-size: 0.72rem; }
-    .dp-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 1rem; }
-    .dp-tag { font-size: 0.65rem; font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 3px; font-family: var(--mono); background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); }
-    .dp-placeholder { display: flex; align-items: center; justify-content: center; min-height: 120px; font-size: 0.8rem; color: var(--text-faint); }
+    /* ─── STEELMAKING DIAGRAM V2 ─── */
+    .ws-container { margin-top: 0.25rem; }
+    .ws-stage { display: flex; margin-bottom: 0.35rem; border-radius: 10px; overflow: hidden; min-height: 100px; }
+    .ws-sidebar { width: 22%; min-width: 140px; padding: 1.2rem 1rem; display: flex; flex-direction: column; justify-content: flex-start; }
+    .ws-num { font-size: 2.2rem; font-weight: 700; color: rgba(255,255,255,0.92); line-height: 1; margin-bottom: 0.4rem; }
+    .ws-stitle { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.88); line-height: 1.45; }
+    .ws-ssub { font-size: 0.7rem; color: rgba(255,255,255,0.55); margin-top: 0.3rem; font-style: italic; }
+    .ws-star { cursor: pointer; color: rgba(255,255,255,0.75); font-size: 14px; transition: all 0.15s; display: inline-block; }
+    .ws-star:hover { color: #f0a500; transform: scale(1.4); }
+    .ws-content { flex: 1; padding: 0.75rem 1rem; }
+    .ws-s1 .ws-sidebar { background: #3d4a70; } .ws-s1 .ws-content { background: rgba(61,74,112,0.15); }
+    .ws-s2 .ws-sidebar { background: #7a1550; } .ws-s2 .ws-content { background: rgba(122,21,80,0.12); }
+    .ws-s3 .ws-sidebar { background: #5a1a78; } .ws-s3 .ws-content { background: rgba(90,26,120,0.12); }
+    .ws-s4 .ws-sidebar { background: #1a3888; } .ws-s4 .ws-content { background: rgba(26,56,136,0.12); }
+    .ws-s5 .ws-sidebar { background: #1a6460; } .ws-s5 .ws-content { background: rgba(26,100,96,0.12); }
+    .ws-s6 .ws-sidebar { background: #1a3868; } .ws-s6 .ws-content { background: rgba(26,56,104,0.12); }
+    .ws-s7 .ws-sidebar { background: #1a1e6a; } .ws-s7 .ws-content { background: rgba(26,30,106,0.12); }
+    .ws-s8 .ws-sidebar { background: #485c22; } .ws-s8 .ws-content { background: rgba(72,92,34,0.12); }
+    .ws-s9 .ws-sidebar { background: #1a1a3c; } .ws-s9 .ws-content { background: rgba(26,26,60,0.15); }
+    .ws-mat-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 0.4rem; }
+    .ws-mat-card { border-radius: 7px; padding: 0.6rem 0.5rem; min-height: 105px; display: flex; flex-direction: column; }
+    .ws-mat-name { color: white; font-size: 0.78rem; font-weight: 700; margin: 0 0 0.4rem; line-height: 1.3; }
+    .ws-mat-img { width: 100%; height: 60px; object-fit: contain; object-position: bottom; }
+    .ws-mat-iron { background: #7B3800; } .ws-mat-lime { background: #C87400; }
+    .ws-mat-coal { background: #111; border: 1px solid #333; } .ws-mat-scrap { background: #C04A00; }
+    .ws-mat-alt  { background: #4a6e00; } .ws-mat-gas  { background: #8a0000; }
+    .ws-eq-grid { display: grid; gap: 0.75rem; align-items: start; }
+    .ws-eq-2 { grid-template-columns: 1fr 1fr; }
+    .ws-eq-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .ws-eq-5 { grid-template-columns: repeat(5,1fr); }
+    .ws-eq-item { text-align: center; }
+    .ws-eq-img { max-width: 100%; height: auto; max-height: 180px; object-fit: contain; display: block; margin: 0.4rem auto 0; }
+    .ws-eq-img-sm { max-height: 75px; }
+    .ws-eq-star-wrap { display: flex; align-items: center; gap: 0.35rem; justify-content: center; }
+    .ws-eq-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+    .ws-semi-card { background: rgba(26,100,96,0.2); border: 1px solid rgba(26,100,96,0.35); border-radius: 6px; padding: 1rem; display: flex; align-items: center; justify-content: center; min-height: 80px; }
+    .ws-semi-card img { max-height: 55px; max-width: 100%; object-fit: contain; filter: brightness(0) invert(1) opacity(0.7); }
+    .ws-hr-container { display: flex; gap: 0.75rem; }
+    .ws-hr-col { flex: 1; } .ws-hr-col-wide { flex: 2; }
+    .ws-hr-heading { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); text-align: center; margin-bottom: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); }
+    .ws-hr-sub { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .ws-prod-card { background: rgba(26,56,104,0.2); border: 1px solid rgba(26,56,104,0.4); border-radius: 6px; padding: 0.5rem; text-align: center; margin-bottom: 0.4rem; }
+    .ws-prod-card img { max-height: 42px; max-width: 100%; object-fit: contain; filter: brightness(0) invert(1) opacity(0.65); display: block; margin: 0 auto 0.3rem; }
+    .ws-prod-card span { font-size: 0.65rem; color: var(--text-muted); display: block; }
+    .ws-fin-inner { background: rgba(26,30,106,0.25); border: 1px solid rgba(26,30,106,0.4); border-radius: 8px; padding: 0.75rem; text-align: center; }
+    .ws-fin-inner img { max-height: 90px; max-width: 100%; object-fit: contain; filter: brightness(0) invert(1) opacity(0.75); display: block; margin: 0 auto 0.5rem; }
+    .ws-fin-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+    .ws-coprod, .ws-app { text-align: center; padding: 0.4rem; }
+    .ws-coprod img, .ws-app img { max-height: 48px; max-width: 100%; object-fit: contain; filter: brightness(0) invert(1) opacity(0.6); display: block; margin: 0 auto 0.3rem; }
+    .ws-coprod span, .ws-app span { font-size: 0.62rem; color: var(--text-muted); display: block; line-height: 1.3; }
+    .ws-note { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 1.2rem; margin: 0.5rem 0; font-size: 0.78rem; color: var(--text-muted); text-align: center; }
+    /* Popup styles (kept from before) */
+    .hs-popup { position:fixed; z-index:9999; background:#1a2330; border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:1rem 1.1rem; width:238px; box-shadow:0 14px 38px rgba(0,0,0,0.55); pointer-events:all; }
+    @keyframes popIn { from{opacity:0;transform:scale(0.9) translateY(-8px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    .hs-popup { animation:popIn 0.18s cubic-bezier(0.34,1.56,0.64,1); }
+    .popup-close { position:absolute; top:9px; right:11px; background:none; border:none; color:var(--text-faint); cursor:pointer; font-size:15px; line-height:1; padding:0; }
+    .popup-close:hover { color:var(--text); }
+    .popup-step-badge { display:inline-block; background:var(--amber-dim); color:var(--amber); border:1px solid var(--amber-border); border-radius:3px; padding:0.1rem 0.5rem; font-size:0.59rem; font-weight:700; letter-spacing:0.1em; margin-bottom:0.45rem; font-family:var(--mono); }
+    .popup-step-badge.eaf { background:var(--steel-dim); color:var(--steel); border-color:var(--steel-border); }
+    .popup-name { font-size:0.9rem; font-weight:700; margin-bottom:0.35rem; color:var(--text); }
+    .popup-text { font-size:0.75rem; color:var(--text-muted); line-height:1.68; }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 720px) {
@@ -508,514 +532,258 @@
     <div class="mod-header">
       <div class="mod-eyebrow">Module 2 · ~8 min</div>
       <div class="mod-title">How Steel is Made</div>
-      <div class="mod-desc">9 stages, two production routes — click any numbered hotspot to explore each step. Both BF-BOF (amber) and EAF (blue) routes are shown simultaneously, converging at refining.</div>
+      <div class="mod-desc">9 stages, two production routes. Click any ★ star to learn about each piece of equipment or process.</div>
     </div>
 
-    <div class="diag-scroll">
-    <svg id="steelDiag" viewBox="0 0 960 410" width="100%" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </marker>
-      </defs>
-
-      <!-- ── ROUTE ZONE BANDS ── -->
-      <rect x="107" y="78"  width="332" height="152" rx="6" fill="#f0a500" fill-opacity="0.04"/>
-      <rect x="107" y="254" width="332" height="138" rx="6" fill="#52a9e8" fill-opacity="0.04"/>
-      <text x="115" y="94"  font-family="Sora,sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#f0a500" fill-opacity="0.5">BF-BOF ROUTE</text>
-      <text x="115" y="270" font-family="Sora,sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#52a9e8" fill-opacity="0.5">EAF ROUTE</text>
-
-      <!-- ── HORIZONTAL CONNECTOR SPINE (top row between hotspots) ── -->
-      <line x1="72"  y1="38" x2="140" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-      <line x1="180" y1="38" x2="247" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-      <line x1="287" y1="38" x2="353" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-      <line x1="393" y1="38" x2="460" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-      <line x1="500" y1="38" x2="567" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-      <line x1="607" y1="38" x2="674" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-      <line x1="714" y1="38" x2="780" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-      <line x1="820" y1="38" x2="887" y2="38" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
-
-      <!-- ── ANIMATED FLOW CONNECTIONS ── -->
-
-      <!-- BF-BOF FLOWS (amber) -->
-      <!-- 1. Ore/coal → Coke Oven -->
-      <path d="M86,152 C108,152 118,148 130,148" stroke="#f0a500" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-bf"/>
-      <!-- 2. Coke Oven → Blast Furnace -->
-      <path d="M193,148 L242,150" stroke="#f0a500" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-bf"/>
-      <!-- 3. Blast Furnace → BOF (hot metal ladle) -->
-      <path d="M314,188 C332,192 342,174 349,174" stroke="#f0a500" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-bf"/>
-      <!-- 4. BOF → Ladle (merges down to common path) -->
-      <path d="M403,188 C425,198 442,218 455,226" stroke="#f0a500" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-bf"/>
-
-      <!-- EAF FLOWS (steel blue) -->
-      <!-- 5. Scrap → Sinter plant -->
-      <path d="M84,306 C108,306 118,302 130,302" stroke="#52a9e8" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-eaf"/>
-      <!-- 6. Sinter → DRI shaft -->
-      <path d="M191,300 L246,302" stroke="#52a9e8" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-eaf"/>
-      <!-- 7. DRI → EAF -->
-      <path d="M294,306 C314,312 325,318 331,320" stroke="#52a9e8" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-eaf"/>
-      <!-- 8. EAF → Ladle (merges up to common path) -->
-      <path d="M420,270 C440,258 448,246 456,240" stroke="#52a9e8" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-eaf"/>
-
-      <!-- COMMON PATH FLOWS (light) -->
-      <!-- 9. Ladle → Caster -->
-      <path d="M512,232 C534,220 546,182 562,174" stroke="rgba(180,200,210,0.45)" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-cmn"/>
-      <!-- 10. Caster slab exit → Rolling mill -->
-      <path d="M638,285 C643,274 646,260 650,250" stroke="rgba(180,200,210,0.45)" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-cmn"/>
-      <!-- 11. Rolling mill → Finishing -->
-      <path d="M742,238 L762,236" stroke="rgba(180,200,210,0.45)" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-cmn"/>
-      <!-- 12. Finishing → Products -->
-      <path d="M864,232 L878,228" stroke="rgba(180,200,210,0.45)" stroke-width="1.8" fill="none" marker-end="url(#arw)" class="flow-cmn"/>
-
-      <!-- ── STEP 1: RAW MATERIAL PILES ── -->
-      <!-- Iron ore mound -->
-      <ellipse cx="53" cy="128" rx="28" ry="8" fill="#7B3030" fill-opacity="0.6"/>
-      <path d="M27,128 Q40,92 53,85 Q66,92 79,128 Z" fill="#993535"/>
-      <text x="53" y="142" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Iron ore</text>
-      <!-- Limestone mound -->
-      <ellipse cx="53" cy="170" rx="21" ry="6" fill="#6a7a7a" fill-opacity="0.6"/>
-      <path d="M34,170 Q43,150 53,145 Q63,150 72,170 Z" fill="#7a8a8a"/>
-      <text x="53" y="183" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Limestone</text>
-      <!-- Coal mound -->
-      <ellipse cx="53" cy="206" rx="24" ry="7" fill="#1e1e1e" fill-opacity="0.9"/>
-      <path d="M31,206 Q41,184 53,178 Q65,184 75,206 Z" fill="#2a2a2a"/>
-      <text x="53" y="220" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Coal</text>
-      <!-- Divider -->
-      <line x1="22" y1="240" x2="84" y2="240" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3 3"/>
-      <!-- Scrap pile (jagged) -->
-      <polygon points="24,328 40,296 53,310 62,289 73,305 85,291 91,328" fill="#3a4a5a"/>
-      <polygon points="30,328 46,302 54,315 63,295 73,308 84,297 89,328" fill="#2a3a4a" fill-opacity="0.8"/>
-      <text x="53" y="342" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Scrap / DRI</text>
-      <!-- Natural gas flame symbol (small) -->
-      <path d="M53,258 Q57,248 54,242 Q52,252 48,246 Q48,258 53,258 Z" fill="#52a9e8" fill-opacity="0.6"/>
-      <text x="53" y="270" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Gas / H₂</text>
-
-      <!-- ── STEP 2: PREPARATION ── -->
-      <!-- COKE OVEN (BF-BOF lane) -->
-      <rect x="131" y="108" width="62" height="7" fill="#243444" rx="1"/>
-      <rect x="133" y="115" width="58" height="62" fill="#192838" rx="2" stroke="#243444" stroke-width="1"/>
-      <line x1="150" y1="115" x2="150" y2="177" stroke="#243444" stroke-width="1.5"/>
-      <line x1="165" y1="115" x2="165" y2="177" stroke="#243444" stroke-width="1.5"/>
-      <line x1="180" y1="115" x2="180" y2="177" stroke="#243444" stroke-width="1.5"/>
-      <rect x="137" y="88"  width="7" height="22" fill="#243444" rx="1"/>
-      <rect x="152" y="91"  width="7" height="19" fill="#243444" rx="1"/>
-      <rect x="167" y="89"  width="7" height="21" fill="#243444" rx="1"/>
-      <rect x="182" y="90"  width="7" height="20" fill="#243444" rx="1"/>
-      <text x="162" y="192" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Coke oven</text>
-      <!-- SINTER/PELLET PLANT (EAF lane) -->
-      <rect x="131" y="258" width="62" height="7" fill="#243444" rx="1"/>
-      <rect x="133" y="265" width="58" height="48" fill="#192838" rx="2" stroke="#243444" stroke-width="1"/>
-      <line x1="148" y1="265" x2="148" y2="313" stroke="#243444" stroke-width="1.5"/>
-      <line x1="163" y1="265" x2="163" y2="313" stroke="#243444" stroke-width="1.5"/>
-      <line x1="178" y1="265" x2="178" y2="313" stroke="#243444" stroke-width="1.5"/>
-      <rect x="148" y="243" width="9" height="18" fill="#243444" rx="1"/>
-      <text x="162" y="328" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Sinter plant</text>
-
-      <!-- ── STEP 3: IRONMAKING ── -->
-      <!-- BLAST FURNACE (tall tower, BF lane) -->
-      <!-- Base foundation -->
-      <rect x="240" y="208" width="66" height="7" fill="#192838" rx="1" stroke="#243444" stroke-width="1"/>
-      <!-- Hearth -->
-      <rect x="242" y="188" width="62" height="22" fill="#1e2d3d" rx="2" stroke="#243444" stroke-width="1"/>
-      <!-- Bosh (wider belly) -->
-      <path d="M242,158 L238,190 L308,190 L304,158 Z" fill="#192838" stroke="#243444" stroke-width="1"/>
-      <!-- Stack (tall narrow shaft) -->
-      <rect x="252" y="98" width="42" height="60" fill="#1a2838" stroke="#243444" stroke-width="1"/>
-      <!-- Bell top -->
-      <path d="M252,98 L260,80 L286,80 L294,98 Z" fill="#243444"/>
-      <!-- Tuyere pipes left -->
-      <line x1="220" y1="200" x2="240" y2="200" stroke="#3a4a5a" stroke-width="5" stroke-linecap="round"/>
-      <line x1="222" y1="192" x2="240" y2="194" stroke="#3a4a5a" stroke-width="4" stroke-linecap="round"/>
-      <!-- Tuyere pipes right -->
-      <line x1="306" y1="200" x2="326" y2="200" stroke="#3a4a5a" stroke-width="5" stroke-linecap="round"/>
-      <line x1="306" y1="192" x2="324" y2="194" stroke="#3a4a5a" stroke-width="4" stroke-linecap="round"/>
-      <!-- Glow at base -->
-      <ellipse cx="273" cy="204" rx="26" ry="7" fill="#f0a500" fill-opacity="0.2"/>
-      <!-- Hot metal tap spout -->
-      <line x1="240" y1="210" x2="224" y2="214" stroke="#f0a500" stroke-width="3" stroke-linecap="round" fill-opacity="0.4"/>
-      <text x="273" y="225" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Blast furnace</text>
-      <!-- DRI SHAFT FURNACE (EAF lane) -->
-      <ellipse cx="270" cy="265" rx="22" ry="6" fill="#243444"/>
-      <rect x="248" y="265" width="44" height="78" fill="#192838" rx="3" stroke="#243444" stroke-width="1"/>
-      <!-- Gas inlet pipes -->
-      <line x1="228" y1="308" x2="248" y2="308" stroke="#3a5468" stroke-width="4" stroke-linecap="round"/>
-      <line x1="230" y1="318" x2="248" y2="316" stroke="#3a5468" stroke-width="3" stroke-linecap="round"/>
-      <!-- DRI output -->
-      <rect x="256" y="341" width="28" height="8" fill="#3a4a5a" rx="2"/>
-      <!-- Green glow (H₂ reduction) -->
-      <ellipse cx="270" cy="269" rx="16" ry="4" fill="#3dbf89" fill-opacity="0.12"/>
-      <text x="270" y="360" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">DRI shaft</text>
-
-      <!-- ── STEP 4: STEELMAKING ── -->
-      <!-- BOF CONVERTER (BF lane) -->
-      <!-- Trunnion ring -->
-      <ellipse cx="373" cy="168" rx="32" ry="7" fill="none" stroke="#3a4a5a" stroke-width="3.5"/>
-      <!-- Vessel body -->
-      <path d="M353,120 Q347,148 347,178 Q347,208 373,216 Q399,208 399,178 Q399,148 393,120 Q384,112 373,112 Q362,112 353,120 Z" fill="#192838" stroke="#243444" stroke-width="1"/>
-      <!-- Mouth rim -->
-      <ellipse cx="373" cy="115" rx="21" ry="7" fill="#243444"/>
-      <!-- Oxygen lance -->
-      <rect x="370" y="83" width="7" height="34" fill="#3a5468" rx="2"/>
-      <ellipse cx="373" cy="83" rx="5" ry="3" fill="#4a6478"/>
-      <!-- Molten glow -->
-      <ellipse cx="373" cy="116" rx="13" ry="4" fill="#f0a500" fill-opacity="0.35"/>
-      <ellipse cx="373" cy="212" rx="18" ry="5" fill="#f0a500" fill-opacity="0.18"/>
-      <text x="373" y="232" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">BOF converter</text>
-      <!-- EAF FURNACE (EAF lane) -->
-      <!-- Shell -->
-      <ellipse cx="373" cy="366" rx="45" ry="11" fill="#1e2d3d"/>
-      <rect x="328" y="320" width="90" height="46" fill="#192838" rx="3" stroke="#243444" stroke-width="1"/>
-      <ellipse cx="373" cy="320" rx="45" ry="11" fill="#243444"/>
-      <!-- 3 graphite electrodes -->
-      <rect x="352" y="274" width="8" height="48" fill="#252535" rx="2"/>
-      <rect x="369" y="271" width="8" height="51" fill="#252535" rx="2"/>
-      <rect x="386" y="274" width="8" height="48" fill="#252535" rx="2"/>
-      <!-- Electrode holders -->
-      <rect x="350" y="268" width="12" height="10" fill="#353545" rx="2"/>
-      <rect x="367" y="265" width="12" height="10" fill="#353545" rx="2"/>
-      <rect x="384" y="268" width="12" height="10" fill="#353545" rx="2"/>
-      <!-- Arc glow -->
-      <circle cx="356" cy="321" r="5" fill="#52a9e8" fill-opacity="0.6"/>
-      <circle cx="373" cy="320" r="6" fill="#52a9e8" fill-opacity="0.8"/>
-      <circle cx="390" cy="321" r="5" fill="#52a9e8" fill-opacity="0.6"/>
-      <ellipse cx="373" cy="328" rx="28" ry="7" fill="#52a9e8" fill-opacity="0.1"/>
-      <!-- Tap hole -->
-      <line x1="328" y1="354" x2="312" y2="358" stroke="#52a9e8" stroke-width="2.5" stroke-linecap="round" fill-opacity="0.35"/>
-      <text x="373" y="386" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Electric arc furnace</text>
-
-      <!-- ── STEP 5: LADLE REFINING (common path) ── -->
-      <!-- Ladle body -->
-      <path d="M458,208 L451,268 Q480,276 509,268 L502,208 Z" fill="#192838" stroke="#243444" stroke-width="1"/>
-      <ellipse cx="480" cy="208" rx="24" ry="7" fill="#243444"/>
-      <!-- Ladle furnace electrodes (2) -->
-      <rect x="467" y="180" width="7" height="30" fill="#252535" rx="2"/>
-      <rect x="486" y="178" width="7" height="32" fill="#252535" rx="2"/>
-      <!-- Molten glow -->
-      <ellipse cx="480" cy="208" rx="17" ry="5" fill="#f0a500" fill-opacity="0.22"/>
-      <ellipse cx="480" cy="266" rx="22" ry="6" fill="#f0a500" fill-opacity="0.12"/>
-      <text x="480" y="286" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Ladle refining</text>
-
-      <!-- ── STEP 6: CONTINUOUS CASTER ── -->
-      <!-- Tundish -->
-      <rect x="562" y="162" width="50" height="25" fill="#1e2d3d" rx="3" stroke="#243444" stroke-width="1"/>
-      <rect x="564" y="158" width="46" height="7" fill="#243444" rx="1"/>
-      <!-- Mold -->
-      <rect x="579" y="187" width="16" height="26" fill="#243444" rx="1"/>
-      <!-- Strand guide curved -->
-      <path d="M587 213 Q587 252 614 278" stroke="#6a8a9a" stroke-width="9" fill="none" stroke-linecap="round"/>
-      <!-- Slab exit horizontal -->
-      <rect x="605" y="270" width="54" height="15" fill="#6a8a9a" rx="2"/>
-      <!-- Water spray symbols -->
-      <line x1="576" y1="218" x2="567" y2="224" stroke="#52a9e8" stroke-width="1.5" fill-opacity="0.35"/>
-      <line x1="598" y1="228" x2="607" y2="222" stroke="#52a9e8" stroke-width="1.5" fill-opacity="0.35"/>
-      <line x1="576" y1="244" x2="566" y2="250" stroke="#52a9e8" stroke-width="1.5" fill-opacity="0.35"/>
-      <text x="587" y="300" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Continuous casting</text>
-
-      <!-- ── STEP 7: HOT ROLLING + HRC ── -->
-      <!-- Mill housings -->
-      <rect x="650" y="198" width="18" height="74" fill="#1e2d3d" rx="2"/>
-      <rect x="722" y="198" width="18" height="74" fill="#1e2d3d" rx="2"/>
-      <!-- Top work roll -->
-      <ellipse cx="694" cy="228" rx="42" ry="14" fill="#243444"/>
-      <ellipse cx="685" cy="222" rx="16" ry="4" fill="#3a4a5a" fill-opacity="0.7"/>
-      <!-- Bottom work roll -->
-      <ellipse cx="694" cy="256" rx="42" ry="14" fill="#243444"/>
-      <!-- Strip between rolls -->
-      <rect x="638" y="240" width="115" height="5" fill="#8aaabb" rx="1"/>
-      <!-- HRC coil emerging -->
-      <circle cx="775" cy="241" r="26" fill="none" stroke="#5a7a8a" stroke-width="9"/>
-      <circle cx="775" cy="241" r="12" fill="#0c1118" stroke="#2a3a4a" stroke-width="1"/>
-      <circle cx="775" cy="241" r="20" fill="none" stroke="#6a8a9a" stroke-width="1" fill-opacity="0.4"/>
-      <!-- Strip to coil -->
-      <rect x="738" y="239" width="24" height="4" fill="#6a8a9a" rx="1"/>
-      <text x="712" y="286" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Hot rolling + HRC</text>
-
-      <!-- ── STEP 8: FINISHING OPERATIONS ── -->
-      <!-- Two processing tanks -->
-      <rect x="768" y="202" width="40" height="52" fill="#192838" rx="3" stroke="#243444" stroke-width="1"/>
-      <rect x="816" y="202" width="40" height="52" fill="#192838" rx="3" stroke="#243444" stroke-width="1"/>
-      <!-- Tank contents (bath) -->
-      <rect x="772" y="222" width="32" height="22" fill="#1e2d3d" rx="1"/>
-      <rect x="820" y="222" width="32" height="22" fill="#1e2d3d" rx="1"/>
-      <!-- Zinc bath ripple (galv tank 1) -->
-      <path d="M775,232 Q788,228 800,232" stroke="#6a9ab0" stroke-width="1.5" fill="none"/>
-      <!-- Tin bath ripple (tin tank 2) -->
-      <path d="M823,232 Q836,228 848,232" stroke="#9ab0aa" stroke-width="1.5" fill="none"/>
-      <!-- Strip running through -->
-      <rect x="760" y="228" width="104" height="4" fill="#8aaabb" rx="1"/>
-      <!-- Machine labels inside tanks -->
-      <text x="792" y="215" text-anchor="middle" font-family="Sora,sans-serif" font-size="8" fill="#3a4a5a">Galv</text>
-      <text x="836" y="215" text-anchor="middle" font-family="Sora,sans-serif" font-size="8" fill="#3a4a5a">Tin</text>
-      <text x="836" y="270" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Finishing operations</text>
-
-      <!-- ── STEP 9: STEEL APPLICATIONS ── -->
-      <!-- HRC coil shape -->
-      <circle cx="892" cy="218" r="20" fill="none" stroke="#5a7a8a" stroke-width="7"/>
-      <circle cx="892" cy="218" r="9"  fill="#0c1118" stroke="#2a3a4a" stroke-width="1"/>
-      <!-- Tinplate can -->
-      <rect x="916" y="204" width="22" height="30" fill="#1e2d3d" rx="2" stroke="#3a4a5a" stroke-width="1"/>
-      <ellipse cx="927" cy="204" rx="11" ry="4" fill="#243444"/>
-      <ellipse cx="927" cy="234" rx="11" ry="4" fill="#243444"/>
-      <!-- I-beam/rebar -->
-      <rect x="880" y="250" width="54" height="5" fill="#3a4a5a" rx="1"/>
-      <rect x="880" y="244" width="8" height="17" fill="#3a4a5a" rx="1"/>
-      <rect x="926" y="244" width="8" height="17" fill="#3a4a5a" rx="1"/>
-      <text x="907" y="276" text-anchor="middle" font-family="Sora,sans-serif" font-size="9" fill="#6e7d8f">Steel applications</text>
-
-      <!-- ── NUMBERED HOTSPOT CIRCLES ── -->
-      <!-- Each has: outer pulse ring, dot circle, number text -->
-
-      <!-- ① Input Raw Materials (x=53) -->
-      <g class="hs-group active" id="hs1" onclick="selectDiagStep(1)" data-step="1">
-        <circle cx="53" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="53" cy="38" r="17" fill="#131a23" stroke="#f0a500" stroke-width="1.5" class="hs-dot"/>
-        <text x="53" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#f0a500" class="hs-num">1</text>
-      </g>
-
-      <!-- ② Raw Materials Preparation (x=160) -->
-      <g class="hs-group" id="hs2" onclick="selectDiagStep(2)" data-step="2">
-        <circle cx="160" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="160" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="160" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">2</text>
-      </g>
-
-      <!-- ③ Ironmaking (x=267) -->
-      <g class="hs-group" id="hs3" onclick="selectDiagStep(3)" data-step="3">
-        <circle cx="267" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="267" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="267" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">3</text>
-      </g>
-
-      <!-- ④ Steelmaking (x=373) -->
-      <g class="hs-group" id="hs4" onclick="selectDiagStep(4)" data-step="4">
-        <circle cx="373" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="373" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="373" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">4</text>
-      </g>
-
-      <!-- ⑤ Refining (x=480) -->
-      <g class="hs-group" id="hs5" onclick="selectDiagStep(5)" data-step="5">
-        <circle cx="480" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="480" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="480" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">5</text>
-      </g>
-
-      <!-- ⑥ Continuous Casting (x=587) -->
-      <g class="hs-group" id="hs6" onclick="selectDiagStep(6)" data-step="6">
-        <circle cx="587" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="587" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="587" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">6</text>
-      </g>
-
-      <!-- ⑦ Hot-rolled Products (x=694) -->
-      <g class="hs-group" id="hs7" onclick="selectDiagStep(7)" data-step="7">
-        <circle cx="694" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="694" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="694" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">7</text>
-      </g>
-
-      <!-- ⑧ Finishing Operations (x=800) -->
-      <g class="hs-group" id="hs8" onclick="selectDiagStep(8)" data-step="8">
-        <circle cx="800" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="800" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="800" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">8</text>
-      </g>
-
-      <!-- ⑨ Steel Applications (x=907) -->
-      <g class="hs-group" id="hs9" onclick="selectDiagStep(9)" data-step="9">
-        <circle cx="907" cy="38" r="26" fill="#f0a500" fill-opacity="0" class="hs-pulse"/>
-        <circle cx="907" cy="38" r="17" fill="#131a23" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" class="hs-dot"/>
-        <text x="907" y="43" text-anchor="middle" font-family="Sora,sans-serif" font-size="13" font-weight="700" fill="#6e7d8f" class="hs-num">9</text>
-      </g>
-
-    </svg>
-    </div><!-- /diag-scroll -->
-
-    <!-- Detail Panel -->
-    <div class="diag-panel loaded" id="diagPanel">
-      <div class="dp-header">
-        <span class="dp-n">01</span>
-        <span class="dp-title">Input raw materials</span>
-        <span class="dp-badge bf">BF-BOF + EAF</span>
-      </div>
-      <div class="dp-desc">The steelmaking process feeds on two distinct input streams. The BF-BOF route needs iron ore, coking coal, and limestone — mined globally and shipped to coastal mills. The EAF route primarily uses scrap steel plus DRI/HBI for higher grades.</div>
-      <div class="dp-cols">
-        <div class="dp-col">
-          <div class="dp-col-hd">Inputs</div>
-          <ul>
-            <li>Iron ore (Fe₂O₃ / Fe₃O₄)</li>
-            <li>Coking coal (metallurgical)</li>
-            <li>Limestone (CaCO₃)</li>
-            <li>Scrap steel (HMS 1&amp;2, shredded)</li>
-            <li>Natural gas / hydrogen (DRI)</li>
-          </ul>
-        </div>
-        <div class="dp-col">
-          <div class="dp-col-hd">Key facts</div>
-          <ul>
-            <li>~70% BF-BOF globally</li>
-            <li>~30% EAF globally</li>
-            <li>Australia/Brazil supply iron ore</li>
-            <li>~1.9B tonnes steel/year</li>
-          </ul>
-        </div>
-      </div>
-      <div class="dp-tags">
-        <span class="dp-tag">~70% BF-BOF globally</span>
-        <span class="dp-tag">~30% EAF globally</span>
-        <span class="dp-tag">Australia/Brazil — iron ore</span>
-        <span class="dp-tag">1.9B tonnes/yr global</span>
-      </div>
+    <!-- Popup tooltip (fixed position) -->
+    <div class="hs-popup" id="hsPopup" style="display:none">
+      <button class="popup-close" onclick="closeHsPopup()">×</button>
+      <div class="popup-step-badge" id="popupBadge">Step 1</div>
+      <div class="popup-name" id="popupName"></div>
+      <div class="popup-text" id="popupText"></div>
     </div>
+
+    <div class="ws-container">
+
+      <!-- ── STAGE 1: INPUT RAW MATERIALS ── -->
+      <div class="ws-stage ws-s1">
+        <div class="ws-sidebar">
+          <span class="ws-num">1</span>
+          <span class="ws-stitle">Input raw<br>materials</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-mat-grid">
+            <div class="ws-mat-card ws-mat-iron">
+              <p class="ws-mat-name">Iron ore <span class="ws-star" onclick="openStarPopup('iron-ore',event)">★</span></p>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-01.svg" class="ws-mat-img" alt="">
+            </div>
+            <div class="ws-mat-card ws-mat-lime">
+              <p class="ws-mat-name">Limestone <span class="ws-star" onclick="openStarPopup('limestone',event)">★</span></p>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-01.svg" class="ws-mat-img" alt="">
+            </div>
+            <div class="ws-mat-card ws-mat-coal">
+              <p class="ws-mat-name">Coal <span class="ws-star" onclick="openStarPopup('coal',event)">★</span></p>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-01.svg" class="ws-mat-img" alt="">
+            </div>
+            <div class="ws-mat-card ws-mat-scrap">
+              <p class="ws-mat-name">Scrap <span class="ws-star" onclick="openStarPopup('scrap',event)">★</span></p>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-02.svg" class="ws-mat-img" alt="">
+            </div>
+            <div class="ws-mat-card ws-mat-alt">
+              <p class="ws-mat-name">Alternative<br>fuels <span class="ws-star" onclick="openStarPopup('alt-fuels',event)">★</span></p>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-03.svg" class="ws-mat-img" alt="">
+            </div>
+            <div class="ws-mat-card ws-mat-gas">
+              <p class="ws-mat-name">Natural gas <span class="ws-star" onclick="openStarPopup('gas',event)">★</span></p>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-04.svg" class="ws-mat-img" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STAGE 2: RAW MATERIALS PREPARATION ── -->
+      <div class="ws-stage ws-s2">
+        <div class="ws-sidebar">
+          <span class="ws-num">2</span>
+          <span class="ws-stitle">Raw materials<br>preparation</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-eq-grid ws-eq-2">
+            <div class="ws-eq-item">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('sinter',event)">★</span> <span class="ws-eq-label">Sinter plant / pellet plant</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/preparation-01-en.svg" class="ws-eq-img" alt="Sinter plant">
+            </div>
+            <div class="ws-eq-item">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('coke-oven',event)">★</span> <span class="ws-eq-label">Coke oven</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/preparation-02-en.svg" class="ws-eq-img" alt="Coke oven">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STAGE 3: IRONMAKING ── -->
+      <div class="ws-stage ws-s3">
+        <div class="ws-sidebar">
+          <span class="ws-num">3</span>
+          <span class="ws-stitle">Ironmaking</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-eq-grid ws-eq-2">
+            <div class="ws-eq-item">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('bf',event)">★</span> <span class="ws-eq-label">Blast furnace</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/iron-making-01-en.svg" class="ws-eq-img" alt="Blast furnace">
+            </div>
+            <div class="ws-eq-item">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('dri',event)">★</span> <span class="ws-eq-label">Direct reduction of iron ore</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/iron-making-02-en.svg" class="ws-eq-img" alt="Direct reduction">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STAGE 4: STEELMAKING ── -->
+      <div class="ws-stage ws-s4">
+        <div class="ws-sidebar">
+          <span class="ws-num">4</span>
+          <span class="ws-stitle">Steelmaking</span>
+          <span class="ws-ssub">Two main routes</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-eq-grid ws-eq-3">
+            <div class="ws-eq-item">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('bof',event)">★</span> <span class="ws-eq-label">Basic oxygen furnace</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-01-en.svg" class="ws-eq-img" alt="BOF">
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-02-en.svg" class="ws-eq-img ws-eq-img-sm" alt="">
+            </div>
+            <div class="ws-eq-item">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('ladle',event)">★</span> <span class="ws-eq-label">Refining</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-03-1-en.svg" class="ws-eq-img" alt="Refining">
+              <div style="margin-top:0.5rem">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('caster',event)">★</span> <span class="ws-eq-label">Continuous casting</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-03-2-update-en.svg" class="ws-eq-img" alt="Continuous casting">
+              </div>
+            </div>
+            <div class="ws-eq-item">
+              <div class="ws-eq-star-wrap"><span class="ws-star" onclick="openStarPopup('eaf',event)">★</span> <span class="ws-eq-label">Electric arc furnace</span></div>
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-04-en.svg" class="ws-eq-img" alt="EAF">
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-06-en.svg" class="ws-eq-img ws-eq-img-sm" alt="">
+              <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-05-en.svg" class="ws-eq-img ws-eq-img-sm" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NOTE ── -->
+      <div class="ws-note">Now that the steel has been made, it is cast into three semi-finished shapes.</div>
+
+      <!-- ── STAGE 5: SEMI-FINISHED PRODUCTS ── -->
+      <div class="ws-stage ws-s5">
+        <div class="ws-sidebar">
+          <span class="ws-star" onclick="openStarPopup('semi-finished',event)" style="margin-bottom:0.5rem">★</span>
+          <span class="ws-num">5</span>
+          <span class="ws-stitle">Semi-finished<br>products</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-eq-grid ws-eq-3">
+            <div class="ws-eq-item">
+              <div class="ws-semi-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/semi-finished-01.svg" alt="Slabs"></div>
+              <div class="ws-eq-label">Slabs</div>
+            </div>
+            <div class="ws-eq-item">
+              <div class="ws-semi-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/semi-finished-02.svg" alt="Billets"></div>
+              <div class="ws-eq-label">Billets</div>
+            </div>
+            <div class="ws-eq-item">
+              <div class="ws-semi-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/semi-finished-03.svg" alt="Blooms"></div>
+              <div class="ws-eq-label">Blooms</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── NOTE ── -->
+      <div class="ws-note">These three main products are then hot-rolled into a wide range of flat and long products.</div>
+
+      <!-- ── STAGE 6: HOT-ROLLED PRODUCTS ── -->
+      <div class="ws-stage ws-s6">
+        <div class="ws-sidebar">
+          <span class="ws-num">6</span>
+          <span class="ws-stitle">Hot-rolled<br>products</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-hr-container">
+            <div class="ws-hr-col">
+              <div class="ws-hr-heading">Flat Products</div>
+              <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-01_1.svg" alt=""><span>Plate</span></div>
+              <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-02_1.svg" alt=""><span>Coils</span></div>
+            </div>
+            <div class="ws-hr-col ws-hr-col-wide">
+              <div class="ws-hr-heading">Long Products</div>
+              <div class="ws-hr-sub">
+                <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-03_1.svg" alt=""><span>Rebar</span></div>
+                <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-04_2.svg" alt=""><span>Bars</span></div>
+                <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-05_1.svg" alt=""><span>Wire rods</span></div>
+                <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-06_1.svg" alt=""><span>Tubes</span></div>
+                <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-07_1.svg" alt=""><span>Structural</span></div>
+                <div class="ws-prod-card"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/hot-rolled-08_1.svg" alt=""><span>Rails</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STAGE 7: FINISHING OPERATIONS ── -->
+      <div class="ws-stage ws-s7">
+        <div class="ws-sidebar">
+          <span class="ws-num">7</span>
+          <span class="ws-stitle">Finishing<br>operations</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-eq-grid ws-eq-3">
+            <div class="ws-eq-item ws-fin-item">
+              <div class="ws-fin-inner">
+                <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/finishing-operations-01.svg" alt="Painting">
+                <div class="ws-fin-label">Painting <span class="ws-star" onclick="openStarPopup('painting',event)">★</span></div>
+              </div>
+            </div>
+            <div class="ws-eq-item ws-fin-item">
+              <div class="ws-fin-inner">
+                <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/finishing-operations-02.svg" alt="Metal coating">
+                <div class="ws-fin-label">Metal coating <span class="ws-star" onclick="openStarPopup('finishing',event)">★</span></div>
+              </div>
+            </div>
+            <div class="ws-eq-item ws-fin-item">
+              <div class="ws-fin-inner">
+                <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/finishing-operations-03.svg" alt="Cold rolling">
+                <div class="ws-fin-label">Cold rolling <span class="ws-star" onclick="openStarPopup('rolling',event)">★</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STAGE 8: CO-PRODUCTS ── -->
+      <div class="ws-stage ws-s8">
+        <div class="ws-sidebar">
+          <span class="ws-num">8</span>
+          <span class="ws-stitle">Co-products<br>and their uses</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-eq-grid ws-eq-5">
+            <div class="ws-coprod"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/co-products-01.svg" alt=""><span>Slag</span></div>
+            <div class="ws-coprod"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/co-products-14.svg" alt=""><span>Cement &amp; aggregates</span></div>
+            <div class="ws-coprod"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/co-products-13.svg" alt=""><span>Fertilisers</span></div>
+            <div class="ws-coprod"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/co-products-09.svg" alt=""><span>Process gases</span></div>
+            <div class="ws-coprod"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/co-products-10.svg" alt=""><span>Heat &amp; electricity</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STAGE 9: STEEL APPLICATIONS ── -->
+      <div class="ws-stage ws-s9">
+        <div class="ws-sidebar">
+          <span class="ws-num">9</span>
+          <span class="ws-stitle">Steel<br>applications</span>
+        </div>
+        <div class="ws-content">
+          <div class="ws-eq-grid ws-eq-5">
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-01.svg" alt=""><span>Wind turbines</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-02.svg" alt=""><span>Packaging</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-03.svg" alt=""><span>Motor vehicles</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-04.svg" alt=""><span>Bridges</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-05.svg" alt=""><span>White goods</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-06.svg" alt=""><span>Rail &amp; trains</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-07.svg" alt=""><span>Pipes</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-08_2.svg" alt=""><span>Buildings</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-09.svg" alt=""><span>Ships</span></div>
+            <div class="ws-app"><img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steel-applications-10.svg" alt=""><span>Machinery</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /ws-container -->
 
     <div class="source-note" style="margin-top:1rem">
-      🔗 Reference: <a href="https://worldsteel.org/about-steel/steelmaking-process/" target="_blank">worldsteel.org — Interactive Steelmaking Diagram</a>
-    </div>
-  </div>
-
-    <!-- (old flow content removed) -->
-    <div id="bf-flow" style="display:none">
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">1</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Raw Material Inputs</div>
-          <div class="fstep-desc">Three feedstocks drive everything: iron ore, coking coal, and limestone — mined globally and converged at coastal steel mills.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            <b>Iron Ore (Fe₂O₃)</b> provides the iron. Mainly mined in Australia, Brazil, and South Africa. Traded as lump, fines, and pellets.<br><br>
-            <b>Coking Coal (Metallurgical Coal)</b> is converted to coke — the reducing agent and heat source. Different from thermal coal used in power stations.<br><br>
-            <b>Limestone (CaCO₃)</b> acts as a flux to capture impurities as slag, which floats on the molten iron.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">Iron Ore</span><span class="tag">Coking Coal</span><span class="tag">Limestone</span><span class="tag">Key feedstocks</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">2</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Preparation — Coking &amp; Sintering</div>
-          <div class="fstep-desc">Coal is baked into coke. Fine iron ore fines are sintered into lumpy pellets that can survive the blast furnace.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            <b>Coke Ovens:</b> Coal heated to ~1,000°C without air. Drives off volatile compounds. Output: porous, carbon-rich coke with strength to withstand the blast furnace without crumbling.<br><br>
-            <b>Sintering Plant:</b> Fine iron ore (too small to charge directly) mixed with coke breeze and flux, then ignited. Agglomerates into porous sinter for the furnace. Improves furnace productivity by 15–20%.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">Coke Ovens ~1,000°C</span><span class="tag">Sintering Plant</span><span class="tag">Pelletizing</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">3</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Blast Furnace — Ironmaking</div>
-          <div class="fstep-desc">Charged from the top with coke, sinter, and limestone. Hot air blasted in at the base. Molten pig iron tapped from the bottom every few hours.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            The blast furnace is the heart of an integrated steelmill — typically 30–100m tall. Temperatures reach ~2,000°C at the tuyeres (air inlets). Coke burns, produces CO gas which reduces iron oxides to metallic iron. Limestone flux combines with silica impurities to form slag (lower density, floats on top of iron).<br><br>
-            Output = <b>Pig Iron</b> (~4% carbon) — very brittle, cannot be used directly. Must be refined.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">~2,000°C</span><span class="tag">Pig Iron output</span><span class="tag">~4% Carbon</span><span class="tag">Slag by-product</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">4</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Basic Oxygen Furnace (BOF) — Steelmaking</div>
-          <div class="fstep-desc">Pig iron + scrap charged into a converter. Pure oxygen blown in at supersonic speed burns off excess carbon. Steel ready in ~40 minutes.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            A supersonic oxygen lance oxidises excess carbon (4% → &lt;0.1%). This exothermic reaction reaches ~1,700°C. 20–30% scrap is added as a coolant. Alloying elements (Mn, Si, Al) added to achieve target grade composition. This is where iron becomes steel — workable, ductile, weldable.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">Oxygen Lance</span><span class="tag">20–30% Scrap</span><span class="tag">&lt;0.1% Carbon</span><span class="tag">~40 min cycle</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">5</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Continuous Casting → Slab</div>
-          <div class="fstep-desc">Liquid steel poured into a water-cooled mould and drawn out continuously. Solidifies into slabs — the universal semi-finished flat product.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            Slabs are 200–250mm thick, 900–2,000mm wide. This is the input for ALL flat products downstream: HRC, CRC, galvanized, tinplate. Steel also cast as billets (long products: rebar, wire rod) or blooms (structural shapes). The slab is where the two routes converge — EAF makes the same slab.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">Slab ~200mm thick</span><span class="tag">Flat products</span><span class="tag">Billets → long products</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">6</div></div>
-        <div class="fbody">
-          <div class="fstep-name">Hot Rolling Mill → HRC 🎯</div>
-          <div class="fstep-desc">Slabs reheated to ~1,200°C and squeezed through a series of rolling stands. Emerges as Hot Rolled Coil (HRC) — the global ferrous benchmark.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            <b>HRC is the key price anchor.</b> Everything downstream references it. Typical HRC: 1.5–12mm thick, width up to 2,000mm, coiled for transport. Surface has characteristic mill scale (dark oxide layer) — rough texture. Used directly in construction, structural fabrication, pipe welding, and as the input for further processing into CRC/galvanized/tinplate.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">HRC 1.5–12mm</span><span class="tag">~1,200°C rolling</span><span class="tag">Global benchmark</span><span class="tag">CME / SGX / Platts</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- EAF ROUTE -->
-    <div id="eaf-flow" style="display:none">
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">1</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Scrap Steel &amp; DRI Inputs</div>
-          <div class="fstep-desc">Old cars, demolished buildings, appliance scrap — collected, sorted by grade, and charged directly. The primary feedstock, no blast furnace needed.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            Scrap grades matter: HMS 1&amp;2 (Heavy Melting Scrap), shredded auto scrap, prime industrial scrap. Quality of scrap determines quality of steel output — limiting factor for flat product grades.<br><br>
-            <b>DRI/HBI (Direct Reduced Iron)</b> — iron ore reduced with natural gas or hydrogen, not coal. A cleaner substitute that upgrades EAF output quality. Key to green steel pathways.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">HMS 1&amp;2 Scrap</span><span class="tag">Shredded Scrap</span><span class="tag">DRI / HBI</span><span class="tag">No iron ore needed</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">2</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Electric Arc Furnace (EAF)</div>
-          <div class="fstep-desc">Three graphite electrodes generate an arc at up to 3,000–4,000°C, melting scrap in 60–90 minutes. No coke, no blast furnace — just electricity.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            EAF is faster and more flexible than BF-BOF. Can start and stop production quickly — useful for responding to demand. <b>Key cost driver: electricity price.</b> Where power is cheap (Turkey, India, parts of US), EAF economics are very competitive.<br><br>
-            CO₂ footprint ~30–40% of BF-BOF when powered by grid electricity. With renewable power or H₂-DRI, can approach near-zero emissions.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">Graphite Electrodes</span><span class="tag">60–90 min tap-to-tap</span><span class="tag">Lower CO₂</span><span class="tag">~30% global share</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="fstep" onclick="toggleStep(this)">
-        <div class="fstep-line-wrap"><div class="fdot">3</div><div class="fline"></div></div>
-        <div class="fbody">
-          <div class="fstep-name">Ladle Refining &amp; Continuous Casting</div>
-          <div class="fstep-desc">Chemistry fine-tuned in a ladle furnace. Then continuously cast into slabs — same output as BF-BOF from this point on.</div>
-          <div class="fstep-detail"><div class="fstep-detail-inner">
-            From the slab onwards, the process is identical to BF-BOF. Hot rolling → HRC. Cold rolling → CRC. Coating → galvanized / tinplate. EAF route represents ~30% of global steel production today and is growing rapidly, especially in regions transitioning to green steel.
-            <div class="tags" style="margin-top:0.7rem">
-              <span class="tag">Ladle Furnace</span><span class="tag">Same slab output</span><span class="tag">Identical downstream</span>
-            </div>
-          </div></div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="source-note">
       🔗 Reference: <a href="https://worldsteel.org/about-steel/steelmaking-process/" target="_blank">worldsteel.org — Interactive Steelmaking Diagram</a>
     </div>
   </div>
@@ -1233,64 +1001,125 @@
   }
 
   /* ── STEELMAKING DIAGRAM ── */
+  const starData = {
+    'iron-ore':      { step:1, cls:'bf',  name:'Iron ore',                    desc:'Iron ore is a primary raw material in the manufacture of steel. Most iron ores will need to be processed further in the sinter/pellet plant, but some types (e.g. lump ores) can be charged directly into the blast furnace.' },
+    'limestone':     { step:1, cls:'bf',  name:'Limestone',                   desc:'Limestone is used to remove impurities from the iron made in blast furnaces. Limestone containing magnesium, called dolomite, is also sometimes used in the purifying process.' },
+    'coal':          { step:1, cls:'bf',  name:'Coal',                        desc:'Coal is a primary raw material in the manufacture of steel as both a reductant and a fuel. Metallurgical (coking) coal is different from thermal coal used in power stations.' },
+    'scrap':         { step:1, cls:'eaf', name:'Scrap',                       desc:'All steel can be recycled into new steel. Scrap consists of recyclable steel leftover from manufacturing, or from buildings, vehicles, and packaging that have reached end of life.' },
+    'alt-fuels':     { step:1, cls:'eaf', name:'Alternative fuels',           desc:'Alternative fuels include biomass, charcoal, waste plastics, tyres, etc. These are used as partial substitutes for conventional fuels and reductants in steelmaking.' },
+    'gas':           { step:1, cls:'eaf', name:'Natural gas',                 desc:'Natural gas is a naturally occurring mixture of hydrocarbons, primarily methane. In the steel industry it is used for reduction of iron ore (DRI process) as well as a fuel.' },
+    'sinter':        { step:2, cls:'bf',  name:'Sinter plant / pellet plant', desc:'A plant where iron ore is crushed, homogenised and mixed with limestone, coke breeze, and fluxes at high temperature. The sinter product is used in the blast furnace. Pellets are another agglomerated form made from fine ore mixed with a binder, then dried and hardened.' },
+    'coke-oven':     { step:2, cls:'bf',  name:'Coke oven',                   desc:'A plant where coke is produced. Coal is heated at high temperatures in the absence of air, driving off volatile compounds. The product is a solid mostly consisting of carbon — the key fuel and reducing agent for the blast furnace.' },
+    'bf':            { step:3, cls:'bf',  name:'Blast furnace',               desc:'A furnace used for smelting iron from iron ore. The blast furnace reduces iron oxide at ~2,000°C using coke as fuel and reducing agent. Molten pig iron (~4% carbon) is tapped from the base every few hours.' },
+    'dri':           { step:3, cls:'eaf', name:'Direct reduction of iron ore', desc:'A group of processes for making iron from iron ore without exceeding the melting temperature. Iron ore is reduced to sponge iron (DRI) at ~950°C using natural gas or hydrogen — no coke required. Key pathway to green steel.' },
+    'bof':           { step:4, cls:'bf',  name:'Basic oxygen furnace',        desc:'A furnace that makes steel through oxidation by injecting oxygen through a lance above a molten mixture of pig iron and scrap. Carbon content drops from ~4% to <0.1% in approximately 40 minutes.' },
+    'ladle':         { step:4, cls:'bf',  name:'Refining',                    desc:'A stage in making crude steel during which the crude steel is further refined — most residual impurities are removed and additions of other metals (Mn, Cr, Ni) may be made before it is cast.' },
+    'caster':        { step:4, cls:'bf',  name:'Continuous casting',          desc:'A process for solidifying steel in the form of a continuous strand rather than individual ingots. Molten steel is poured into open-bottomed, water-cooled moulds. As it passes through, the outer shell solidifies into slabs, billets, or blooms.' },
+    'eaf':           { step:4, cls:'eaf', name:'Electric arc furnace',        desc:'A furnace that melts steel scrap using the heat generated by a high-power electric arc. Three graphite electrodes create arcs at up to 3,000°C. Elements are added to achieve correct chemistry and oxygen is blown in to purify the steel.' },
+    'semi-finished': { step:5, cls:'bf',  name:'Semi-finished products',      desc:'Blooms, billets and slabs can be made by direct continuous casting of hot steel or by pouring liquid steel into ingots, which are then hot-rolled into semi-finished products. All downstream flat and long products start here.' },
+    'painting':      { step:7, cls:'bf',  name:'Painting',                    desc:'Painting is a continuous, automated process for coating steel before fabrication into end products. The steel substrate is delivered in coil form and a layer of paint is applied in a controlled manner to provide colour and corrosion protection.' },
+    'finishing':     { step:7, cls:'bf',  name:'Metal coating',               desc:'Metal coating (e.g. galvanising, tin plating, or chrome plating) is used for surface protection and aesthetics, consisting of coating the steel with a protective layer of zinc, tin or chromium.' },
+    'rolling':       { step:7, cls:'bf',  name:'Cold rolling',                desc:'Cold rolling passes a sheet or strip that has previously been hot-rolled and pickled through cold rolls below the softening temperature of the metal. Cold rolling makes a product that is thinner, smoother and stronger than can be made by hot rolling alone.' },
+    'products':      { step:9, cls:'bf',  name:'Steel applications',          desc:'Steel reaches every sector of the economy — packaging (tinplate), construction, automotive, energy (wind turbines, pipelines), ships, medical equipment, and solar panels. It is the world\'s most recycled material at over 85% end-of-life recovery.' }
+  };
+
   const diagSteps = [
-    { n:1, title:"Input raw materials", badge:"BF-BOF + EAF", badgeCls:"bf",
-      desc:"The steelmaking process feeds two distinct input streams. The BF-BOF route needs iron ore, coking coal, and limestone — mined globally and shipped to coastal integrated mills. The EAF route primarily uses scrap steel, supplemented by DRI/HBI for higher-grade output.",
+    { n:1, title:"Input raw materials",       badge:"BF-BOF + EAF", badgeCls:"bf",
+      desc:"The steelmaking process feeds two distinct input streams. BF-BOF needs iron ore, coking coal, and limestone — mined globally and shipped to coastal integrated mills. EAF primarily uses scrap steel, supplemented by DRI/HBI for higher-grade output.",
       ins:["Iron ore (Fe₂O₃ / Fe₃O₄)","Coking coal (metallurgical)","Limestone (CaCO₃)","Scrap steel (HMS 1&2, shredded)","Natural gas / hydrogen (for DRI)"],
-      outs:["~70% of global steel via BF-BOF","~30% of global steel via EAF","Australia / Brazil are key ore suppliers","~1.9 billion tonnes produced per year"],
+      outs:["~70% of global steel via BF-BOF","~30% via EAF (growing)","Australia / Brazil are key ore suppliers","~1.9 billion tonnes per year"],
       tags:["~70% BF-BOF globally","~30% EAF globally","Australia/Brazil — iron ore","1.9B tonnes/yr"]},
     { n:2, title:"Raw materials preparation", badge:"BF-BOF + EAF", badgeCls:"bf",
-      desc:"Before entering the furnace, raw materials must be upgraded. BF-BOF route: coal is baked into porous coke in coke ovens; fine iron ore is sintered or pelletised into lumps strong enough to survive the blast furnace. EAF route: iron ore is reduced by gas or hydrogen into DRI sponge iron, skipping coal entirely.",
-      ins:["Coal → coke ovens (~1,000°C, no air)","Iron ore fines → sinter/pellet plant","Iron ore + gas/H₂ → DRI shaft furnace"],
-      outs:["Coke — porous, carbon-rich fuel (BF route)","Sinter / pellets — sized ore lumps (BF route)","DRI / HBI — pre-reduced sponge iron (EAF route)"],
+      desc:"Before the furnace, raw materials must be upgraded. BF-BOF: coal is baked into coke; fine ore is sintered or pelletised. EAF: iron ore is reduced by gas/hydrogen into DRI sponge in a shaft furnace — skipping coal entirely.",
+      ins:["Coal → coke ovens (~1,000°C, no air)","Iron ore fines → sinter/pellet plant","Iron ore + natural gas/H₂ → DRI shaft"],
+      outs:["Coke — porous carbon fuel (BF route)","Sinter/pellets — sized ore lumps (BF)","DRI/HBI — pre-reduced sponge iron (EAF)"],
       tags:["Coke ovens ~1,000°C","No air combustion","Sinter boosts BF yield +15%","DRI = green steel pathway"]},
-    { n:3, title:"Ironmaking", badge:"BF-BOF + EAF", badgeCls:"bf",
-      desc:"BF-BOF route: the blast furnace (30–100m tall) uses coke to reduce iron ore at ~2,000°C, producing molten pig iron at ~4% carbon. EAF route: the DRI shaft furnace uses natural gas or hydrogen to reduce iron ore at ~950°C into sponge iron — no coal, significantly lower CO₂.",
-      ins:["Coke + sinter + limestone (blast furnace)","Iron ore + natural gas or H₂ (DRI shaft)"],
-      outs:["Pig iron ~4% carbon, ~1,480°C (BF route)","DRI / HBI sponge iron, ~950°C (EAF route)","Slag by-product → cement/aggregates"],
+    { n:3, title:"Ironmaking",                badge:"BF-BOF + EAF", badgeCls:"bf",
+      desc:"BF-BOF: the blast furnace (30–100m tall) reduces iron ore to pig iron at ~2,000°C using coke. EAF: the DRI shaft furnace uses natural gas or hydrogen to reduce iron ore at ~950°C — no coke, much lower CO₂.",
+      ins:["Coke + sinter + limestone (blast furnace)","Iron ore + natural gas/H₂ (DRI shaft)"],
+      outs:["Pig iron ~4% C, ~1,480°C (BF route)","DRI / HBI sponge iron, ~950°C (EAF)","Slag by-product → cement/aggregates"],
       tags:["BF: ~2,000°C at tuyeres","Pig iron = 4% carbon","DRI: ~950°C reduction","CO₂: BF much higher than DRI"]},
-    { n:4, title:"Steelmaking — two routes", badge:"BF-BOF + EAF", badgeCls:"bf",
-      desc:"BF-BOF: A supersonic oxygen lance blows pure O₂ into pig iron, burning carbon from 4% to &lt;0.1% in ~40 minutes — an exothermic reaction at ~1,700°C. EAF: Three graphite electrodes generate arcs up to 3,000°C that melt scrap and DRI in 60–90 minutes. Both produce liquid steel at the same spec.",
+    { n:4, title:"Steelmaking — two routes",  badge:"BF-BOF + EAF", badgeCls:"bf",
+      desc:"BF-BOF: A supersonic oxygen lance blows pure O₂ into pig iron, burning carbon from 4% to <0.1% in ~40 minutes. EAF: graphite electrodes create arcs up to 3,000°C melting scrap/DRI in 60–90 min. Both produce liquid steel at the same spec.",
       ins:["Pig iron + scrap as coolant (BOF)","Scrap + DRI + electricity (EAF)","Oxygen, alloying agents (both)"],
-      outs:["Liquid steel &lt;0.1% carbon, ~1,600°C","Ready for refining in ladle"],
+      outs:["Liquid steel <0.1% carbon, ~1,600°C","Ready for ladle refining"],
       tags:["BOF: supersonic O₂ lance","BOF cycle: ~40 min","EAF arc: up to 3,000°C","EAF cycle: 60–90 min"]},
-    { n:5, title:"Refining", badge:"Common path", badgeCls:"cmn",
-      desc:"Both routes converge here. Liquid steel is tapped into a ladle where temperature is precisely controlled, chemistry is fine-tuned through alloy additions (Mn, Cr, Ni, Si), and dissolved gases are removed by vacuum degassing. This step determines the final steel grade specification.",
+    { n:5, title:"Refining",                  badge:"Common path",   badgeCls:"cmn",
+      desc:"Both routes converge here. Liquid steel is tapped into a ladle where temperature is precisely controlled, chemistry is fine-tuned through alloy additions, and dissolved gases are removed by vacuum degassing. This step locks in the final steel grade specification.",
       ins:["Liquid steel from BOF or EAF","Alloying elements (Mn, Cr, Ni, V, Nb)","Argon gas for stirring"],
-      outs:["Grade-specific liquid steel within chemistry spec","Ultra-low carbon and ultra-low sulphur grades possible"],
-      tags:["Ladle furnace (LF)","Vacuum degassing (VD / RH)","Alloy additions","Grade chemistry locked here"]},
-    { n:6, title:"Continuous casting", badge:"Common path", badgeCls:"cmn",
-      desc:"Liquid steel flows from the ladle into a tundish (buffer vessel), then into a water-cooled copper mould. The solidifying strand is withdrawn continuously and cut to length. The resulting semi-finished shape — slab, billet, or bloom — feeds ALL downstream rolling.",
-      ins:["Refined liquid steel ~1,540°C","Water cooling system","Strand withdrawal speed control"],
-      outs:["Slabs 200–250mm thick → flat products (HRC, CRC, tinplate)","Billets 100–160mm sq. → long products (rebar, wire rod)","Blooms 200–400mm sq. → structural sections"],
-      tags:["~1,550°C casting temp","Water spray cooling","Slab = flat products input","Billet = long products input"]},
-    { n:7, title:"Hot-rolled products", badge:"Common path", badgeCls:"cmn",
-      desc:"Slabs are reheated to ~1,200°C and passed through a roughing mill then a tandem finishing mill, reducing thickness from 200mm down to as little as 1.5mm. The result is Hot Rolled Coil (HRC) — the global ferrous benchmark. Billets become rebar, wire rod, and structural sections.",
+      outs:["Grade-specific liquid steel within chemistry spec","Ultra-low carbon / ultra-low sulphur grades"],
+      tags:["Ladle furnace (LF)","Vacuum degassing (VD / RH)","Alloy additions","Grade chemistry locked"]},
+    { n:6, title:"Continuous casting",        badge:"Common path",   badgeCls:"cmn",
+      desc:"Liquid steel flows from the ladle → tundish → water-cooled mould, solidifying continuously. The strand is cut to length. Slabs, billets, and blooms are the three semi-finished shapes that feed ALL downstream rolling mills.",
+      ins:["Refined liquid steel ~1,540°C","Water cooling system","Strand withdrawal speed"],
+      outs:["Slabs 200–250mm thick → flat products","Billets 100–160mm sq. → long products","Blooms 200–400mm sq. → structural"],
+      tags:["~1,550°C casting temp","Water spray cooling","Slab = flat products input","Billet = rebar/wire input"]},
+    { n:7, title:"Hot-rolled products",       badge:"Common path",   badgeCls:"cmn",
+      desc:"Slabs are reheated to ~1,200°C and reduced in thickness through roughing and finishing stands. Hot Rolled Coil (HRC) is the global ferrous benchmark — every downstream flat product price is built on top of it.",
       ins:["Slabs — reheated to ~1,200°C","Billets and blooms"],
-      outs:["HRC 1.5–12mm (global flat benchmark)","Plate (>12mm, no coiling)","Rebar / bars","Wire rod","Structural sections, rails"],
-      tags:["HRC = global price anchor","~1,200°C rolling temp","Quoted: CME, SGX, Platts, SHFE","CRC / galv / tinplate feedstock"]},
-    { n:8, title:"Finishing operations", badge:"Common path", badgeCls:"cmn",
-      desc:"HRC undergoes further processing to produce value-added flat products. Cold rolling reduces thickness further and delivers a superior surface finish. Metal coating adds corrosion protection — zinc for galvanized (HDG), tin for tinplate. This is where all the downstream products our desk analyses are made.",
+      outs:["HRC 1.5–12mm (global flat benchmark)","Plate (>12mm, no coiling)","Rebar / bars / wire rod","Structural sections, rails"],
+      tags:["HRC = global price anchor","~1,200°C rolling temp","Quoted: CME, SGX, Platts, SHFE","CRC/galv/tinplate feedstock"]},
+    { n:8, title:"Finishing operations",      badge:"Common path",   badgeCls:"cmn",
+      desc:"HRC undergoes further processing to produce value-added flat products. Cold rolling reduces thickness and improves surface. Metal coating adds corrosion protection — zinc for galvanized (HDG), tin for tinplate. This is where all the products our desk analyses are made.",
       ins:["Hot Rolled Coil (HRC)"],
-      outs:["CRC — cold rolled coil (smooth surface, tighter gauge)","HDG — hot-dip galvanized (zinc bath ~460°C)","Tinplate — electrolytic tin coating (food packaging)","Pre-painted / colour-coated steel"],
-      tags:["CRC premium: +$80–120/t vs HRC","Zinc bath: ~460°C (galv)","Electrolytic tinning line (ETL)","Tinplate = CRC + LME Tin + processing fee"]},
-    { n:9, title:"Steel applications", badge:"Common path", badgeCls:"cmn",
-      desc:"Steel's versatility means it appears in virtually every sector of the global economy — from the tinplate food can on your shelf to the structural beams of skyscrapers, wind turbines, car bodies, and surgical instruments. It is the world's most recycled material.",
+      outs:["CRC — cold rolled coil (smooth, tight gauge)","HDG — hot-dip galvanized (zinc ~460°C)","Tinplate — electrolytic tin coating","Pre-painted / colour-coated steel"],
+      tags:["CRC: +$80–120/t vs HRC","Zinc bath: ~460°C","Electrolytic tinning line (ETL)","Tinplate = CRC + LME Tin + fee"]},
+    { n:9, title:"Steel applications",        badge:"Common path",   badgeCls:"cmn",
+      desc:"Steel's versatility means it reaches virtually every sector — from the tinplate food can on your shelf to skyscrapers, wind turbines, car bodies, and surgical instruments. It is the world's most recycled material.",
       ins:["All finished flat and long products"],
-      outs:["Packaging — food/beverage cans (tinplate)","Construction — beams, rebar, roofing sheets","Automotive — body panels, chassis","Energy — wind turbines, oil &amp; gas pipelines","Machinery, appliances, medical equipment"],
-      tags:["1.9B tonnes/yr global demand","#1 most recycled material","~8% of global CO₂ emissions","85%+ end-of-life recycling rate"]}
+      outs:["Packaging — food/beverage cans (tinplate)","Construction — beams, rebar, roofing","Automotive — body panels, chassis","Energy — wind turbines, pipelines","Machinery, appliances, medical"],
+      tags:["1.9B tonnes/yr demand","#1 most recycled material","~8% of global CO₂","85%+ recycling rate"]}
   ];
 
+  function openStarPopup(key, evt) {
+    evt.stopPropagation();
+    const d = starData[key];
+    if (!d) return;
+    // Highlight star
+    document.querySelectorAll('.eq-star').forEach(g => g.classList.remove('star-active'));
+    evt.currentTarget.classList.add('star-active');
+    // Position popup
+    const popup = document.getElementById('hsPopup');
+    const badge = document.getElementById('popupBadge');
+    badge.textContent = 'Step ' + d.step;
+    badge.className = 'popup-step-badge' + (d.cls === 'eaf' ? ' eaf' : '');
+    document.getElementById('popupName').textContent = d.name;
+    document.getElementById('popupText').textContent = d.desc;
+    popup.style.display = 'block';
+    // Position near click
+    let x = evt.clientX + 16;
+    let y = evt.clientY - 20;
+    if (x + 250 > window.innerWidth)  x = evt.clientX - 258;
+    if (y + 180 > window.innerHeight) y = evt.clientY - 175;
+    popup.style.left = x + 'px';
+    popup.style.top  = y + 'px';
+    // Also update main panel
+    selectDiagStep(d.step);
+    // Auto-close on outside click
+    setTimeout(() => document.addEventListener('click', _autoClosePopup), 50);
+  }
+
+  function _autoClosePopup(e) {
+    const p = document.getElementById('hsPopup');
+    if (p && !p.contains(e.target) && !e.target.closest('.eq-star')) {
+      closeHsPopup();
+    }
+  }
+
+  function closeHsPopup() {
+    document.getElementById('hsPopup').style.display = 'none';
+    document.querySelectorAll('.eq-star').forEach(g => g.classList.remove('star-active'));
+    document.removeEventListener('click', _autoClosePopup);
+  }
+
   function selectDiagStep(n) {
-    // Update hotspot active states
-    document.querySelectorAll('.hs-group').forEach(g => {
-      g.classList.toggle('active', +g.dataset.step === n);
-    });
+    document.querySelectorAll('.hs-group').forEach(g => g.classList.toggle('active', +g.dataset.step === n));
     const s = diagSteps[n - 1];
     const insList  = s.ins.map(x => `<li>${x}</li>`).join('');
     const outsList = s.outs.map(x => `<li>${x}</li>`).join('');
     const tagsList = s.tags.map(x => `<span class="dp-tag">${x}</span>`).join('');
-    document.getElementById('diagPanel').innerHTML =
+    const panel = document.getElementById('diagPanel');
+    panel.innerHTML =
       `<div class="dp-header">
          <span class="dp-n">0${n}</span>
          <span class="dp-title">${s.title}</span>
@@ -1302,9 +1131,10 @@
          <div class="dp-col"><div class="dp-col-hd">Outputs / Key facts</div><ul>${outsList}</ul></div>
        </div>
        <div class="dp-tags">${tagsList}</div>`;
-    document.getElementById('diagPanel').classList.add('loaded');
+    panel.classList.remove('fresh');
+    void panel.offsetWidth; // force reflow
+    panel.classList.add('fresh');
   }
-
   /* ── CHAIN ── */
   const chainData = [
     {
