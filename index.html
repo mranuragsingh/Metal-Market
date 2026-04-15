@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metals Market 101 — New Joiner Training</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c1118;
+      --surface: #131a23;
+      --surface2: #1a2330;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.13);
+      --amber: #f0a500;
+      --amber-light: #ffc445;
+      --amber-dim: rgba(240,165,0,0.12);
+      --amber-border: rgba(240,165,0,0.35);
+      --steel: #52a9e8;
+      --steel-dim: rgba(82,169,232,0.12);
+      --steel-border: rgba(82,169,232,0.3);
+      --green: #3dbf89;
+      --green-dim: rgba(61,191,137,0.12);
+      --red: #e85555;
+      --red-dim: rgba(232,85,85,0.12);
+      --gold: #c9a84c;
+      --gold-dim: rgba(201,168,76,0.12);
+      --text: #dde4ed;
+      --text-muted: #6e7d8f;
+      --text-faint: #3d4a58;
+      --font: 'Sora', system-ui, sans-serif;
+      --mono: 'DM Mono', 'Courier New', monospace;
+      --radius: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.65; font-size: 15px; }
+
+    /* ─── HEADER ─── */
+    .header {
+      padding: 2rem 3rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: flex-end; justify-content: space-between;
+      background: linear-gradient(180deg, rgba(240,165,0,0.04) 0%, transparent 100%);
+    }
+    .header-eyebrow {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 0.4rem;
+    }
+    .header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
+    .header h1 span { color: var(--amber); }
+    .header-right { text-align: right; }
+    .badge {
+      display: inline-block;
+      background: var(--amber-dim); border: 1px solid var(--amber-border);
+      color: var(--amber); padding: 0.3rem 0.85rem;
+      border-radius: 20px; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.06em; margin-bottom: 0.4rem;
+    }
+    .header-meta { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* ─── NAV ─── */
+    .nav {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      padding: 0 3rem; overflow-x: auto; background: var(--bg);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .nav-btn {
+      background: none; border: none; color: var(--text-muted);
+      padding: 1rem 1.25rem; font-family: var(--font);
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.04em;
+      cursor: pointer; border-bottom: 2px solid transparent;
+      white-space: nowrap; transition: color 0.2s;
+      display: flex; align-items: center; gap: 0.55rem;
+    }
+    .nav-btn:hover { color: var(--text); }
+    .nav-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+    .nav-pill {
+      background: var(--surface2); border: 1px solid var(--border);
+      width: 20px; height: 20px; border-radius: 50%;
+      font-size: 0.62rem; display: flex; align-items: center;
+      justify-content: center; transition: all 0.2s;
+    }
+    .nav-btn.active .nav-pill {
+      background: var(--amber-dim); border-color: var(--amber-border); color: var(--amber);
+    }
+    .nav-divider { width: 1px; background: var(--border); margin: 0.75rem 0; align-self: stretch; }
+
+    /* ─── LAYOUT ─── */
+    .content { padding: 2.5rem 3rem; max-width: 1080px; }
+    .section { display: none; }
+    .section.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .mod-header { margin-bottom: 2rem; }
+    .mod-eyebrow { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.45rem; }
+    .mod-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
+    .mod-desc { font-size: 0.83rem; color: var(--text-muted); max-width: 620px; line-height: 1.75; }
+
+    /* ─── SECTION 1: Metal Categories ─── */
+    .metal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+
+    .mcard {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem 1.5rem;
+      cursor: pointer; transition: border-color 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .mcard::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .mcard:hover { border-color: var(--border-hover); }
+    .mcard:hover::after, .mcard.open::after { opacity: 1; }
+    .mcard.open { border-color: var(--border-hover); }
+
+    .mcard.ferrous::after   { background: var(--amber); }
+    .mcard.nf::after        { background: var(--steel); }
+    .mcard.precious::after  { background: var(--gold); }
+    .mcard.battery::after   { background: var(--green); }
+
+    .mcard-icon {
+      width: 38px; height: 38px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-bottom: 0.85rem;
+    }
+    .mcard.ferrous .mcard-icon  { background: var(--amber-dim); }
+    .mcard.nf .mcard-icon       { background: var(--steel-dim); }
+    .mcard.precious .mcard-icon { background: var(--gold-dim); }
+    .mcard.battery .mcard-icon  { background: var(--green-dim); }
+
+    .mcard-title { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .mcard.ferrous .mcard-title  { color: var(--amber-light); }
+    .mcard.nf .mcard-title       { color: var(--steel); }
+    .mcard.precious .mcard-title { color: var(--gold); }
+    .mcard.battery .mcard-title  { color: var(--green); }
+
+    .mcard-sub { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.7rem; }
+    .mcard-desc { font-size: 0.79rem; color: var(--text-muted); line-height: 1.7; }
+
+    .mcard-detail { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .mcard.open .mcard-detail { max-height: 250px; }
+    .mcard-detail-inner { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
+    .tag {
+      font-size: 0.65rem; font-weight: 700; padding: 0.18rem 0.55rem;
+      border-radius: 3px; font-family: var(--mono); letter-spacing: 0.02em;
+    }
+    .mcard.ferrous .tag  { background: var(--amber-dim);  color: var(--amber-light); }
+    .mcard.nf .tag       { background: var(--steel-dim);  color: var(--steel); }
+    .mcard.precious .tag { background: var(--gold-dim);   color: var(--gold); }
+    .mcard.battery .tag  { background: var(--green-dim);  color: var(--green); }
+
+    .mcard-stat { font-size: 0.76rem; color: var(--text-muted); line-height: 1.7; }
+    .hint { font-size: 0.68rem; color: var(--text-faint); margin-top: 0.65rem; }
+
+    /* ─── SECTION 2: Steelmaking ─── */
+    .route-toggle { display: flex; gap: 0.5rem; margin-bottom: 1.75rem; }
+    .rtbtn {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-muted); padding: 0.5rem 1.2rem;
+      border-radius: 6px; font-family: var(--font);
+      font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    .rtbtn.active { background: var(--amber-dim); border-color: var(--amber-border); color: var(--amber); }
+
+    .flow-wrap { position: relative; }
+    .fstep {
+      display: flex; gap: 1.25rem; margin-bottom: 0.75rem; cursor: pointer;
+    }
+    .fstep-line-wrap {
+      display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 40px;
+    }
+    .fdot {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--surface2); border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+      transition: all 0.2s; flex-shrink: 0;
+    }
+    .fline { flex: 1; width: 2px; background: var(--border); margin: 4px 0; min-height: 12px; }
+    .fstep:last-child .fline { display: none; }
+    .fstep:hover .fdot, .fstep.open .fdot { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
+
+    .fbody {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.85rem 1.1rem; transition: border-color 0.2s;
+      margin-bottom: 0; /* aligned with dot height */
+    }
+    .fstep:hover .fbody, .fstep.open .fbody { border-color: var(--border-hover); }
+
+    .fstep-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .fstep-desc { font-size: 0.77rem; color: var(--text-muted); }
+    .fstep-detail { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .fstep.open .fstep-detail { max-height: 180px; }
+    .fstep-detail-inner {
+      margin-top: 0.75rem; padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.77rem; color: var(--text-muted); line-height: 1.7;
+    }
+
+    .source-note { margin-top: 1.25rem; font-size: 0.7rem; color: var(--text-faint); display: flex; align-items: center; gap: 0.4rem; }
+    .source-note a { color: var(--steel); text-decoration: none; }
+    .source-note a:hover { text-decoration: underline; }
+
+    /* ─── SECTION 3: Value Chain ─── */
+    .chain-row { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 0.5rem; margin-top: 1.5rem; }
+    .citem { flex: 1; min-width: 135px; cursor: pointer; }
+    .cbox {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.1rem; height: 100%;
+      transition: all 0.2s; position: relative;
+    }
+    .cbox::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; border-radius: 2px 2px 0 0; opacity: 0; transition: opacity 0.2s;
+    }
+    .citem:nth-child(1) .cbox::before { background: var(--amber); }
+    .citem:nth-child(3) .cbox::before { background: var(--steel); }
+    .citem:nth-child(5) .cbox::before { background: var(--green); }
+    .citem:nth-child(7) .cbox::before { background: var(--gold); }
+
+    .citem.active .cbox, .citem:hover .cbox { border-color: var(--border-hover); }
+    .citem.active .cbox::before, .citem:hover .cbox::before { opacity: 1; }
+
+    .carr { display: flex; align-items: center; padding: 0 0.35rem; color: var(--text-faint); font-size: 0.9rem; flex-shrink: 0; }
+    .clabel { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.3rem; }
+    .cname { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.15rem; }
+    .cfullname { font-size: 0.7rem; color: var(--text-muted); }
+    .cprice { font-family: var(--mono); font-size: 0.68rem; color: var(--amber); margin-top: 0.55rem; }
+
+    .chain-panel {
+      margin-top: 1.25rem; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem; min-height: 130px;
+      transition: all 0.2s;
+    }
+    .cp-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.6rem; }
+    .cp-desc { font-size: 0.84rem; margin-bottom: 0.75rem; line-height: 1.75; }
+    .cp-meta { font-size: 0.75rem; color: var(--text-muted); line-height: 1.9; }
+    .cp-meta b { color: var(--text); font-weight: 600; }
+
+    /* ─── SECTION 4: Price Calculator ─── */
+    .formula-banner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.1rem 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .formula-label-text { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+    .formula-eq { font-family: var(--mono); font-size: 0.85rem; line-height: 2.2; }
+    .fe-result { color: var(--amber); }
+    .fe-crc    { color: var(--steel); }
+    .fe-tin    { color: var(--green); }
+    .fe-proc   { color: var(--gold); }
+    .formula-note { font-size: 0.72rem; color: var(--text-faint); margin-top: 0.1rem; font-family: var(--mono); }
+
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .calc-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+    }
+    .calc-card-title {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-faint); margin-bottom: 1.25rem;
+    }
+
+    .igroup { margin-bottom: 1.25rem; }
+    .ilabel {
+      font-size: 0.74rem; font-weight: 600; color: var(--text-muted);
+      margin-bottom: 0.4rem; display: flex; justify-content: space-between;
+    }
+    .ilabel .ival { font-family: var(--mono); color: var(--amber-light); }
+    input[type=range] { width: 100%; accent-color: var(--amber); cursor: pointer; }
+
+    select {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); padding: 0.45rem 0.65rem; border-radius: 6px;
+      font-family: var(--font); font-size: 0.78rem; cursor: pointer; margin-top: 0.15rem;
+    }
+    select:focus { outline: none; border-color: var(--amber-border); }
+    .ihelp { font-size: 0.67rem; color: var(--text-faint); margin-top: 0.35rem; font-family: var(--mono); }
+
+    .build-rows { }
+    .brow {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+    }
+    .brow:last-child { border-bottom: none; }
+    .brow-label { color: var(--text-muted); }
+    .brow-val { font-family: var(--mono); font-size: 0.78rem; }
+    .brow-val.pos { color: var(--green); }
+    .brow.subtotal { background: rgba(82,169,232,0.05); border-radius: 6px; padding: 0.6rem 0.75rem; margin: 0.25rem 0; }
+    .brow.subtotal .brow-label { color: var(--text); font-weight: 600; }
+    .brow.subtotal .brow-val { color: var(--steel); }
+    .brow-note { font-size: 0.65rem; color: var(--text-faint); font-family: var(--mono); }
+
+    .result-box {
+      margin-top: 1.25rem; background: var(--amber-dim);
+      border: 1px solid var(--amber-border); border-radius: 8px;
+      padding: 1.25rem; text-align: center;
+    }
+    .result-eyebrow { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); opacity: 0.75; margin-bottom: 0.4rem; }
+    .result-num { font-size: 2.25rem; font-family: var(--mono); font-weight: 500; color: var(--amber); letter-spacing: -0.02em; }
+    .result-unit { font-size: 0.74rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .result-warn { margin-top: 1rem; font-size: 0.68rem; color: var(--text-faint); line-height: 1.7; }
+
+    /* ─── STEPS EXPLANATION ─── */
+    .steps-list { margin-top: 1.5rem; counter-reset: steps; }
+    .step-row {
+      display: flex; gap: 1rem; margin-bottom: 0.75rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.25rem; align-items: flex-start;
+    }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--amber-dim); border: 1px solid var(--amber-border);
+      color: var(--amber); font-size: 0.72rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-content { flex: 1; }
+    .step-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .step-body { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 720px) {
+      .header { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1.5rem; }
+      .metal-grid, .calc-grid { grid-template-columns: 1fr; }
+      .content { padding: 1.5rem; }
+      .nav { padding: 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<div class="header">
+  <div>
+    <div class="header-eyebrow">New Joiner Training Series · Metals Desk</div>
+    <h1>Metals Market <span>101</span></h1>
+  </div>
+  <div class="header-right">
+    <div class="badge">⏱ 20–30 min session</div>
+    <div class="header-meta">Navigate using the tabs below &nbsp;·&nbsp; Click any card to expand</div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="nav">
+  <button class="nav-btn active" onclick="showSection(0)">
+    <span class="nav-pill">1</span> The Metal Universe
+  </button>
+  <button class="nav-btn" onclick="showSection(1)">
+    <span class="nav-pill">2</span> How Steel is Made
+  </button>
+  <button class="nav-btn" onclick="showSection(2)">
+    <span class="nav-pill">3</span> Flat Steel Value Chain
+  </button>
+  <button class="nav-btn" onclick="showSection(3)">
+    <span class="nav-pill">4</span> The Price Detective
+  </button>
+</nav>
+
+<!-- ═══════════════ CONTENT ═══════════════ -->
+<div class="content">
+
+  <!-- ──────────────────────────────────────
+       SECTION 1 · METAL UNIVERSE
+  ────────────────────────────────────── -->
+  <div class="section active" id="s0">
+    <div class="mod-header">
+      <div class="mod-eyebrow">Module 1 · ~5 min</div>
+      <div class="mod-title">The Metal Universe</div>
+      <div class="mod-desc">Metals trade across four distinct families — each with its own feedstocks, pricing benchmarks, and market dynamics. Click each card to dig deeper.</div>
+    </div>
+
+    <div class="metal-grid">
+
+      <div class="mcard ferrous" onclick="toggleCard(this)">
+        <div class="mcard-icon">⚙️</div>
+        <div class="mcard-title">Ferrous Metals</div>
+        <div class="mcard-sub">Iron-based · ~90% of all metals used globally</div>
+        <div class="mcard-desc">Any metal with iron (Fe) as its primary ingredient. The backbone of construction, automotive manufacturing, and industrial infrastructure worldwide.</div>
+        <div class="mcard-detail">
+          <div class="mcard-detail-inner">
+            <div class="tags">
+              <span class="tag">Steel (HRC/CRC)</span>
+              <span class="tag">Tinplate</span>
+              <span class="tag">Galvanized</span>
+              <span class="tag">Cast Iron</span>
+              <span class="tag">Stainless Steel</span>
+              <span class="tag">Alloy Steel</span>
+            </div>
+            <div class="mcard-stat">Key driver: Iron ore and coking coal costs set the floor. The carbon content in the iron-carbon mix determines hardness vs. ductility. Pure iron is soft — add carbon to get steel, more carbon to get cast iron. Ferrous metals rust, which is why coatings (tinplate, galvanized) exist — and why they trade at a premium to HRC.</div>
+          </div>
+        </div>
+        <div class="hint">↓ Tap to expand</div>
+      </div>
+
+      <div class="mcard nf" onclick="toggleCard(this)">
+        <div class="mcard-icon">🔵</div>
+        <div class="mcard-title">Non-Ferrous Metals</div>
+        <div class="mcard-sub">No iron · Lightweight · Corrosion-resistant</div>
+        <div class="mcard-desc">Metals that contain no significant iron content. Generally lighter, non-magnetic, and naturally resistant to corrosion. Critical for packaging, electronics, transport, and wire.</div>
+        <div class="mcard-detail">
+          <div class="mcard-detail-inner">
+            <div class="tags">
+              <span class="tag">Aluminum (Al)</span>
+              <span class="tag">Copper (Cu)</span>
+              <span class="tag">Zinc (Zn)</span>
+              <span class="tag">Tin (Sn)</span>
+              <span class="tag">Lead (Pb)</span>
+              <span class="tag">Nickel (Ni)</span>
+            </div>
+            <div class="mcard-stat">Directly linked to our work: <b>Tin</b> coats steel to make tinplate. <b>Zinc</b> coats steel to make galvanized. Both are traded on the LME and their prices directly feed into our downstream steel product pricing. This is the bridge between ferrous and non-ferrous markets.</div>
+          </div>
+        </div>
+        <div class="hint">↓ Tap to expand</div>
+      </div>
+
+      <div class="mcard precious" onclick="toggleCard(this)">
+        <div class="mcard-icon">✦</div>
+        <div class="mcard-title">Precious Metals</div>
+        <div class="mcard-sub">Rare · High unit value · Store of wealth</div>
+        <div class="mcard-desc">Scarce metals with high economic value per unit. Used in jewellery, as financial instruments, in electronics, and as catalysts in auto and chemical industries.</div>
+        <div class="mcard-detail">
+          <div class="mcard-detail-inner">
+            <div class="tags">
+              <span class="tag">Gold (Au)</span>
+              <span class="tag">Silver (Ag)</span>
+              <span class="tag">Platinum (Pt)</span>
+              <span class="tag">Palladium (Pd)</span>
+              <span class="tag">Rhodium (Rh)</span>
+            </div>
+            <div class="mcard-stat">Priced in troy oz (Gold, Silver, Pt) or $/oz. Platinum group metals (PGMs) are critical for automotive catalytic converters. Gold is macro-sensitive — moves on USD, interest rates, and geopolitical risk. Very different demand dynamics from industrial metals.</div>
+          </div>
+        </div>
+        <div class="hint">↓ Tap to expand</div>
+      </div>
+
+      <div class="mcard battery" onclick="toggleCard(this)">
+        <div class="mcard-icon">⚡</div>
+        <div class="mcard-title">Battery Materials</div>
+        <div class="mcard-sub">EV-critical · Energy transition · Fast-growing</div>
+        <div class="mcard-desc">Metals powering the energy transition. Demand tightly linked to electric vehicle production, energy storage systems, and consumer electronics.</div>
+        <div class="mcard-detail">
+          <div class="mcard-detail-inner">
+            <div class="tags">
+              <span class="tag">Lithium (Li)</span>
+              <span class="tag">Cobalt (Co)</span>
+              <span class="tag">Nickel (Ni)</span>
+              <span class="tag">Manganese (Mn)</span>
+              <span class="tag">Graphite (C)</span>
+            </div>
+            <div class="mcard-stat">Supply is geographically concentrated and politically sensitive — DRC (cobalt), Chile/Australia (lithium). Prices highly volatile, driven by EV adoption forecasts, Chinese policy, and mine supply disruptions. Fastest-growing segment in metals analysis.</div>
+          </div>
+        </div>
+        <div class="hint">↓ Tap to expand</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────
+       SECTION 2 · STEELMAKING PROCESS
+  ────────────────────────────────────── -->
+  <div class="section" id="s1">
+    <div class="mod-header">
+      <div class="mod-eyebrow">Module 2 · ~8 min</div>
+      <div class="mod-title">How Steel is Made</div>
+      <div class="mod-desc">From iron ore in the ground to a coil of hot rolled steel — two distinct production routes that converge at the same endpoint. Click any step for detail.</div>
+    </div>
+
+    <div class="route-toggle">
+      <button class="rtbtn active" id="bf-btn" onclick="showRoute('bf')">🏭 BF-BOF Route (Integrated Mill)</button>
+      <button class="rtbtn" id="eaf-btn" onclick="showRoute('eaf')">⚡ EAF Route (Mini-Mill / Green Steel)</button>
+    </div>
+
+    <!-- BF-BOF ROUTE -->
+    <div id="bf-flow">
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">1</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Raw Material Inputs</div>
+          <div class="fstep-desc">Three feedstocks drive everything: iron ore, coking coal, and limestone — mined globally and converged at coastal steel mills.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            <b>Iron Ore (Fe₂O₃)</b> provides the iron. Mainly mined in Australia, Brazil, and South Africa. Traded as lump, fines, and pellets.<br><br>
+            <b>Coking Coal (Metallurgical Coal)</b> is converted to coke — the reducing agent and heat source. Different from thermal coal used in power stations.<br><br>
+            <b>Limestone (CaCO₃)</b> acts as a flux to capture impurities as slag, which floats on the molten iron.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">Iron Ore</span><span class="tag">Coking Coal</span><span class="tag">Limestone</span><span class="tag">Key feedstocks</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">2</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Preparation — Coking &amp; Sintering</div>
+          <div class="fstep-desc">Coal is baked into coke. Fine iron ore fines are sintered into lumpy pellets that can survive the blast furnace.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            <b>Coke Ovens:</b> Coal heated to ~1,000°C without air. Drives off volatile compounds. Output: porous, carbon-rich coke with strength to withstand the blast furnace without crumbling.<br><br>
+            <b>Sintering Plant:</b> Fine iron ore (too small to charge directly) mixed with coke breeze and flux, then ignited. Agglomerates into porous sinter for the furnace. Improves furnace productivity by 15–20%.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">Coke Ovens ~1,000°C</span><span class="tag">Sintering Plant</span><span class="tag">Pelletizing</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">3</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Blast Furnace — Ironmaking</div>
+          <div class="fstep-desc">Charged from the top with coke, sinter, and limestone. Hot air blasted in at the base. Molten pig iron tapped from the bottom every few hours.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            The blast furnace is the heart of an integrated steelmill — typically 30–100m tall. Temperatures reach ~2,000°C at the tuyeres (air inlets). Coke burns, produces CO gas which reduces iron oxides to metallic iron. Limestone flux combines with silica impurities to form slag (lower density, floats on top of iron).<br><br>
+            Output = <b>Pig Iron</b> (~4% carbon) — very brittle, cannot be used directly. Must be refined.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">~2,000°C</span><span class="tag">Pig Iron output</span><span class="tag">~4% Carbon</span><span class="tag">Slag by-product</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">4</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Basic Oxygen Furnace (BOF) — Steelmaking</div>
+          <div class="fstep-desc">Pig iron + scrap charged into a converter. Pure oxygen blown in at supersonic speed burns off excess carbon. Steel ready in ~40 minutes.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            A supersonic oxygen lance oxidises excess carbon (4% → &lt;0.1%). This exothermic reaction reaches ~1,700°C. 20–30% scrap is added as a coolant. Alloying elements (Mn, Si, Al) added to achieve target grade composition. This is where iron becomes steel — workable, ductile, weldable.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">Oxygen Lance</span><span class="tag">20–30% Scrap</span><span class="tag">&lt;0.1% Carbon</span><span class="tag">~40 min cycle</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">5</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Continuous Casting → Slab</div>
+          <div class="fstep-desc">Liquid steel poured into a water-cooled mould and drawn out continuously. Solidifies into slabs — the universal semi-finished flat product.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            Slabs are 200–250mm thick, 900–2,000mm wide. This is the input for ALL flat products downstream: HRC, CRC, galvanized, tinplate. Steel also cast as billets (long products: rebar, wire rod) or blooms (structural shapes). The slab is where the two routes converge — EAF makes the same slab.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">Slab ~200mm thick</span><span class="tag">Flat products</span><span class="tag">Billets → long products</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">6</div></div>
+        <div class="fbody">
+          <div class="fstep-name">Hot Rolling Mill → HRC 🎯</div>
+          <div class="fstep-desc">Slabs reheated to ~1,200°C and squeezed through a series of rolling stands. Emerges as Hot Rolled Coil (HRC) — the global ferrous benchmark.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            <b>HRC is the key price anchor.</b> Everything downstream references it. Typical HRC: 1.5–12mm thick, width up to 2,000mm, coiled for transport. Surface has characteristic mill scale (dark oxide layer) — rough texture. Used directly in construction, structural fabrication, pipe welding, and as the input for further processing into CRC/galvanized/tinplate.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">HRC 1.5–12mm</span><span class="tag">~1,200°C rolling</span><span class="tag">Global benchmark</span><span class="tag">CME / SGX / Platts</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EAF ROUTE -->
+    <div id="eaf-flow" style="display:none">
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">1</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Scrap Steel &amp; DRI Inputs</div>
+          <div class="fstep-desc">Old cars, demolished buildings, appliance scrap — collected, sorted by grade, and charged directly. The primary feedstock, no blast furnace needed.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            Scrap grades matter: HMS 1&amp;2 (Heavy Melting Scrap), shredded auto scrap, prime industrial scrap. Quality of scrap determines quality of steel output — limiting factor for flat product grades.<br><br>
+            <b>DRI/HBI (Direct Reduced Iron)</b> — iron ore reduced with natural gas or hydrogen, not coal. A cleaner substitute that upgrades EAF output quality. Key to green steel pathways.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">HMS 1&amp;2 Scrap</span><span class="tag">Shredded Scrap</span><span class="tag">DRI / HBI</span><span class="tag">No iron ore needed</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">2</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Electric Arc Furnace (EAF)</div>
+          <div class="fstep-desc">Three graphite electrodes generate an arc at up to 3,000–4,000°C, melting scrap in 60–90 minutes. No coke, no blast furnace — just electricity.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            EAF is faster and more flexible than BF-BOF. Can start and stop production quickly — useful for responding to demand. <b>Key cost driver: electricity price.</b> Where power is cheap (Turkey, India, parts of US), EAF economics are very competitive.<br><br>
+            CO₂ footprint ~30–40% of BF-BOF when powered by grid electricity. With renewable power or H₂-DRI, can approach near-zero emissions.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">Graphite Electrodes</span><span class="tag">60–90 min tap-to-tap</span><span class="tag">Lower CO₂</span><span class="tag">~30% global share</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="fstep" onclick="toggleStep(this)">
+        <div class="fstep-line-wrap"><div class="fdot">3</div><div class="fline"></div></div>
+        <div class="fbody">
+          <div class="fstep-name">Ladle Refining &amp; Continuous Casting</div>
+          <div class="fstep-desc">Chemistry fine-tuned in a ladle furnace. Then continuously cast into slabs — same output as BF-BOF from this point on.</div>
+          <div class="fstep-detail"><div class="fstep-detail-inner">
+            From the slab onwards, the process is identical to BF-BOF. Hot rolling → HRC. Cold rolling → CRC. Coating → galvanized / tinplate. EAF route represents ~30% of global steel production today and is growing rapidly, especially in regions transitioning to green steel.
+            <div class="tags" style="margin-top:0.7rem">
+              <span class="tag">Ladle Furnace</span><span class="tag">Same slab output</span><span class="tag">Identical downstream</span>
+            </div>
+          </div></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="source-note">
+      🔗 Reference: <a href="https://worldsteel.org/about-steel/steelmaking-process/" target="_blank">worldsteel.org — Interactive Steelmaking Diagram</a>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────
+       SECTION 3 · FLAT STEEL VALUE CHAIN
+  ────────────────────────────────────── -->
+  <div class="section" id="s2">
+    <div class="mod-header">
+      <div class="mod-eyebrow">Module 3 · ~7 min</div>
+      <div class="mod-title">The Flat Steel Value Chain</div>
+      <div class="mod-desc">HRC is the base price. Every downstream product adds a premium for further processing. Understanding this chain is fundamental to our pricing work — click each product below.</div>
+    </div>
+
+    <div class="chain-row" id="chainRow">
+      <div class="citem active" onclick="selectChain(0, this)">
+        <div class="cbox">
+          <div class="clabel">Base</div>
+          <div class="cname">HRC</div>
+          <div class="cfullname">Hot Rolled Coil</div>
+          <div class="cprice">Benchmark price</div>
+        </div>
+      </div>
+      <div class="carr">→</div>
+      <div class="citem" onclick="selectChain(1, this)">
+        <div class="cbox">
+          <div class="clabel">+1 process</div>
+          <div class="cname">CRC</div>
+          <div class="cfullname">Cold Rolled Coil</div>
+          <div class="cprice">HRC + $80–120/t</div>
+        </div>
+      </div>
+      <div class="carr">→</div>
+      <div class="citem" onclick="selectChain(2, this)">
+        <div class="cbox">
+          <div class="clabel">+2 processes</div>
+          <div class="cname">HDG</div>
+          <div class="cfullname">Hot-Dip Galvanized</div>
+          <div class="cprice">CRC + $50–80/t</div>
+        </div>
+      </div>
+      <div class="carr">→</div>
+      <div class="citem" onclick="selectChain(3, this)">
+        <div class="cbox">
+          <div class="clabel">+2 processes</div>
+          <div class="cname">Tinplate</div>
+          <div class="cfullname">Electrolytic Tin Coat</div>
+          <div class="cprice">CRC + tin + $130–160/t</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chain-panel" id="chainPanel">
+      <div class="cp-title">HRC — Hot Rolled Coil</div>
+      <div class="cp-desc">The global ferrous benchmark. Every flat steel product price is built on top of HRC. Produced directly from a reheated slab through a hot rolling mill at ~1,200°C. The rough, scaled surface is characteristic — it's why you need further processing for premium applications.</div>
+      <div class="cp-meta">
+        <b>Thickness:</b> 1.5–12mm &nbsp;&nbsp;|&nbsp;&nbsp; <b>Surface:</b> Mill scale (rough) &nbsp;&nbsp;|&nbsp;&nbsp; <b>Uses:</b> Construction, structural, pipes, auto frames &nbsp;&nbsp;|&nbsp;&nbsp; <b>Quoted on:</b> CME, SGX, Platts, Fastmarkets, SHFE
+      </div>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────
+       SECTION 4 · PRICE DETECTIVE
+  ────────────────────────────────────── -->
+  <div class="section" id="s3">
+    <div class="mod-header">
+      <div class="mod-eyebrow">Module 4 · ~8 min</div>
+      <div class="mod-title">The Price Detective: Deriving Tinplate</div>
+      <div class="mod-desc">Tinplate prices are not publicly published anywhere. But you can build them from first principles — using just HRC and LME Tin prices. This is exactly how we do it.</div>
+    </div>
+
+    <div class="formula-banner">
+      <div class="formula-label-text">The Core Formula</div>
+      <div class="formula-eq">
+        <span class="fe-result">Tinplate Price</span>
+        &nbsp;=&nbsp; <span class="fe-crc">CRC Price</span>
+        &nbsp;+&nbsp; <span class="fe-tin">Tin Metal Cost</span>
+        &nbsp;+&nbsp; <span class="fe-proc">Electrolytic Processing Premium</span>
+      </div>
+      <div class="formula-note">where &nbsp; CRC = HRC + cold rolling premium &nbsp;&nbsp;|&nbsp;&nbsp; Tin Metal Cost = LME Tin ($/t) × coating weight (kg per tonne of steel) ÷ 1000</div>
+    </div>
+
+    <div class="steps-list">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Get the HRC price</div>
+          <div class="step-body">Source from Fastmarkets, Platts (S&amp;P Global), or exchange data (CME, SGX, SHFE). Use the relevant regional benchmark — European HRC, US Midwest HRC, or Asian (CFR SE Asia) depending on your geography.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Add the cold rolling premium → CRC</div>
+          <div class="step-body">Cold rolling thins and smooths the strip. Then it's annealed to restore ductility. This adds $80–120/t over HRC. The spread varies with mill utilisation and regional supply/demand. CRC is also not always directly published — you may also need to derive this.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Get LME Tin price and calculate tin metal cost</div>
+          <div class="step-body">Tin is traded on the London Metal Exchange (LME) in $/tonne. Tinplate uses a thin coating of tin on both sides — typically 2.8 to 8.4 g/m² per side depending on grade. A standard T57 grade (2.8/2.8 g/m²) uses ~3.2–3.4 kg of tin per tonne of steel. Multiply by LME Tin price (converted to $/kg) to get the tin metal cost component.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Add the electrolytic tinning processing premium</div>
+          <div class="step-body">The electrolytic tinning line (ETL) applies tin in a controlled electroplating process. This adds $130–160/t for standard grades. Premium grades, narrow widths, or special surface finishes attract higher processing fees from mills.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">Cross-check with mill offers and market intelligence</div>
+          <div class="step-body">The derived price is your model estimate. Cross-check with mill spot offers (where available), industry contacts, and trade publications. Actual traded prices may deviate due to contract terms, regional logistics, and supply tightness. Your estimate provides the baseline for negotiation and analysis.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:1rem">Live Price Calculator</div>
+
+    <div class="calc-grid">
+      <div class="calc-card">
+        <div class="calc-card-title">Market Inputs</div>
+
+        <div class="igroup">
+          <div class="ilabel">HRC Price ($/tonne) <span class="ival" id="hrc-lbl">$600</span></div>
+          <input type="range" id="hrc-r" min="300" max="1100" value="600" step="10" oninput="calcUpdate()">
+        </div>
+
+        <div class="igroup">
+          <div class="ilabel">LME Tin Price ($/tonne) <span class="ival" id="tin-lbl">$25,000</span></div>
+          <input type="range" id="tin-r" min="15000" max="40000" value="25000" step="250" oninput="calcUpdate()">
+        </div>
+
+        <div class="igroup">
+          <div class="ilabel">Cold Rolling Premium ($/t) <span class="ival" id="cr-lbl">$100</span></div>
+          <input type="range" id="cr-r" min="60" max="160" value="100" step="5" oninput="calcUpdate()">
+        </div>
+
+        <div class="igroup">
+          <div class="ilabel" style="margin-bottom:0.5rem">Tinplate Grade</div>
+          <select id="grade-sel" onchange="calcUpdate()">
+            <option value="3.4">T57 Standard — 2.8/2.8 g/m² (food &amp; beverage cans)</option>
+            <option value="5.6">T61 Medium — 5.6/5.6 g/m² (chemical, paint tins)</option>
+            <option value="8.5">T65 Heavy — 8.4/8.4 g/m² (aerosol, corrosive contents)</option>
+          </select>
+          <div class="ihelp" id="coat-note">Coating weight: ~3.4 kg tin per tonne of steel</div>
+        </div>
+
+        <div class="igroup" style="margin-bottom:0">
+          <div class="ilabel">ETL Processing Premium ($/t) <span class="ival" id="pp-lbl">$145</span></div>
+          <input type="range" id="pp-r" min="100" max="220" value="145" step="5" oninput="calcUpdate()">
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <div class="calc-card-title">Price Build-Up</div>
+
+        <div class="build-rows">
+          <div class="brow">
+            <div class="brow-label">① HRC base price</div>
+            <div class="brow-val" id="b-hrc">$600/t</div>
+          </div>
+          <div class="brow">
+            <div class="brow-label">② + Cold rolling premium</div>
+            <div class="brow-val pos" id="b-cr">+ $100/t</div>
+          </div>
+          <div class="brow subtotal">
+            <div class="brow-label">= CRC price</div>
+            <div class="brow-val" id="b-crc">$700/t</div>
+          </div>
+          <div class="brow">
+            <div class="brow-label">③ + Tin metal cost</div>
+            <div class="brow-val pos" id="b-tin">+ $85/t</div>
+          </div>
+          <div class="brow" style="padding-top:0">
+            <div class="brow-note" id="b-tin-note">LME $25,000/t × 3.4 kg ÷ 1,000</div>
+            <div></div>
+          </div>
+          <div class="brow">
+            <div class="brow-label">④ + ETL processing premium</div>
+            <div class="brow-val pos" id="b-pp">+ $145/t</div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-eyebrow">Estimated Tinplate Price</div>
+          <div class="result-num" id="result-num">$930/t</div>
+          <div class="result-unit">per metric tonne, indicative</div>
+        </div>
+
+        <div class="result-warn">
+          ⚠ Indicative estimate. Actual spreads vary by region, mill, grade and contract terms. Always cross-check with Fastmarkets / Platts assessments and mill offers.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+  /* ── NAV ── */
+  function showSection(n) {
+    document.querySelectorAll('.section').forEach((s, i) => s.classList.toggle('active', i === n));
+    document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', i === n));
+  }
+
+  /* ── METAL CARDS ── */
+  function toggleCard(el) {
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.mcard').forEach(c => c.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+
+  /* ── PROCESS STEPS ── */
+  function toggleStep(el) { el.classList.toggle('open'); }
+
+  /* ── ROUTES ── */
+  function showRoute(r) {
+    document.getElementById('bf-flow').style.display = r === 'bf' ? '' : 'none';
+    document.getElementById('eaf-flow').style.display = r === 'eaf' ? '' : 'none';
+    document.getElementById('bf-btn').classList.toggle('active', r === 'bf');
+    document.getElementById('eaf-btn').classList.toggle('active', r === 'eaf');
+  }
+
+  /* ── CHAIN ── */
+  const chainData = [
+    {
+      title: 'HRC — Hot Rolled Coil',
+      desc: 'The global ferrous benchmark. Every flat steel product price is built on top of HRC. Produced directly from a reheated slab through a hot rolling mill at ~1,200°C. The rough, scaled surface is characteristic — further processing is needed for premium applications.',
+      meta: '<b>Thickness:</b> 1.5–12mm &nbsp;|&nbsp; <b>Surface:</b> Mill scale (rough) &nbsp;|&nbsp; <b>Uses:</b> Construction, structural, pipes, auto frames &nbsp;|&nbsp; <b>Quoted on:</b> CME, SGX, Platts, Fastmarkets, SHFE'
+    },
+    {
+      title: 'CRC — Cold Rolled Coil',
+      desc: 'HRC is passed through a cold rolling mill at room temperature — reducing thickness further and improving surface finish dramatically. The strip then goes through an annealing furnace to restore ductility. CRC commands a premium of $80–120/t over HRC.',
+      meta: '<b>Thickness:</b> 0.25–3mm &nbsp;|&nbsp; <b>Surface:</b> Smooth, bright &nbsp;|&nbsp; <b>Uses:</b> Auto body panels, white goods, drums, packaging &nbsp;|&nbsp; <b>Process:</b> Tandem cold mill → annealing → temper rolling'
+    },
+    {
+      title: 'HDG — Hot-Dip Galvanized',
+      desc: 'CRC is passed through a bath of molten zinc (~460°C). The zinc metallurgically bonds to the steel surface — the galvanic reaction provides corrosion protection. Used extensively in construction and automotive. The zinc premium tracks LME Zinc directly.',
+      meta: '<b>Coating:</b> 40–600 g/m² zinc &nbsp;|&nbsp; <b>Uses:</b> Roofing, purlins, automotive chassis, white goods &nbsp;|&nbsp; <b>Price driver:</b> LME Zinc &nbsp;|&nbsp; <b>Premium over CRC:</b> $50–80/t typical'
+    },
+    {
+      title: 'Tinplate — Electrolytic Tin Coating',
+      desc: 'CRC coated with a thin layer of tin via an electroplating process (electrolytic tinning line). Tin provides corrosion resistance, food safety compliance, and excellent solderability. Used almost exclusively for food and beverage packaging. Tinplate prices are NOT published — we derive them using the CRC + LME Tin methodology in the Price Detective module.',
+      meta: '<b>Coating:</b> 2.8–11.2 g/m² tin per side &nbsp;|&nbsp; <b>Uses:</b> Food cans, beverage cans, paint tins, aerosols &nbsp;|&nbsp; <b>Price driver:</b> CRC + LME Tin &nbsp;|&nbsp; <b>Grades:</b> T57, T61, T65 (by coating weight)'
+    }
+  ];
+
+  function selectChain(i, el) {
+    document.querySelectorAll('.citem').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    const d = chainData[i];
+    document.getElementById('chainPanel').innerHTML =
+      `<div class="cp-title">${d.title}</div>
+       <div class="cp-desc">${d.desc}</div>
+       <div class="cp-meta">${d.meta}</div>`;
+  }
+
+  /* ── CALCULATOR ── */
+  function calcUpdate() {
+    const hrc = +document.getElementById('hrc-r').value;
+    const tin = +document.getElementById('tin-r').value;
+    const cr  = +document.getElementById('cr-r').value;
+    const pp  = +document.getElementById('pp-r').value;
+    const coatKg = +document.getElementById('grade-sel').value;
+
+    document.getElementById('hrc-lbl').textContent = '$' + hrc.toLocaleString();
+    document.getElementById('tin-lbl').textContent = '$' + tin.toLocaleString();
+    document.getElementById('cr-lbl').textContent  = '$' + cr;
+    document.getElementById('pp-lbl').textContent  = '$' + pp;
+    document.getElementById('coat-note').textContent = 'Coating weight: ~' + coatKg + ' kg tin per tonne of steel';
+
+    const crc     = hrc + cr;
+    const tinCost = Math.round(tin * coatKg / 1000);
+    const total   = crc + tinCost + pp;
+
+    document.getElementById('b-hrc').textContent   = '$' + hrc.toLocaleString() + '/t';
+    document.getElementById('b-cr').textContent    = '+ $' + cr + '/t';
+    document.getElementById('b-crc').textContent   = '$' + crc.toLocaleString() + '/t';
+    document.getElementById('b-tin').textContent   = '+ $' + tinCost + '/t';
+    document.getElementById('b-tin-note').textContent = 'LME $' + tin.toLocaleString() + '/t × ' + coatKg + ' kg ÷ 1,000';
+    document.getElementById('b-pp').textContent    = '+ $' + pp + '/t';
+    document.getElementById('result-num').textContent = '$' + total.toLocaleString() + '/t';
+  }
+
+  calcUpdate(); // init
+</script>
+
+</body>
+</html>
