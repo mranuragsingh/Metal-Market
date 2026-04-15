@@ -376,7 +376,7 @@
     .ws-coprod span, .ws-app span { font-size: 0.62rem; color: var(--text-muted); display: block; line-height: 1.3; }
     .ws-note { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 6px; padding: 0.55rem 1.2rem; margin: 0.5rem 0; font-size: 0.78rem; color: var(--text-muted); text-align: center; }
     /* Popup styles (kept from before) */
-    .hs-popup { position:fixed; z-index:9999; background:#1a2330; border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:1rem 1.1rem; width:238px; box-shadow:0 14px 38px rgba(0,0,0,0.55); pointer-events:all; }
+    .hs-popup { position:fixed; z-index:9999; background:#1a2330; border:1px solid rgba(255,255,255,0.14); border-radius:10px; padding:1rem 1.1rem; width:260px; box-shadow:0 14px 38px rgba(0,0,0,0.55); pointer-events:all; }
     @keyframes popIn { from{opacity:0;transform:scale(0.9) translateY(-8px)} to{opacity:1;transform:scale(1) translateY(0)} }
     .hs-popup { animation:popIn 0.18s cubic-bezier(0.34,1.56,0.64,1); }
     .popup-close { position:absolute; top:9px; right:11px; background:none; border:none; color:var(--text-faint); cursor:pointer; font-size:15px; line-height:1; padding:0; }
@@ -567,27 +567,27 @@
         </div>
         <div class="ws-content">
           <div class="ws-mat-grid">
-            <div class="ws-mat-card ws-mat-iron">
+            <div class="ws-mat-card ws-mat-iron" style="cursor:pointer" onclick="event.currentTarget.querySelector('.ws-star').click()">
               <p class="ws-mat-name">Iron ore <span class="ws-star" id="ws-anchor-iron-ore" onclick="openStarPopup('iron-ore',event)">★</span></p>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-01.svg" class="ws-mat-img" alt="">
             </div>
-            <div class="ws-mat-card ws-mat-lime">
+            <div class="ws-mat-card ws-mat-lime" style="cursor:pointer" onclick="event.currentTarget.querySelector('.ws-star').click()">
               <p class="ws-mat-name">Limestone <span class="ws-star" id="ws-anchor-limestone" onclick="openStarPopup('limestone',event)">★</span></p>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-01.svg" class="ws-mat-img" alt="">
             </div>
-            <div class="ws-mat-card ws-mat-coal">
+            <div class="ws-mat-card ws-mat-coal" style="cursor:pointer" onclick="event.currentTarget.querySelector('.ws-star').click()">
               <p class="ws-mat-name">Coal <span class="ws-star" id="ws-anchor-coal" onclick="openStarPopup('coal',event)">★</span></p>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-01.svg" class="ws-mat-img" alt="">
             </div>
-            <div class="ws-mat-card ws-mat-scrap">
+            <div class="ws-mat-card ws-mat-scrap" style="cursor:pointer" onclick="event.currentTarget.querySelector('.ws-star').click()">
               <p class="ws-mat-name">Scrap <span class="ws-star" id="ws-anchor-scrap" onclick="openStarPopup('scrap',event)">★</span></p>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-02.svg" class="ws-mat-img" alt="">
             </div>
-            <div class="ws-mat-card ws-mat-alt">
+            <div class="ws-mat-card ws-mat-alt" style="cursor:pointer" onclick="event.currentTarget.querySelector('.ws-star').click()">
               <p class="ws-mat-name">Alternative<br>fuels <span class="ws-star" id="ws-anchor-alt-fuels" onclick="openStarPopup('alt-fuels',event)">★</span></p>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-03.svg" class="ws-mat-img" alt="">
             </div>
-            <div class="ws-mat-card ws-mat-gas">
+            <div class="ws-mat-card ws-mat-gas" style="cursor:pointer" onclick="event.currentTarget.querySelector('.ws-star').click()">
               <p class="ws-mat-name">Natural gas <span class="ws-star" id="ws-anchor-gas" onclick="openStarPopup('gas',event)">★</span></p>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/raw-material-04.svg" class="ws-mat-img" alt="">
             </div>
@@ -603,11 +603,11 @@
         </div>
         <div class="ws-content">
           <div class="ws-eq-grid ws-eq-2">
-            <div class="ws-eq-item">
+            <div class="ws-eq-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-eq-star-wrap"><span class="ws-star" id="ws-anchor-sinter" onclick="openStarPopup('sinter',event)">★</span> <span class="ws-eq-label">Sinter plant / pellet plant</span></div>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/preparation-01-en.svg" class="ws-eq-img" alt="Sinter plant">
             </div>
-            <div class="ws-eq-item">
+            <div class="ws-eq-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-eq-star-wrap"><span class="ws-star" id="ws-anchor-coke-oven" onclick="openStarPopup('coke-oven',event)">★</span> <span class="ws-eq-label">Coke oven</span></div>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/preparation-02-en.svg" class="ws-eq-img" alt="Coke oven">
             </div>
@@ -623,11 +623,11 @@
         </div>
         <div class="ws-content">
           <div class="ws-eq-grid ws-eq-2">
-            <div class="ws-eq-item">
+            <div class="ws-eq-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-eq-star-wrap"><span class="ws-star" id="ws-anchor-bf" onclick="openStarPopup('bf',event)">★</span> <span class="ws-eq-label">Blast furnace</span></div>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/iron-making-01-en.svg" class="ws-eq-img" alt="Blast furnace">
             </div>
-            <div class="ws-eq-item">
+            <div class="ws-eq-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-eq-star-wrap"><span class="ws-star" id="ws-anchor-dri" onclick="openStarPopup('dri',event)">★</span> <span class="ws-eq-label">Direct reduction of iron ore</span></div>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/iron-making-02-en.svg" class="ws-eq-img" alt="Direct reduction">
             </div>
@@ -644,12 +644,12 @@
         </div>
         <div class="ws-content">
           <div class="ws-eq-grid ws-eq-3">
-            <div class="ws-eq-item">
+            <div class="ws-eq-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-eq-star-wrap"><span class="ws-star" id="ws-anchor-bof" onclick="openStarPopup('bof',event)">★</span> <span class="ws-eq-label">Basic oxygen furnace</span></div>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-01-en.svg" class="ws-eq-img" alt="BOF">
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-02-en.svg" class="ws-eq-img ws-eq-img-sm" alt="">
             </div>
-            <div class="ws-eq-item">
+            <div class="ws-eq-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-eq-star-wrap"><span class="ws-star" id="ws-anchor-ladle" onclick="openStarPopup('ladle',event)">★</span> <span class="ws-eq-label">Refining</span></div>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-03-1-en.svg" class="ws-eq-img" alt="Refining">
               <div style="margin-top:0.5rem">
@@ -657,7 +657,7 @@
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-03-2-update-en.svg" class="ws-eq-img" alt="Continuous casting">
               </div>
             </div>
-            <div class="ws-eq-item">
+            <div class="ws-eq-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-eq-star-wrap"><span class="ws-star" id="ws-anchor-eaf" onclick="openStarPopup('eaf',event)">★</span> <span class="ws-eq-label">Electric arc furnace</span></div>
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-04-en.svg" class="ws-eq-img" alt="EAF">
               <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/steelmaking-06-en.svg" class="ws-eq-img ws-eq-img-sm" alt="">
@@ -734,19 +734,19 @@
         </div>
         <div class="ws-content">
           <div class="ws-eq-grid ws-eq-3">
-            <div class="ws-eq-item ws-fin-item">
+            <div class="ws-eq-item ws-fin-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-fin-inner">
                 <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/finishing-operations-01.svg" alt="Painting">
                 <div class="ws-fin-label">Painting <span class="ws-star" id="ws-anchor-painting" onclick="openStarPopup('painting',event)">★</span></div>
               </div>
             </div>
-            <div class="ws-eq-item ws-fin-item">
+            <div class="ws-eq-item ws-fin-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-fin-inner">
                 <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/finishing-operations-02.svg" alt="Metal coating">
                 <div class="ws-fin-label">Metal coating <span class="ws-star" id="ws-anchor-finishing" onclick="openStarPopup('finishing',event)">★</span></div>
               </div>
             </div>
-            <div class="ws-eq-item ws-fin-item">
+            <div class="ws-eq-item ws-fin-item" style="cursor:pointer" onclick="var s=this.querySelector(\'.ws-star\');if(s)s.click()">
               <div class="ws-fin-inner">
                 <img src="https://worldsteel.org/wp-content/themes/worldsteel/includes/mini-sites/steelmaking/img/finishing-operations-03.svg" alt="Cold rolling">
                 <div class="ws-fin-label">Cold rolling <span class="ws-star" id="ws-anchor-rolling" onclick="openStarPopup('rolling',event)">★</span></div>
@@ -1098,11 +1098,9 @@
     document.getElementById('popupName').textContent = d.name;
     document.getElementById('popupText').textContent = d.desc;
     popup.style.display = 'block';
-    let x = evt.clientX + 16, y = evt.clientY - 20;
-    if (x + 250 > window.innerWidth)  x = evt.clientX - 258;
-    if (y + 180 > window.innerHeight) y = evt.clientY - 175;
-    popup.style.left = x + 'px';
-    popup.style.top  = y + 'px';
+    popup.style.top   = '80px';
+    popup.style.right = '24px';
+    popup.style.left  = 'auto';
     selectDiagStep(d.step);
     drawFlows(key, d.cls);
     setTimeout(() => document.addEventListener('click', _autoClosePopup), 50);
@@ -1145,8 +1143,11 @@
     'products':      { targets:[],                color:'#8aaabb', marker:'arrowGray'  }
   };
 
+  let _activeFlowKey = null;
+
   function drawFlows(fromKey) {
-    clearFlows();
+    _activeFlowKey = fromKey;
+    clearFlows(false);  // clear paths but keep key
     const info = flowMap[fromKey];
     if (!info || !info.targets.length) return;
     const overlay = document.getElementById('flowOverlay');
@@ -1254,10 +1255,52 @@
     requestAnimationFrame(step);
   }
 
-  function clearFlows() {
+  function clearFlows(resetKey = true) {
+    if (resetKey) _activeFlowKey = null;
     const overlay = document.getElementById('flowOverlay');
     if (overlay) overlay.querySelectorAll('.flow-arrow').forEach(p => p.remove());
   }
+
+  // Redraw arrows on scroll so they stay connected to elements
+  window.addEventListener('scroll', () => {
+    if (_activeFlowKey) {
+      const info = flowMap[_activeFlowKey];
+      if (!info || !info.targets.length) return;
+      const overlay = document.getElementById('flowOverlay');
+      if (!overlay) return;
+      overlay.querySelectorAll('.flow-arrow').forEach(p => p.remove());
+      const fromEl = document.getElementById('ws-anchor-' + _activeFlowKey);
+      if (!fromEl) return;
+      const fr = fromEl.getBoundingClientRect();
+      const x1 = fr.left + fr.width/2, y1 = fr.top + fr.height/2;
+      info.targets.forEach((toKey, idx) => {
+        const toEl = document.getElementById('ws-anchor-' + toKey);
+        if (!toEl) return;
+        const tr = toEl.getBoundingClientRect();
+        const x2 = tr.left + tr.width/2, y2 = tr.top + tr.height/2;
+        const dist = Math.hypot(x2-x1, y2-y1) || 1;
+        const side = (idx % 2 === 0 ? 1 : -1) * Math.min(dist * 0.35, 100);
+        const nx = -(y2-y1)/dist, ny = (x2-x1)/dist;
+        const cx1 = x1+(x2-x1)*0.25+nx*side, cy1 = y1+(y2-y1)*0.25+ny*side;
+        const cx2 = x1+(x2-x1)*0.75+nx*side, cy2 = y1+(y2-y1)*0.75+ny*side;
+        const d = `M ${x1} ${y1} C ${cx1} ${cy1} ${cx2} ${cy2} ${x2} ${y2}`;
+        // glow
+        const g = document.createElementNS('http://www.w3.org/2000/svg','path');
+        g.setAttribute('d',d); g.setAttribute('stroke',info.color);
+        g.setAttribute('stroke-width','8'); g.setAttribute('stroke-opacity','0.18');
+        g.setAttribute('fill','none'); g.setAttribute('class','flow-arrow');
+        overlay.appendChild(g);
+        // line
+        const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+        p.setAttribute('d',d); p.setAttribute('stroke',info.color);
+        p.setAttribute('stroke-width','2.5'); p.setAttribute('fill','none');
+        p.setAttribute('stroke-opacity','0.9');
+        p.setAttribute('marker-end',`url(#${info.marker})`);
+        p.setAttribute('class','flow-arrow');
+        overlay.appendChild(p);
+      });
+    }
+  }, { passive: true });
 
   function selectDiagStep(n) {
     document.querySelectorAll('.hs-group').forEach(g => g.classList.toggle('active', +g.dataset.step === n));
