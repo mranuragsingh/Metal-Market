@@ -100,19 +100,26 @@
     .mod-desc { font-size: 0.83rem; color: var(--text-muted); max-width: 620px; line-height: 1.75; }
 
     /* ─── SECTION 1: Metal Categories ─── */
-    .metal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .metal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.5rem; }
 
     .mcard {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.4rem 1.5rem;
-      cursor: pointer; transition: border-color 0.25s;
-      position: relative; overflow: hidden;
+      border-radius: var(--radius); padding: 1.75rem 1.5rem;
+      cursor: pointer; transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden; min-height: 260px;
+      display: flex; flex-direction: column;
     }
     .mcard::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
       opacity: 0; transition: opacity 0.25s;
     }
-    .mcard:hover { border-color: var(--border-hover); }
+    /* Big background number for visual depth */
+    .mcard::before {
+      content: attr(data-num); position: absolute; bottom: -0.5rem; right: 0.75rem;
+      font-size: 7rem; font-weight: 700; line-height: 1; opacity: 0.04;
+      font-family: var(--font); pointer-events: none;
+    }
+    .mcard:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
     .mcard:hover::after, .mcard.open::after { opacity: 1; }
     .mcard.open { border-color: var(--border-hover); }
 
@@ -122,26 +129,26 @@
     .mcard.battery::after   { background: var(--green); }
 
     .mcard-icon {
-      width: 38px; height: 38px; border-radius: 8px;
+      width: 44px; height: 44px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; margin-bottom: 0.85rem;
+      font-size: 1.25rem; margin-bottom: 1.1rem;
     }
     .mcard.ferrous .mcard-icon  { background: var(--amber-dim); }
     .mcard.nf .mcard-icon       { background: var(--steel-dim); }
     .mcard.precious .mcard-icon { background: var(--gold-dim); }
     .mcard.battery .mcard-icon  { background: var(--green-dim); }
 
-    .mcard-title { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .mcard-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
     .mcard.ferrous .mcard-title  { color: var(--amber-light); }
     .mcard.nf .mcard-title       { color: var(--steel); }
     .mcard.precious .mcard-title { color: var(--gold); }
     .mcard.battery .mcard-title  { color: var(--green); }
 
-    .mcard-sub { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.7rem; }
-    .mcard-desc { font-size: 0.79rem; color: var(--text-muted); line-height: 1.7; }
+    .mcard-sub { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.85rem; }
+    .mcard-desc { font-size: 0.80rem; color: var(--text-muted); line-height: 1.72; flex: 1; }
 
-    .mcard-detail { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    .mcard.open .mcard-detail { max-height: 250px; }
+    .mcard-detail { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .mcard.open .mcard-detail { max-height: 280px; }
     .mcard-detail-inner { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
 
     .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
@@ -155,7 +162,7 @@
     .mcard.battery .tag  { background: var(--green-dim);  color: var(--green); }
 
     .mcard-stat { font-size: 0.76rem; color: var(--text-muted); line-height: 1.7; }
-    .hint { font-size: 0.68rem; color: var(--text-faint); margin-top: 0.65rem; }
+    .hint { font-size: 0.68rem; color: var(--text-faint); margin-top: 0.75rem; }
 
     /* ─── SECTION 2: Steelmaking ─── */
     .route-toggle { display: flex; gap: 0.5rem; margin-bottom: 1.75rem; }
@@ -470,7 +477,7 @@
 
     <div class="metal-grid">
 
-      <div class="mcard ferrous" onclick="toggleCard(this)">
+      <div class="mcard ferrous" data-num="Fe" onclick="toggleCard(this)">
         <div class="mcard-icon">⚙️</div>
         <div class="mcard-title">Ferrous Metals</div>
         <div class="mcard-sub">Iron-based · ~90% of all metals used globally</div>
@@ -491,7 +498,7 @@
         <div class="hint">↓ Tap to expand</div>
       </div>
 
-      <div class="mcard nf" onclick="toggleCard(this)">
+      <div class="mcard nf" data-num="Al" onclick="toggleCard(this)">
         <div class="mcard-icon">🔵</div>
         <div class="mcard-title">Non-Ferrous Metals</div>
         <div class="mcard-sub">No iron · Lightweight · Corrosion-resistant</div>
@@ -512,7 +519,7 @@
         <div class="hint">↓ Tap to expand</div>
       </div>
 
-      <div class="mcard precious" onclick="toggleCard(this)">
+      <div class="mcard precious" data-num="Au" onclick="toggleCard(this)">
         <div class="mcard-icon">✦</div>
         <div class="mcard-title">Precious Metals</div>
         <div class="mcard-sub">Rare · High unit value · Store of wealth</div>
@@ -532,7 +539,7 @@
         <div class="hint">↓ Tap to expand</div>
       </div>
 
-      <div class="mcard battery" onclick="toggleCard(this)">
+      <div class="mcard battery" data-num="Li" onclick="toggleCard(this)">
         <div class="mcard-icon">⚡</div>
         <div class="mcard-title">Battery Materials</div>
         <div class="mcard-sub">EV-critical · Energy transition · Fast-growing</div>
@@ -1204,9 +1211,11 @@
     'products':   { targets:[],                             color:'#8aaabb', marker:'arrowGray'  }
   };
 
-    function drawFlows(fromKey) {
+  let _activeFlowKey = null;
+
+  function drawFlows(fromKey) {
     _activeFlowKey = fromKey;
-    clearFlows(false);  // clear paths but keep key
+    clearFlows(false);
     const info = flowMap[fromKey];
     if (!info || !info.targets.length) return;
     const overlay = document.getElementById('flowOverlay');
