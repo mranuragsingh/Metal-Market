@@ -178,6 +178,73 @@
     .mcard-stat { font-size: 0.76rem; color: var(--text-muted); line-height: 1.7; }
     .hint { font-size: 0.68rem; color: var(--text-faint); margin-top: 0.75rem; }
 
+    /* ─── METAL UNIVERSE HEADER ─── */
+    .mu-header { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+    .mu-header-left { flex: 1; min-width: 0; }
+    .mu-header-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+
+    /* Mini stats row */
+    .mu-substat-row { display: flex; align-items: center; gap: 1rem; margin-top: 1.25rem; }
+    .mu-substat { display: flex; flex-direction: column; gap: 0.15rem; }
+    .mu-substat-val { font-size: 1rem; font-weight: 700; font-family: var(--mono); color: var(--amber); }
+    .mu-substat-lbl { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); }
+    .mu-substat-div { width: 1px; height: 28px; background: var(--border); }
+
+    /* Element grid */
+    .mu-element-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.6rem; }
+    .mu-elem {
+      position: relative; overflow: hidden;
+      width: 88px; height: 96px; border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 0.5rem 0.3rem;
+      cursor: pointer; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      text-align: center;
+    }
+    .mu-elem:hover { transform: translateY(-4px) scale(1.04); }
+    .mu-elem-num { font-size: 0.6rem; font-family: var(--mono); color: rgba(255,255,255,0.35); position: absolute; top: 6px; left: 8px; }
+    .mu-elem-sym { font-size: 2rem; font-weight: 700; line-height: 1; margin-bottom: 0.15rem; }
+    .mu-elem-name { font-size: 0.55rem; font-weight: 600; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+    .mu-elem-cat { font-size: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin-top: 0.15rem; }
+    .mu-elem-glow {
+      position: absolute; inset: 0; border-radius: 10px; opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .mu-elem:hover .mu-elem-glow { opacity: 1; }
+
+    /* Per-element colours */
+    .mu-elem-fe { background: linear-gradient(145deg, #1a2a14, #0e1a0a); }
+    .mu-elem-fe .mu-elem-sym { color: var(--amber); }
+    .mu-elem-fe .mu-elem-glow { background: radial-gradient(circle at 50% 50%, rgba(212,168,67,0.18) 0%, transparent 70%); box-shadow: inset 0 0 20px rgba(212,168,67,0.12); }
+    .mu-elem-fe:hover { border-color: var(--amber); box-shadow: 0 8px 24px rgba(212,168,67,0.2); }
+    @keyframes fePulse { 0%,100% { box-shadow: 0 0 0 0 rgba(212,168,67,0.4); } 50% { box-shadow: 0 0 0 6px rgba(212,168,67,0); } }
+
+    .mu-elem-al { background: linear-gradient(145deg, #0a1e28, #061218); }
+    .mu-elem-al .mu-elem-sym { color: var(--steel); }
+    .mu-elem-al .mu-elem-glow { background: radial-gradient(circle at 50% 50%, rgba(42,184,168,0.18) 0%, transparent 70%); }
+    .mu-elem-al:hover { border-color: var(--steel); box-shadow: 0 8px 24px rgba(42,184,168,0.2); }
+
+    .mu-elem-au { background: linear-gradient(145deg, #1e1808, #120e04); }
+    .mu-elem-au .mu-elem-sym { color: #e8c060; }
+    .mu-elem-au .mu-elem-glow { background: radial-gradient(circle at 50% 50%, rgba(232,192,96,0.2) 0%, transparent 70%); }
+    .mu-elem-au:hover { border-color: #e8c060; box-shadow: 0 8px 24px rgba(232,192,96,0.22); }
+
+    .mu-elem-li { background: linear-gradient(145deg, #0a1e18, #06120e); }
+    .mu-elem-li .mu-elem-sym { color: var(--green); }
+    .mu-elem-li .mu-elem-glow { background: radial-gradient(circle at 50% 50%, rgba(40,200,138,0.18) 0%, transparent 70%); }
+    .mu-elem-li:hover { border-color: var(--green); box-shadow: 0 8px 24px rgba(40,200,138,0.2); }
+
+    /* Pulse animation cycling through elements */
+    @keyframes elemPulse { 0%,90%,100% { opacity:0.12; transform: scale(1); } 45% { opacity:0.25; transform: scale(1.06); } }
+    .mu-elem-fe { animation: elemPulse 4s ease-in-out 0s infinite; }
+    .mu-elem-al { animation: elemPulse 4s ease-in-out 1s infinite; }
+    .mu-elem-au { animation: elemPulse 4s ease-in-out 2s infinite; }
+    .mu-elem-li { animation: elemPulse 4s ease-in-out 3s infinite; }
+    .mu-elem:hover { animation: none; }
+
+    .mu-elem-hint { font-size: 0.6rem; color: var(--text-faint); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+
     /* ─── SECTION 2: Steelmaking ─── */
     .route-toggle { display: flex; gap: 0.5rem; margin-bottom: 1.75rem; }
     .rtbtn {
@@ -633,10 +700,54 @@
        SECTION 1 · METAL UNIVERSE
   ────────────────────────────────────── -->
   <div class="section active" id="s0">
-    <div class="mod-header">
-      <div class="mod-eyebrow">Module 1 · ~5 min</div>
-      <div class="mod-title">The Metal Universe</div>
-      <div class="mod-desc">Metals trade across four distinct families — each with its own feedstocks, pricing benchmarks, and market dynamics. Click each card to dig deeper.</div>
+    <div class="mod-header mu-header">
+      <div class="mu-header-left">
+        <div class="mod-eyebrow">Module 1 · ~5 min</div>
+        <div class="mod-title">The Metal Universe</div>
+        <div class="mod-desc">Metals trade across four distinct families — each with its own feedstocks, pricing benchmarks, and market dynamics. Click each card to dig deeper.</div>
+        <div class="mu-substat-row">
+          <div class="mu-substat"><span class="mu-substat-val">~$15T</span><span class="mu-substat-lbl">Global metals market</span></div>
+          <div class="mu-substat-div"></div>
+          <div class="mu-substat"><span class="mu-substat-val">4</span><span class="mu-substat-lbl">Metal families</span></div>
+          <div class="mu-substat-div"></div>
+          <div class="mu-substat"><span class="mu-substat-val">1.9B t</span><span class="mu-substat-lbl">Steel produced/yr</span></div>
+          <div class="mu-substat-div"></div>
+          <div class="mu-substat"><span class="mu-substat-val">LME</span><span class="mu-substat-lbl">Price benchmark</span></div>
+        </div>
+      </div>
+      <div class="mu-header-right">
+        <div class="mu-element-grid">
+          <div class="mu-elem mu-elem-fe" onclick="openDetail('ferrous')">
+            <div class="mu-elem-num">26</div>
+            <div class="mu-elem-sym">Fe</div>
+            <div class="mu-elem-name">Iron</div>
+            <div class="mu-elem-cat">Ferrous</div>
+            <div class="mu-elem-glow"></div>
+          </div>
+          <div class="mu-elem mu-elem-al" onclick="openDetail('nf')">
+            <div class="mu-elem-num">13</div>
+            <div class="mu-elem-sym">Al</div>
+            <div class="mu-elem-name">Aluminium</div>
+            <div class="mu-elem-cat">Non-Ferrous</div>
+            <div class="mu-elem-glow"></div>
+          </div>
+          <div class="mu-elem mu-elem-au" onclick="openDetail('precious')">
+            <div class="mu-elem-num">79</div>
+            <div class="mu-elem-sym">Au</div>
+            <div class="mu-elem-name">Gold</div>
+            <div class="mu-elem-cat">Precious</div>
+            <div class="mu-elem-glow"></div>
+          </div>
+          <div class="mu-elem mu-elem-li" onclick="openDetail('battery')">
+            <div class="mu-elem-num">3</div>
+            <div class="mu-elem-sym">Li</div>
+            <div class="mu-elem-name">Lithium</div>
+            <div class="mu-elem-cat">Battery</div>
+            <div class="mu-elem-glow"></div>
+          </div>
+        </div>
+        <div class="mu-elem-hint">Click any element to explore</div>
+      </div>
     </div>
 
     <div class="metal-grid">
