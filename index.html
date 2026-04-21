@@ -813,7 +813,119 @@
     .sdv-pl-bar { height: 26px; border-radius: 4px; display: flex; align-items: center; padding-left: 0.6rem; font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.85); min-width: 50px; transition: width 0.5s; font-family: var(--mono); }
     .sdv-pl-row span { font-size: 0.7rem; color: var(--text-muted); }
 
-    /* ─── PRICE MODAL ─── */
+
+    /* ─── TRACKER LAUNCH CARD ─── */
+    .mu-tracker-card { display: flex; flex-direction: column; cursor: default; }
+    .tracker-preview {
+      flex: 1; min-height: 180px; border-radius: 8px; overflow: hidden;
+      margin-bottom: 0.75rem; position: relative;
+      background: linear-gradient(135deg, #061a20 0%, #0a2830 100%);
+      border: 1px solid rgba(42,184,168,0.15);
+    }
+    #trackerPreviewMap { min-height: 180px; }
+    .tracker-stats-row { display: flex; gap: 0; margin-bottom: 0.85rem; }
+    .tracker-stat { flex: 1; text-align: center; padding: 0.5rem 0; border-right: 1px solid var(--border); }
+    .tracker-stat:last-child { border-right: none; }
+    .ts-val { display: block; font-size: 1.05rem; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; margin-bottom: 0.2rem; }
+    .ts-lbl { display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); }
+    .tracker-launch-btn {
+      background: linear-gradient(135deg, rgba(42,184,168,0.15), rgba(212,168,67,0.1));
+      border: 1px solid rgba(42,184,168,0.3); color: var(--steel);
+      border-radius: 8px; padding: 0.7rem; font-family: var(--font);
+      font-size: 0.78rem; font-weight: 700; cursor: pointer;
+      transition: all 0.2s; letter-spacing: 0.03em;
+    }
+    .tracker-launch-btn:hover { background: rgba(42,184,168,0.22); border-color: var(--steel); color: var(--text); transform: translateY(-1px); }
+
+    /* ─── STEEL TRACKER MODAL ─── */
+    #steelTrackerModal {
+      display: none; position: fixed; inset: 0; z-index: 3000;
+      background: var(--bg); flex-direction: column;
+    }
+    #steelTrackerModal.open { display: flex; animation: fadeIn 0.25s ease; }
+    .st-topbar {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 0.7rem 1.25rem; background: rgba(6,18,20,0.95);
+      border-bottom: 1px solid var(--border); flex-shrink: 0; z-index: 10;
+    }
+    .st-back {
+      background: none; border: 1px solid var(--border); color: var(--text-muted);
+      border-radius: 7px; padding: 0.35rem 0.85rem; cursor: pointer;
+      font-family: var(--font); font-size: 0.72rem; font-weight: 600;
+      transition: all 0.15s; white-space: nowrap;
+    }
+    .st-back:hover { border-color: var(--border-hover); color: var(--text); }
+    .st-topbar-title { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+    .st-topbar-sub { font-size: 0.68rem; color: var(--text-faint); }
+    .st-count { margin-left: auto; font-size: 0.68rem; font-family: var(--mono); color: var(--text-muted); white-space: nowrap; }
+    .st-count span { color: var(--amber); font-weight: 700; }
+
+    .st-layout { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+
+    /* Sidebar */
+    .st-sidebar {
+      width: 260px; flex-shrink: 0; background: var(--surface);
+      border-right: 1px solid var(--border); overflow-y: auto;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .st-sidebar::-webkit-scrollbar { width: 4px; }
+    .st-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .st-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .st-search { padding: 0.85rem; border-bottom: 1px solid var(--border); }
+    .st-search input {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 7px; color: var(--text); padding: 0.5rem 0.75rem;
+      font-family: var(--font); font-size: 0.75rem; outline: none;
+      transition: border-color 0.15s;
+    }
+    .st-search input:focus { border-color: var(--steel); }
+    .st-search input::placeholder { color: var(--text-faint); }
+
+    .st-filter-section { padding: 0.85rem; border-bottom: 1px solid var(--border); }
+    .st-filter-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.55rem; }
+    .st-check-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; cursor: pointer; }
+    .st-check-row input[type=checkbox] { width: 14px; height: 14px; cursor: pointer; accent-color: var(--steel); flex-shrink: 0; }
+    .st-check-label { font-size: 0.73rem; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 0.4rem; flex: 1; }
+    .st-check-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .st-check-count { margin-left: auto; font-size: 0.62rem; font-family: var(--mono); color: var(--text-faint); }
+
+    .st-country-select {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 7px; color: var(--text); padding: 0.45rem 0.65rem;
+      font-family: var(--font); font-size: 0.73rem; outline: none; cursor: pointer;
+    }
+    .st-country-select option { background: #0c1e22; }
+
+    .st-legend { padding: 0.85rem; }
+    .st-legend-title { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.55rem; }
+    .st-leg-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; font-size: 0.72rem; color: var(--text-muted); }
+    .st-leg-circle { border-radius: 50%; flex-shrink: 0; opacity: 0.85; }
+
+    /* Map */
+    #stMap { flex: 1; min-height: 0; }
+
+    /* Leaflet popup custom */
+    .st-popup { min-width: 220px; }
+    .st-popup-name { font-size: 0.88rem; font-weight: 700; color: #d8ecea; margin-bottom: 0.25rem; }
+    .st-popup-owner { font-size: 0.72rem; color: #5a8a88; margin-bottom: 0.6rem; }
+    .st-popup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .st-popup-stat { background: #0c2228; border-radius: 5px; padding: 0.35rem 0.5rem; }
+    .st-popup-stat-lbl { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #254040; margin-bottom: 0.15rem; }
+    .st-popup-stat-val { font-size: 0.8rem; font-weight: 700; color: #d8ecea; }
+    .st-popup-route { font-size: 0.65rem; font-weight: 700; border-radius: 3px; padding: 0.1rem 0.4rem; display: inline-block; margin-top: 0.4rem; }
+    .leaflet-popup-content-wrapper { background: #0a1e24 !important; border: 1px solid rgba(42,184,168,0.25) !important; border-radius: 10px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important; color: #d8ecea !important; }
+    .leaflet-popup-tip { background: #0a1e24 !important; }
+    .leaflet-popup-content { margin: 12px 14px !important; }
+    .leaflet-popup-close-button { color: #5a8a88 !important; font-size: 18px !important; top: 8px !important; right: 10px !important; }
+    .leaflet-popup-close-button:hover { color: #d8ecea !important; }
+    .leaflet-container { background: #061214 !important; }
+    .leaflet-control-zoom a { background: #0c1e22 !important; color: #2ab8a8 !important; border-color: rgba(42,184,168,0.25) !important; }
+    .leaflet-control-zoom a:hover { background: #112428 !important; }
+    .leaflet-control-attribution { background: rgba(6,18,20,0.8) !important; color: #254040 !important; }
+    .leaflet-control-attribution a { color: #2ab8a8 !important; }
+
+    /* ─── PRICE MODAL ─── 
     #priceModal {
       display: none; position: fixed; inset: 0; z-index: 2000;
       background: rgba(6,18,20,0.97); backdrop-filter: blur(18px);
@@ -893,6 +1005,8 @@
     .shuffle-name.coming { opacity: 0; transform: translateY(6px); }
 
   </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
@@ -991,18 +1105,20 @@
         </div>
       </div>
 
-      <!-- WORLD MAP -->
-      <div class="mu-viz-card mu-map-wrap">
-        <div class="mu-viz-title">Key Supply Origins</div>
-        <div class="mu-viz-sub">Hover a dot to see commodity &amp; producer</div>
-        <div id="mapTooltip" class="map-tooltip" style="display:none"></div>
-        <svg id="worldMapSvg" viewBox="0 0 800 400" width="100%" style="display:block"></svg>
-        <div class="mu-map-legend">
-          <span class="mu-ml mu-ml-fe" onclick="filterMap('fe',this)" style="cursor:pointer;transition:opacity 0.2s">⚙ Ferrous</span>
-          <span class="mu-ml mu-ml-nf" onclick="filterMap('nf',this)" style="cursor:pointer;transition:opacity 0.2s">● Non-Ferrous</span>
-          <span class="mu-ml mu-ml-au" onclick="filterMap('au',this)" style="cursor:pointer;transition:opacity 0.2s">✦ Precious</span>
-          <span class="mu-ml mu-ml-li" onclick="filterMap('li',this)" style="cursor:pointer;transition:opacity 0.2s">⚡ Battery</span>
+      <!-- STEEL PLANT TRACKER LAUNCH CARD -->
+      <div class="mu-viz-card mu-tracker-card">
+        <div class="mu-viz-title">Global Steel Plant Tracker</div>
+        <div class="mu-viz-sub">45 major plants · BF-BOF · EAF · DRI · Click to explore</div>
+        <div class="tracker-preview" id="trackerPreviewMap"></div>
+        <div class="tracker-stats-row">
+          <div class="tracker-stat"><span class="ts-val">1.9B t</span><span class="ts-lbl">Total capacity</span></div>
+          <div class="tracker-stat"><span class="ts-val" style="color:#d4a843">28</span><span class="ts-lbl">BF-BOF plants</span></div>
+          <div class="tracker-stat"><span class="ts-val" style="color:#2ab8a8">12</span><span class="ts-lbl">EAF plants</span></div>
+          <div class="tracker-stat"><span class="ts-val" style="color:#28c88a">5</span><span class="ts-lbl">DRI / Green</span></div>
         </div>
+        <button class="tracker-launch-btn" onclick="openSteelTracker()">
+          🗺 Launch Steel Plant Tracker
+        </button>
       </div>
 
     </div>
@@ -3103,6 +3219,240 @@
   document.addEventListener('DOMContentLoaded', () => { drawRadar(); drawWorldMap(); });
   setTimeout(() => { drawRadar(); drawWorldMap(); }, 300);
 
+
+  /* ══════════════════════════════════════
+     STEEL PLANT TRACKER
+  ══════════════════════════════════════ */
+  const stPlants = [
+    // China
+    {n:'Baowu Baosteel',     owner:'China Baowu Steel Group', country:'China', lat:31.32, lng:121.52, cap:37, route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'Baowu WISCO',        owner:'China Baowu Steel Group', country:'China', lat:30.62, lng:114.28, cap:25, route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'HBIS Tangshan',      owner:'HBIS Group',              country:'China', lat:39.63, lng:118.18, cap:24, route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'Ansteel',            owner:'Anshan Iron & Steel',     country:'China', lat:41.11, lng:122.99, cap:20, route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'Shagang Group',      owner:'Jiangsu Shagang',         country:'China', lat:31.88, lng:120.56, cap:16, route:'EAF',        status:'Operating', flag:'🇨🇳'},
+    {n:'Shandong Steel',     owner:'Shandong Iron & Steel',   country:'China', lat:36.65, lng:117.12, cap:15, route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'Jianlong Group',     owner:'Jianlong Steel',          country:'China', lat:39.72, lng:118.32, cap:14, route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'Rizhao Steel',       owner:'Rizhao Iron & Steel',     country:'China', lat:35.42, lng:119.53, cap:12, route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'Baowu Meigang',      owner:'China Baowu Steel Group', country:'China', lat:31.20, lng:121.38, cap:8,  route:'BF-BOF',     status:'Operating', flag:'🇨🇳'},
+    {n:'Delong Steel',       owner:'Delong Steel',            country:'China', lat:37.38, lng:115.48, cap:7,  route:'EAF',        status:'Operating', flag:'🇨🇳'},
+    // South Korea
+    {n:'POSCO Pohang',       owner:'POSCO',                   country:'South Korea', lat:36.02, lng:129.42, cap:18, route:'BF-BOF', status:'Operating', flag:'🇰🇷'},
+    {n:'POSCO Gwangyang',    owner:'POSCO',                   country:'South Korea', lat:34.91, lng:127.71, cap:20, route:'BF-BOF', status:'Operating', flag:'🇰🇷'},
+    {n:'Hyundai Steel',      owner:'Hyundai Steel',           country:'South Korea', lat:36.89, lng:126.60, cap:9,  route:'BF-BOF+EAF', status:'Operating', flag:'🇰🇷'},
+    // Japan
+    {n:'Nippon Steel Kimitsu',owner:'Nippon Steel',           country:'Japan', lat:35.33, lng:139.90, cap:11, route:'BF-BOF',    status:'Operating', flag:'🇯🇵'},
+    {n:'JFE Fukuyama',       owner:'JFE Steel',               country:'Japan', lat:34.48, lng:133.38, cap:12, route:'BF-BOF',    status:'Operating', flag:'🇯🇵'},
+    {n:'Nippon Steel Oita',  owner:'Nippon Steel',            country:'Japan', lat:33.22, lng:131.61, cap:9,  route:'BF-BOF',    status:'Operating', flag:'🇯🇵'},
+    // India
+    {n:'Tata Steel Jamshedpur', owner:'Tata Steel',           country:'India', lat:22.80, lng:86.19, cap:11,  route:'BF-BOF',    status:'Operating', flag:'🇮🇳'},
+    {n:'JSW Vijayanagar',    owner:'JSW Steel',               country:'India', lat:15.12, lng:76.92, cap:12,  route:'BF-BOF',    status:'Operating', flag:'🇮🇳'},
+    {n:'SAIL Bhilai',        owner:'Steel Authority of India',country:'India', lat:21.21, lng:81.43, cap:7,   route:'BF-BOF',    status:'Operating', flag:'🇮🇳'},
+    {n:'SAIL Rourkela',      owner:'Steel Authority of India',country:'India', lat:22.22, lng:84.86, cap:5,   route:'BF-BOF',    status:'Operating', flag:'🇮🇳'},
+    {n:'Tata Steel Kalinganagar', owner:'Tata Steel',         country:'India', lat:20.95, lng:85.98, cap:8,   route:'BF-BOF',    status:'Operating', flag:'🇮🇳'},
+    {n:'JSW Dolvi',          owner:'JSW Steel',               country:'India', lat:18.42, lng:72.82, cap:5,   route:'BF-BOF+EAF',status:'Operating', flag:'🇮🇳'},
+    // Europe
+    {n:'ThyssenKrupp Duisburg', owner:'ThyssenKrupp Steel',   country:'Germany', lat:51.38, lng:6.79, cap:12, route:'BF-BOF',   status:'Operating', flag:'🇩🇪'},
+    {n:'ArcelorMittal Ghent',owner:'ArcelorMittal',           country:'Belgium', lat:51.04, lng:3.72, cap:6,  route:'BF-BOF',   status:'Operating', flag:'🇧🇪'},
+    {n:'ArcelorMittal Dunkerque', owner:'ArcelorMittal',      country:'France',  lat:50.98, lng:2.38, cap:7,  route:'BF-BOF',   status:'Operating', flag:'🇫🇷'},
+    {n:'Tata Steel IJmuiden',owner:'Tata Steel Europe',       country:'Netherlands', lat:52.46, lng:4.62, cap:7, route:'BF-BOF',status:'Operating', flag:'🇳🇱'},
+    {n:'Voestalpine Linz',   owner:'Voestalpine',             country:'Austria', lat:48.32, lng:14.28, cap:5, route:'BF-BOF',   status:'Operating', flag:'🇦🇹'},
+    {n:'Salzgitter Steel',   owner:'Salzgitter AG',           country:'Germany', lat:52.18, lng:10.32, cap:4, route:'BF-BOF',   status:'Operating', flag:'🇩🇪'},
+    {n:'SSAB Luleå',         owner:'SSAB',                    country:'Sweden',  lat:65.58, lng:22.16, cap:3, route:'BF-BOF',   status:'Operating', flag:'🇸🇪'},
+    // Russia
+    {n:'NLMK Lipetsk',       owner:'NLMK Group',              country:'Russia', lat:52.61, lng:39.60, cap:17, route:'BF-BOF',   status:'Operating', flag:'🇷🇺'},
+    {n:'Severstal Cherepovets',owner:'Severstal',             country:'Russia', lat:59.08, lng:37.92, cap:12, route:'BF-BOF',   status:'Operating', flag:'🇷🇺'},
+    {n:'MMK Magnitogorsk',   owner:'Magnitogorsk Iron & Steel',country:'Russia', lat:53.42, lng:59.06, cap:12, route:'BF-BOF', status:'Operating', flag:'🇷🇺'},
+    // USA
+    {n:'US Steel Gary Works',owner:'United States Steel',     country:'USA', lat:41.60, lng:-87.33, cap:7,   route:'BF-BOF',   status:'Operating', flag:'🇺🇸'},
+    {n:'Cleveland-Cliffs Burns Harbor', owner:'Cleveland-Cliffs', country:'USA', lat:41.62, lng:-87.12, cap:5, route:'BF-BOF',status:'Operating', flag:'🇺🇸'},
+    {n:'Nucor Steel Arkansas',owner:'Nucor Corporation',      country:'USA', lat:35.52, lng:-91.00, cap:3,   route:'EAF',      status:'Operating', flag:'🇺🇸'},
+    {n:'Steel Dynamics Columbus',owner:'Steel Dynamics',       country:'USA', lat:33.52, lng:-88.42, cap:3,  route:'EAF',      status:'Operating', flag:'🇺🇸'},
+    {n:'Nucor Berkeley',     owner:'Nucor Corporation',       country:'USA', lat:33.18, lng:-79.78, cap:2,  route:'EAF',      status:'Operating', flag:'🇺🇸'},
+    // Latin America
+    {n:'CSN Volta Redonda',  owner:'CSN',                     country:'Brazil', lat:-22.52, lng:-44.10, cap:5, route:'BF-BOF', status:'Operating', flag:'🇧🇷'},
+    {n:'Usiminas Ipatinga',  owner:'Usiminas',                country:'Brazil', lat:-19.47, lng:-42.53, cap:5, route:'BF-BOF', status:'Operating', flag:'🇧🇷'},
+    {n:'Ternium Monterrey',  owner:'Ternium',                 country:'Mexico', lat:25.68, lng:-100.32, cap:4, route:'EAF',   status:'Operating', flag:'🇲🇽'},
+    {n:'Gerdau Ouro Branco', owner:'Gerdau',                  country:'Brazil', lat:-20.52, lng:-43.69, cap:3, route:'EAF',   status:'Operating', flag:'🇧🇷'},
+    // Middle East
+    {n:'Hadeed Jubail',      owner:'Saudi Aramco/SABIC',      country:'Saudi Arabia', lat:27.01, lng:49.67, cap:4, route:'EAF', status:'Operating', flag:'🇸🇦'},
+    // Under Construction / Green
+    {n:'H2 Green Steel Boden', owner:'H2 Green Steel',        country:'Sweden', lat:65.82, lng:21.68, cap:5, route:'DRI',  status:'Under Construction', flag:'🇸🇪'},
+    {n:'SSAB HYBRIT Luleå',  owner:'SSAB / LKAB / Vattenfall',country:'Sweden', lat:65.60, lng:22.18, cap:2, route:'DRI',  status:'Under Construction', flag:'🇸🇪'},
+    {n:'TKS tkH2Steel',      owner:'ThyssenKrupp Steel',      country:'Germany', lat:51.42, lng:6.83, cap:3, route:'DRI',  status:'Under Construction', flag:'🇩🇪'},
+    {n:'ArcelorMittal Hamburg DRI', owner:'ArcelorMittal',    country:'Germany', lat:53.55, lng:10.00, cap:2, route:'DRI', status:'Operating',          flag:'🇩🇪'},
+    {n:'Jindal Steel Angul', owner:'Jindal Steel & Power',    country:'India', lat:20.83, lng:85.10, cap:6, route:'DRI',   status:'Operating',          flag:'🇮🇳'},
+  ];
+
+  const stRouteColors = {
+    'BF-BOF':     '#d4a843',
+    'EAF':        '#2ab8a8',
+    'DRI':        '#28c88a',
+    'BF-BOF+EAF': '#e8c060'
+  };
+
+  const stStatusStyles = {
+    'Operating':          { opacity: 0.85, dash: null },
+    'Under Construction': { opacity: 0.85, dash: '4,4' },
+    'Proposed':           { opacity: 0.5,  dash: '2,6' },
+    'Mothballed':         { opacity: 0.3,  dash: '2,4' }
+  };
+
+  let stMap = null;
+  let stMarkerLayer = null;
+  let stInitialized = false;
+
+  function stCapRadius(cap) {
+    return Math.max(5, Math.sqrt(cap) * 2.8);
+  }
+
+  function openSteelTracker() {
+    document.getElementById('steelTrackerModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (!stInitialized) {
+      setTimeout(initSteelMap, 100);
+    }
+  }
+
+  function closeSteelTracker() {
+    document.getElementById('steelTrackerModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function initSteelMap() {
+    if (typeof L === 'undefined') { setTimeout(initSteelMap, 300); return; }
+    stInitialized = true;
+
+    stMap = L.map('stMap', {
+      center: [30, 15], zoom: 2, minZoom: 2, maxZoom: 8,
+      zoomControl: true
+    });
+
+    // Dark CartoDB tiles
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '©OpenStreetMap ©CartoDB',
+      subdomains: 'abcd', maxZoom: 19
+    }).addTo(stMap);
+
+    stMarkerLayer = L.layerGroup().addTo(stMap);
+
+    // Populate country dropdown
+    const countries = [...new Set(stPlants.map(p => p.country))].sort();
+    const sel = document.getElementById('stCountrySelect');
+    countries.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      sel.appendChild(opt);
+    });
+
+    stApplyFilters();
+    stUpdateCounts();
+  }
+
+  function stUpdateCounts() {
+    const routeCounts = {}, statusCounts = {};
+    stPlants.forEach(p => {
+      routeCounts[p.route] = (routeCounts[p.route] || 0) + 1;
+      statusCounts[p.status] = (statusCounts[p.status] || 0) + 1;
+    });
+    ['BF-BOF','EAF','DRI','BF-BOF+EAF'].forEach(r => {
+      const el = document.getElementById('cnt-' + r);
+      if (el) el.textContent = routeCounts[r] || 0;
+    });
+    ['Operating','Under Construction','Proposed','Mothballed'].forEach(s => {
+      const el = document.getElementById('cnt-' + s);
+      if (el) el.textContent = statusCounts[s] || 0;
+    });
+  }
+
+  function stApplyFilters() {
+    if (!stMap) return;
+    const routes   = [...document.querySelectorAll('.st-route-cb:checked')].map(c => c.value);
+    const statuses = [...document.querySelectorAll('.st-status-cb:checked')].map(c => c.value);
+    const country  = document.getElementById('stCountrySelect').value;
+    const search   = document.getElementById('stSearchInput').value.toLowerCase().trim();
+
+    stMarkerLayer.clearLayers();
+
+    const filtered = stPlants.filter(p => {
+      if (!routes.includes(p.route)) return false;
+      if (!statuses.includes(p.status)) return false;
+      if (country && p.country !== country) return false;
+      if (search && !p.n.toLowerCase().includes(search) && !p.owner.toLowerCase().includes(search)) return false;
+      return true;
+    });
+
+    filtered.forEach(p => {
+      const color  = stRouteColors[p.route] || '#888';
+      const style  = stStatusStyles[p.status] || stStatusStyles['Operating'];
+      const radius = stCapRadius(p.cap);
+
+      const marker = L.circleMarker([p.lat, p.lng], {
+        radius, color, weight: 1.5,
+        fillColor: color, fillOpacity: style.opacity,
+        opacity: style.opacity,
+        dashArray: style.dash || null
+      });
+
+      const routeColor = stRouteColors[p.route] || '#888';
+      marker.bindPopup(`
+        <div class="st-popup">
+          <div class="st-popup-name">${p.flag} ${p.n}</div>
+          <div class="st-popup-owner">${p.owner}</div>
+          <div class="st-popup-grid">
+            <div class="st-popup-stat">
+              <div class="st-popup-stat-lbl">Capacity</div>
+              <div class="st-popup-stat-val">${p.cap} Mt/yr</div>
+            </div>
+            <div class="st-popup-stat">
+              <div class="st-popup-stat-lbl">Country</div>
+              <div class="st-popup-stat-val">${p.country}</div>
+            </div>
+            <div class="st-popup-stat">
+              <div class="st-popup-stat-lbl">Status</div>
+              <div class="st-popup-stat-val">${p.status}</div>
+            </div>
+            <div class="st-popup-stat">
+              <div class="st-popup-stat-lbl">Route</div>
+              <div class="st-popup-stat-val">${p.route}</div>
+            </div>
+          </div>
+          <span class="st-popup-route" style="background:${routeColor}22;color:${routeColor};border:1px solid ${routeColor}44">${p.route}</span>
+        </div>
+      `, { maxWidth: 260 });
+
+      stMarkerLayer.addLayer(marker);
+    });
+
+    document.getElementById('stCountNum').textContent = filtered.length;
+  }
+
+  // Mini preview map in launch card
+  function initPreviewMap() {
+    if (typeof L === 'undefined') return;
+    const previewMap = L.map('trackerPreviewMap', {
+      center: [25, 15], zoom: 1, zoomControl: false, dragging: false,
+      scrollWheelZoom: false, touchZoom: false, keyboard: false,
+      attributionControl: false, minZoom:1, maxZoom:1
+    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd'
+    }).addTo(previewMap);
+    stPlants.forEach(p => {
+      const color = stRouteColors[p.route] || '#888';
+      L.circleMarker([p.lat, p.lng], {
+        radius: Math.max(2, Math.sqrt(p.cap) * 1.2),
+        color, weight: 0.5, fillColor: color, fillOpacity: 0.7, opacity: 0.7
+      }).addTo(previewMap);
+    });
+  }
+  setTimeout(() => {
+    if (typeof L !== 'undefined') initPreviewMap();
+    else { const t = setInterval(() => { if (typeof L !== 'undefined') { clearInterval(t); initPreviewMap(); } }, 300); }
+  }, 500);
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSteelTracker(); });
+
+
   /* ── CALCULATOR ── */
   function calcUpdate() {
     const hrc = +document.getElementById('hrc-r').value;
@@ -3229,6 +3579,58 @@
       <div class="pm-commentary-label">📊 Market Commentary</div>
       <div class="pm-commentary-text" id="pmCommentary"></div>
     </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ STEEL PLANT TRACKER MODAL ═══════════════ -->
+<div id="steelTrackerModal">
+  <div class="st-topbar">
+    <button class="st-back" onclick="closeSteelTracker()">← Back</button>
+    <div>
+      <div class="st-topbar-title">🏭 Global Steel Plant Tracker</div>
+      <div class="st-topbar-sub">Inspired by Global Energy Monitor · Major plants ≥ 2 Mt/yr capacity</div>
+    </div>
+    <div class="st-count"><span id="stCountNum">45</span> plants shown</div>
+  </div>
+  <div class="st-layout">
+    <div class="st-sidebar">
+      <div class="st-search">
+        <input type="text" id="stSearchInput" placeholder="🔍 Search plant or owner..." oninput="stApplyFilters()">
+      </div>
+
+      <div class="st-filter-section">
+        <div class="st-filter-label">Production Route</div>
+        <label class="st-check-row"><input type="checkbox" class="st-route-cb" value="BF-BOF" checked onchange="stApplyFilters()"><span class="st-check-label"><span class="st-check-dot" style="background:#d4a843"></span>BF-BOF (Blast Furnace)<span class="st-check-count" id="cnt-BF-BOF">—</span></span></label>
+        <label class="st-check-row"><input type="checkbox" class="st-route-cb" value="EAF" checked onchange="stApplyFilters()"><span class="st-check-label"><span class="st-check-dot" style="background:#2ab8a8"></span>EAF (Electric Arc)<span class="st-check-count" id="cnt-EAF">—</span></span></label>
+        <label class="st-check-row"><input type="checkbox" class="st-route-cb" value="DRI" checked onchange="stApplyFilters()"><span class="st-check-label"><span class="st-check-dot" style="background:#28c88a"></span>DRI / Green Steel<span class="st-check-count" id="cnt-DRI">—</span></span></label>
+        <label class="st-check-row"><input type="checkbox" class="st-route-cb" value="BF-BOF+EAF" checked onchange="stApplyFilters()"><span class="st-check-label"><span class="st-check-dot" style="background:#e8c060"></span>Integrated (Mixed)<span class="st-check-count" id="cnt-BF-BOF+EAF">—</span></span></label>
+      </div>
+
+      <div class="st-filter-section">
+        <div class="st-filter-label">Status</div>
+        <label class="st-check-row"><input type="checkbox" class="st-status-cb" value="Operating" checked onchange="stApplyFilters()"><span class="st-check-label">🟢 Operating<span class="st-check-count" id="cnt-Operating">—</span></span></label>
+        <label class="st-check-row"><input type="checkbox" class="st-status-cb" value="Under Construction" checked onchange="stApplyFilters()"><span class="st-check-label">🟡 Under Construction<span class="st-check-count" id="cnt-Under Construction">—</span></span></label>
+        <label class="st-check-row"><input type="checkbox" class="st-status-cb" value="Proposed" checked onchange="stApplyFilters()"><span class="st-check-label">🔵 Proposed<span class="st-check-count" id="cnt-Proposed">—</span></span></label>
+        <label class="st-check-row"><input type="checkbox" class="st-status-cb" value="Mothballed" checked onchange="stApplyFilters()"><span class="st-check-label">⚫ Mothballed<span class="st-check-count" id="cnt-Mothballed">—</span></span></label>
+      </div>
+
+      <div class="st-filter-section">
+        <div class="st-filter-label">Country</div>
+        <select class="st-country-select" id="stCountrySelect" onchange="stApplyFilters()">
+          <option value="">All Countries</option>
+        </select>
+      </div>
+
+      <div class="st-legend">
+        <div class="st-legend-title">Marker Size = Capacity</div>
+        <div class="st-leg-row"><div class="st-leg-circle" style="width:8px;height:8px;background:#888"></div> &lt;5 Mt/yr</div>
+        <div class="st-leg-row"><div class="st-leg-circle" style="width:12px;height:12px;background:#888"></div> 5–15 Mt/yr</div>
+        <div class="st-leg-row"><div class="st-leg-circle" style="width:18px;height:18px;background:#888"></div> 15–25 Mt/yr</div>
+        <div class="st-leg-row"><div class="st-leg-circle" style="width:24px;height:24px;background:#888"></div> &gt;25 Mt/yr</div>
+      </div>
+    </div>
+    <div id="stMap"></div>
   </div>
 </div>
 
