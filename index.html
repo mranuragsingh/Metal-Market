@@ -661,6 +661,86 @@
 
     .dp-gap { margin-bottom: 2.5rem; }
 
+
+    /* ─── PRICE MODAL ─── */
+    #priceModal {
+      display: none; position: fixed; inset: 0; z-index: 2000;
+      background: rgba(6,18,20,0.97); backdrop-filter: blur(18px);
+      overflow-y: auto;
+    }
+    #priceModal.open { display: block; animation: slideInDetail 0.3s cubic-bezier(0.22,1,0.36,1); }
+    .pm-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+    }
+    .pm-close {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text-muted); width: 34px; height: 34px; border-radius: 50%;
+      cursor: pointer; font-size: 1.1rem; display: flex; align-items: center;
+      justify-content: center; transition: all 0.15s; font-family: var(--font);
+    }
+    .pm-close:hover { background: var(--surface); color: var(--text); border-color: var(--border-hover); }
+    .pm-mat-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    .pm-tab {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-faint); padding: 0.3rem 0.75rem; border-radius: 20px;
+      font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
+      font-family: var(--font);
+    }
+    .pm-tab:hover { color: var(--text-muted); border-color: var(--border-hover); }
+    .pm-tab.active { background: var(--amber-dim); border-color: var(--amber-border); color: var(--amber); }
+
+    .pm-body { padding: 1.5rem 2rem; }
+    .pm-hero { display: flex; align-items: flex-end; gap: 3rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .pm-title-block { }
+    .pm-title { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
+    .pm-subtitle { font-size: 0.72rem; color: var(--text-faint); margin-top: 0.2rem; font-family: var(--mono); }
+    .pm-price-block { }
+    .pm-price-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.3rem; }
+    .pm-price-val { font-size: 2.4rem; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; }
+    .pm-price-change { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.78rem; font-weight: 700; font-family: var(--mono); padding: 0.2rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; }
+    .pm-price-change.up   { background: rgba(40,200,138,0.15); color: #28c88a; }
+    .pm-price-change.down { background: rgba(232,85,85,0.15);  color: #e85555; }
+    .pm-avg-block { }
+    .pm-avg-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.3rem; }
+    .pm-avg-val { font-size: 1.8rem; font-weight: 700; font-family: var(--mono); color: var(--text-muted); }
+
+    .pm-controls { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .pm-ctrl-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-right: 0.25rem; }
+    .pm-range-btns { display: flex; gap: 0.25rem; }
+    .pm-range-btn {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-faint); padding: 0.3rem 0.7rem; border-radius: 6px;
+      font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: var(--font);
+    }
+    .pm-range-btn.active { background: var(--amber-dim); border-color: var(--amber-border); color: var(--amber); }
+
+    .pm-chart-wrap { display: flex; gap: 1.25rem; }
+    .pm-chart-main { flex: 1; min-width: 0; }
+    .pm-chart-legend { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
+    .pm-legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.68rem; color: var(--text-muted); font-weight: 600; }
+    .pm-legend-line { width: 22px; height: 2px; border-radius: 2px; }
+    .pm-chart-svg { width: 100%; height: 220px; display: block; border-radius: 10px; overflow: visible; }
+
+    .pm-chart-side { display: flex; flex-direction: column; gap: 0.75rem; width: 190px; flex-shrink: 0; }
+    .pm-stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
+    .pm-stat-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.45rem; }
+    .pm-stat-val { font-size: 1.6rem; font-weight: 700; font-family: var(--mono); line-height: 1; }
+    .pm-stat-card.high { border-left: 3px solid #28c88a; } .pm-stat-card.high .pm-stat-val { color: #28c88a; }
+    .pm-stat-card.low  { border-left: 3px solid #e85555; } .pm-stat-card.low  .pm-stat-val { color: #e85555; }
+    .pm-stat-card.avg  { border-left: 3px solid var(--amber); } .pm-stat-card.avg .pm-stat-val { color: var(--amber); }
+
+    .pm-commentary { margin-top: 1.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.25rem; }
+    .pm-commentary-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
+    .pm-commentary-text { font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; }
+    .pm-commentary-text strong { color: var(--text); }
+
+    /* Card shuffle */
+    .mcard { transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s; }
+    .shuffle-name { transition: opacity 0.35s, transform 0.35s; }
+    .shuffle-name.fading { opacity: 0; transform: translateY(-6px); }
+    .shuffle-name.coming { opacity: 0; transform: translateY(6px); }
+
   </style>
 </head>
 <body>
@@ -2055,6 +2135,321 @@
     });
   });
 
+  /* ══════════════════════════════════
+     PRICE MODAL — DATA + CHART + LOGIC
+  ══════════════════════════════════ */
+
+  const PM_MONTHS = ['Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26'];
+
+  const priceDB = {
+    // ── FERROUS (Source: Sunsirs, China) ──
+    hrc: { name:'Hot Rolled Coil', unit:'$/MT', source:'Sunsirs · China',
+      category:'ferrous', color:'#d4a843',
+      vals:[472.4,467.7,469.9,475.1,476.7,477.6,478.6],
+      commentary:'HRC prices in China were broadly <strong>range-bound</strong> over the period, dipping slightly in Oct–Nov on weak domestic demand before recovering. The gradual uptick from Dec onwards reflects improved steel mill margins as iron ore costs softened while finished steel demand from the infrastructure sector held firm. The government\'s stepped-up infrastructure spending and <strong>property sector stabilisation measures</strong> provided floor support, while overcapacity concerns capped any sharp rally.'
+    },
+    crc: { name:'Cold Rolled Coil', unit:'$/MT', source:'Sunsirs · China',
+      category:'ferrous', color:'#d4a843',
+      vals:[557.7,556.9,554.1,550.5,545.2,546.5,545.7],
+      commentary:'CRC prices drifted <strong>softly lower</strong> throughout the period, reflecting weak downstream demand from the white goods and automotive sectors in China. Persistent overcapacity at cold-rolling mills kept premiums over HRC compressed. The modest stabilisation in Mar–Apr suggests mills began implementing production cuts, but a meaningful recovery awaits a sustained pickup in export orders or domestic appliance demand.'
+    },
+    mild_steel: { name:'Mild Steel Plate', unit:'$/MT', source:'Sunsirs · China',
+      category:'ferrous', color:'#d4a843',
+      vals:[465.5,458.5,457.2,457.2,459.9,466.3,472.1],
+      commentary:'Mild steel plate prices bottomed in Nov–Dec before recovering in Q1 2026, driven by a <strong>pickup in shipbuilding and heavy equipment orders</strong>. Chinese plate mills benefited from a surge in offshore wind project tendering and state-backed infrastructure contracts. The recovery from the lows was sharper than flat-rolled products, reflecting the tighter supply position in heavy plate following capacity rationalisation by major mills.'
+    },
+    stainless: { name:'Stainless Steel', unit:'$/MT', source:'Sunsirs · China',
+      category:'ferrous', color:'#d4a843',
+      vals:[1826.5,1777.2,1795.5,1995.2,2041.4,2082.4,2093.6],
+      commentary:'Stainless steel staged a <strong>sharp 14.6% rally</strong> over the period, driven primarily by the concurrent surge in nickel prices. The Jan 2026 step-change reflects Indonesia\'s tightening of NPI (nickel pig iron) export policies, which reduced the cheap nickel feedstock available to Chinese stainless mills. Simultaneously, demand from the food equipment and chemical processing industries showed resilience, and Indian and Southeast Asian buyers restocked aggressively ahead of anticipated further price rises.'
+    },
+    // ── NON-FERROUS (Source: LME) ──
+    copper: { name:'Copper', unit:'$/MT', source:'LME · 3-Month',
+      category:'nf', color:'#2ab8a8',
+      vals:[10747,10872,11761,13011,13033,12608,12499],
+      commentary:'Copper surged <strong>+16.3%</strong> over the period in one of its strongest runs in years. The rally was driven by a confluence of factors: <strong>accelerating EV and grid infrastructure demand</strong> outpacing mine supply growth, a weakening US dollar boosting commodity prices broadly, and speculative fund positioning reaching multi-year highs. The Feb–Apr consolidation reflects profit-taking and some demand softness from Chinese property, but the structural supply deficit narrative kept prices well supported above $12,000/MT.'
+    },
+    zinc: { name:'Zinc', unit:'$/MT', source:'LME · 3-Month',
+      category:'nf', color:'#2ab8a8',
+      vals:[3010,3035,3046,3245,3348,3208,3295],
+      commentary:'Zinc prices climbed <strong>+9.5%</strong> with a notable surge in Jan–Feb driven by <strong>smelter curtailments in Europe</strong> due to high energy costs and declining zinc ore concentrate availability following mine shutdowns in Australia and Peru. The galvanized steel sector — our primary downstream market — saw robust demand from construction activity in South and Southeast Asia. The Feb correction reflected some demand softness from China\'s construction sector, but supply constraints maintained an overall bullish bias.'
+    },
+    nickel: { name:'Nickel', unit:'$/MT', source:'LME · 3-Month',
+      category:'nf', color:'#2ab8a8',
+      vals:[15284,14869,15067,17938,17412,17278,17126],
+      commentary:'Nickel saw <strong>high volatility</strong> with a sharp Jan 2026 spike driven by Indonesia\'s announcement of tighter NPI export restrictions — reducing the supply of cheap nickel units into the market. The subsequent correction from the peak reflects China\'s drawdown of significant LME warehouse stocks and a slower-than-expected battery sector ramp. Class 1 (battery-grade) nickel traded at a premium to LME throughout, reflecting structural tightness in high-purity material despite headline inventory builds.'
+    },
+    tin: { name:'Tin', unit:'$/MT', source:'LME · 3-Month',
+      category:'nf', color:'#2ab8a8',
+      vals:[36020,36954,41164,49661,48820,47454,46982],
+      commentary:'Tin was the <strong>standout performer</strong> with a +30.4% surge — one of the best runs in the LME base metals complex. The rally was primarily driven by <strong>Indonesia\'s tightening of tin ore export quotas</strong> (Indonesia supplies ~25% of global refined tin), combined with surging demand from the electronics sector for solder and from the tinplate packaging industry. Our tinplate pricing was directly impacted — every $1,000/MT move in LME Tin translates to roughly $3–5/MT in tinplate price for T57 grade coatings.'
+    },
+    lead: { name:'Lead', unit:'$/MT', source:'LME · 3-Month',
+      category:'nf', color:'#2ab8a8',
+      vals:[2004,2024,1985,2039,1965,1920,1937],
+      commentary:'Lead was the <strong>notable underperformer</strong> in the base metals complex, declining -3.3% against a broadly rising market. Structural headwinds persist as lithium-ion batteries continue displacing lead-acid batteries in light vehicle starting applications and nascent e-bike markets. Demand from the automotive replacement battery cycle (the dominant use case) remained sluggish. Supply was ample with no major disruptions, keeping prices capped. The modest recovery in Apr reflects seasonal demand for agricultural batteries and backup power.'
+    },
+    // ── PRECIOUS (Source: LME) ──
+    gold: { name:'Gold', unit:'$/troy oz', source:'LME · Spot',
+      category:'precious', color:'#e8c060',
+      vals:[4036.8,4078.1,4200.5,4708.6,5034.0,4881.7,4753.3],
+      commentary:'Gold delivered a <strong>remarkable +17.8% rally</strong>, reaching $5,034/oz in Feb 2026 before consolidating. The bull run was driven by <strong>record central bank purchases</strong> (China PBoC, India RBI, Poland NBP accumulated aggressively), expectations of Fed rate cuts reducing the opportunity cost of holding gold, and surging safe-haven demand amid geopolitical tensions in the Middle East and Eastern Europe. The Feb peak and subsequent pullback reflect profit-taking by Western ETF investors, while Asian physical demand (India import duty reduction) provided a floor.'
+    },
+    silver: { name:'Silver', unit:'$/troy oz', source:'LME · Spot',
+      category:'precious', color:'#e8c060',
+      vals:[49.1,51.0,65.7,90.0,82.7,78.3,76.4],
+      commentary:'Silver staged an extraordinary <strong>+55.7% rally</strong> to briefly breach $90/oz — a level not seen in decades. The move was amplified by silver\'s dual role as both a <strong>monetary metal</strong> (tracking gold\'s rally) and an <strong>industrial metal</strong> (solar PV cell demand accelerating as China and India deployed record renewable capacity). The Feb peak triggered significant short-covering in COMEX futures, further amplifying volatility. The subsequent correction to $76 reflects normalisation as solar panel manufacturers locked in forward contracts at lower prices.'
+    },
+    platinum: { name:'Platinum', unit:'$/troy oz', source:'LME · Spot',
+      category:'precious', color:'#e8c060',
+      vals:[1619.4,1571.4,1915.5,2405.5,2164.5,2054.4,2050.1],
+      commentary:'Platinum surged <strong>+26.6%</strong>, recovering from a prolonged period of underperformance relative to palladium. The sharp Dec–Jan rally was driven by <strong>hydrogen fuel cell vehicle momentum</strong> (platinum is a key catalyst in H₂ fuel cells) and a structural deficit in South African mine supply following prolonged power outages (load-shedding). The substitution of platinum for palladium in gasoline autocatalysts — as automakers exploited the historically wide price discount — provided additional demand support. The subsequent pullback reflects profit-taking at multi-year resistance levels.'
+    },
+    palladium: { name:'Palladium', unit:'$/troy oz', source:'LME · Spot',
+      category:'precious', color:'#e8c060',
+      vals:[1434.5,1416.5,1639.4,1854.1,1750.9,1562.9,1541.0],
+      commentary:'Palladium showed <strong>high volatility with a Jan spike</strong> driven by disruptions to Russian supply (Norilsk Nickel — which supplies ~40% of global palladium — faced logistics challenges). The Dec–Jan move also reflected a catch-up trade as gasoline automotive production rates recovered in China and the US. The subsequent sharp reversal reflects the structural headwind from EV adoption reducing autocatalyst demand and the ongoing substitution of platinum for palladium where technically feasible. Long-term outlook remains challenging.'
+    },
+    // ── BATTERY MATERIALS (Source: Sunsirs, China) ──
+    lithium: { name:'Lithium Carbonate', unit:'$/MT', source:'Sunsirs · China',
+      category:'battery', color:'#28c88a',
+      vals:[10518,12297,14485,21542,21252,22604,23111],
+      commentary:'Lithium carbonate prices <strong>more than doubled</strong> (+119.7%) from the cyclical lows of late 2024. The recovery followed an extraordinary 85% crash in 2023–24 that wiped out marginal producers and triggered supply discipline across the industry. The 2026 recovery reflects <strong>restocking by battery makers</strong> who had been drawing down inventories, accelerating EV demand in China (monthly EV sales exceeding 50% market share), and new gigafactory capacity coming online requiring feedstock. Spodumene (hard rock lithium) mines in Australia led supply cuts which have now tightened the market.'
+    },
+    cobalt: { name:'Cobalt', unit:'$/MT', source:'Sunsirs · China',
+      category:'battery', color:'#28c88a',
+      vals:[52572,55557,59345,64667,61631,62354,60359],
+      commentary:'Cobalt prices rose <strong>+14.8%</strong>, recovering partially from the severe 2023–24 downtrend caused by a flood of DRC supply. The recovery was driven by <strong>battery maker restocking</strong> ahead of anticipated NMC cathode demand acceleration, and modest supply discipline from some DRC producers. However, the structural headwind from battery chemistry shifts — manufacturers moving from NMC 523 (high cobalt) to NMC 811 and LFP (low/zero cobalt) — continued to cap the rally. ESG concerns around artisanal mining in DRC also prompted end-users to diversify supply chains.'
+    },
+    nickel_b: { name:'Nickel (Battery Grade)', unit:'$/MT', source:'Sunsirs · China',
+      category:'battery', color:'#28c88a',
+      vals:[17222,16860,17387,20934,20336,20166,19987],
+      commentary:'Battery-grade nickel (Class 1, >99.8% purity) tracked LME nickel higher with a <strong>+16.1% gain</strong>, though trading at a significant premium to headline LME prices for most of the period. The premium reflects structural tightness in high-purity nickel as Indonesia\'s HPAL (High Pressure Acid Leach) projects — the main route to battery-grade nickel from laterite ores — continued to ramp up more slowly than expected. The Jan spike mirrors the LME move but was amplified for battery-grade material as EV battery makers competed for limited qualified supply.'
+    }
+  };
+
+  const categoryMaterials = {
+    ferrous:  ['hrc','crc','mild_steel','stainless'],
+    nf:       ['copper','zinc','nickel','tin','lead'],
+    precious: ['gold','silver','platinum','palladium'],
+    battery:  ['lithium','cobalt','nickel_b']
+  };
+
+  // Current state
+  let pmCurrentKey = 'hrc';
+  let pmRange = 7;
+
+  function openPriceModal(categoryKey) {
+    const firstMat = categoryMaterials[categoryKey][0];
+    renderPriceModal(firstMat, categoryKey);
+    document.getElementById('priceModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePriceModal() {
+    document.getElementById('priceModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function renderPriceModal(key, catKey) {
+    pmCurrentKey = key;
+    const d = priceDB[key];
+    if (!d) return;
+    const cat = catKey || d.category;
+
+    // Tabs for this category
+    const tabs = categoryMaterials[cat];
+    document.getElementById('pmTabs').innerHTML = tabs.map(t =>
+      `<button class="pm-tab ${t===key?'active':''}" onclick="renderPriceModal('${t}','${cat}')">${priceDB[t].name}</button>`
+    ).join('');
+
+    // Slice by range
+    const slice = d.vals.slice(-pmRange);
+    const months = PM_MONTHS.slice(-pmRange);
+
+    const current = slice[slice.length-1];
+    const first   = slice[0];
+    const pct     = ((current - first) / first * 100);
+    const avg7    = d.vals.reduce((a,b)=>a+b,0) / d.vals.length;
+    const high    = Math.max(...d.vals);
+    const low     = Math.min(...d.vals);
+    const avg3    = d.vals.slice(-3).reduce((a,b)=>a+b,0) / 3;
+
+    // Format
+    const fmt = v => v >= 1000 ? v.toLocaleString('en-US',{maximumFractionDigits:1}) : v.toFixed(2);
+    const isUp = pct >= 0;
+
+    document.getElementById('pmTitle').textContent      = d.name;
+    document.getElementById('pmSubtitle').textContent   = `Spot Price · ${d.unit} · Source: ${d.source}`;
+    document.getElementById('pmPrice').textContent      = fmt(current);
+    document.getElementById('pmChange').textContent     = `${isUp?'▲':'▼'} ${isUp?'+':''}${pct.toFixed(1)}%`;
+    document.getElementById('pmChange').className       = `pm-price-change ${isUp?'up':'down'}`;
+    document.getElementById('pmAvg').textContent        = fmt(avg7);
+    document.getElementById('pmHigh').textContent       = fmt(high);
+    document.getElementById('pmLow').textContent        = fmt(low);
+    document.getElementById('pm3mAvg').textContent      = fmt(avg3);
+    document.getElementById('pmCommentary').innerHTML   = d.commentary;
+
+    // Draw chart
+    drawPmChart(slice, months, d.color);
+  }
+
+  function drawPmChart(vals, months, color) {
+    const svg = document.getElementById('pmChartSvg');
+    const W = 640, H = 200, PL = 55, PR = 18, PT = 15, PB = 32;
+    const w = W - PL - PR, h = H - PT - PB;
+
+    const min = Math.min(...vals) * 0.985;
+    const max = Math.max(...vals) * 1.015;
+    const xOf = i => PL + (i / (vals.length-1)) * w;
+    const yOf = v => PT + h - ((v - min) / (max - min)) * h;
+
+    // Build path
+    const pts = vals.map((v,i) => `${xOf(i)},${yOf(v)}`);
+    const linePath  = `M ${pts.join(' L ')}`;
+    const areaPath  = `M ${xOf(0)},${yOf(min)} L ${pts.join(' L ')} L ${xOf(vals.length-1)},${yOf(min)} Z`;
+
+    // Y-axis ticks
+    const yTicks = 4;
+    let yLines = '', yLabels = '';
+    for (let i=0; i<=yTicks; i++) {
+      const v = min + (max-min) * (i/yTicks);
+      const y = yOf(v);
+      const fmt = v >= 10000 ? (v/1000).toFixed(1)+'k' : v >= 1000 ? v.toFixed(0) : v.toFixed(1);
+      yLines  += `<line x1="${PL}" y1="${y}" x2="${W-PR}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+      yLabels += `<text x="${PL-6}" y="${y+4}" text-anchor="end" fill="#3d4a58" font-size="9" font-family="DM Mono,monospace">${fmt}</text>`;
+    }
+
+    // X-axis labels
+    let xLabels = '';
+    months.forEach((m,i) => {
+      xLabels += `<text x="${xOf(i)}" y="${H-6}" text-anchor="middle" fill="#3d4a58" font-size="9" font-family="Sora,sans-serif">${m}</text>`;
+    });
+
+    // Dots on each data point
+    let dots = vals.map((v,i) => {
+      const isLast = i === vals.length-1;
+      return `<circle cx="${xOf(i)}" cy="${yOf(v)}" r="${isLast?5:3}" fill="${isLast?color:'rgba(255,255,255,0.35)'}" stroke="${color}" stroke-width="${isLast?2:1}"/>`;
+    }).join('');
+
+    // Value label on last point
+    const lastX = xOf(vals.length-1), lastY = yOf(vals[vals.length-1]);
+    const fmtLast = vals[vals.length-1] >= 1000 ? vals[vals.length-1].toLocaleString('en-US',{maximumFractionDigits:0}) : vals[vals.length-1].toFixed(1);
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="${W}" height="${H}" fill="rgba(12,30,34,0.5)" rx="8"/>
+      ${yLines}${yLabels}${xLabels}
+      <path d="${areaPath}" fill="url(#areaGrad)"/>
+      <path d="${linePath}" stroke="${color}" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+      ${dots}
+      <text x="${lastX+8}" y="${lastY+4}" fill="${color}" font-size="10" font-weight="700" font-family="DM Mono,monospace">${fmtLast}</text>
+    `;
+  }
+
+  function setPmRange(r, btn) {
+    pmRange = r;
+    document.querySelectorAll('.pm-range-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPriceModal(pmCurrentKey);
+  }
+
+  /* ── CARD SHUFFLE ── */
+  const cardShuffleConfig = [
+    { cardClass:'ferrous',  materials:['ferrous','hrc','crc','stainless'],
+      labels:['Ferrous Metals','Hot Rolled Coil','Cold Rolled Coil','Stainless Steel'],
+      subs:['Iron-Based · ~90% of all metals','HRC · Benchmark flat product','CRC · HRC + cold rolling','Fe + Cr >10.5%'],
+      prices:['','$'+Math.round(priceValue('hrc')),'$'+Math.round(priceValue('crc')),'$'+Math.round(priceValue('stainless'))],
+      isDetail:[true,false,false,false] },
+    { cardClass:'nf',  materials:['nf','copper','zinc','tin','lead'],
+      labels:['Non-Ferrous Metals','Copper','Zinc','Tin 🎯','Lead'],
+      subs:['No Iron · LME Traded','Cu · $/MT LME','Zn · $/MT LME','Sn · Tinplate input','Pb · $/MT LME'],
+      prices:['','$'+Math.round(priceValue('copper')),'$'+Math.round(priceValue('zinc')),'$'+Math.round(priceValue('tin')),'$'+Math.round(priceValue('lead'))],
+      isDetail:[true,false,false,false,false] },
+    { cardClass:'precious',  materials:['precious','gold','silver','platinum','palladium'],
+      labels:['Precious Metals','Gold','Silver','Platinum','Palladium'],
+      subs:['Rare · Store of Wealth','Au · $/troy oz LBMA','Ag · $/troy oz','Pt · $/troy oz','Pd · $/troy oz'],
+      prices:['','$'+Math.round(priceValue('gold')),'$'+priceValue('silver').toFixed(1),'$'+Math.round(priceValue('platinum')),'$'+Math.round(priceValue('palladium'))],
+      isDetail:[true,false,false,false,false] },
+    { cardClass:'battery',  materials:['battery','lithium','cobalt','nickel_b'],
+      labels:['Battery Materials','Lithium Carbonate','Cobalt','Nickel (Battery Grade)'],
+      subs:['EV-Critical · Fast-Growing','Li₂CO₃ · $/MT China','Co · $/MT China','Ni · $/MT Class 1'],
+      prices:['','$'+Math.round(priceValue('lithium')),'$'+Math.round(priceValue('cobalt')),'$'+Math.round(priceValue('nickel_b'))],
+      isDetail:[true,false,false,false] }
+  ];
+
+  function priceValue(key) {
+    const d = priceDB[key];
+    return d ? d.vals[d.vals.length-1] : 0;
+  }
+
+  const cardIdxState = {ferrous:0, nf:0, precious:0, battery:0};
+  let shuffleTimer = null;
+
+  function startCardShuffle() {
+    shuffleTimer = setInterval(() => {
+      cardShuffleConfig.forEach(cfg => {
+        const cls = cfg.cardClass;
+        const card = document.querySelector(`.mcard.${cls}`);
+        if (!card || card.matches(':hover')) return;
+        cardIdxState[cls] = (cardIdxState[cls] + 1) % cfg.materials.length;
+        updateCardFace(card, cfg, cardIdxState[cls]);
+      });
+    }, 2800);
+  }
+
+  function updateCardFace(card, cfg, idx) {
+    const titleEl = card.querySelector('.mcard-title');
+    const subEl   = card.querySelector('.mcard-sub');
+    if (!titleEl || !subEl) return;
+
+    titleEl.classList.add('fading');
+    subEl.classList.add('fading');
+
+    setTimeout(() => {
+      titleEl.textContent = cfg.labels[idx];
+      subEl.textContent = cfg.subs[idx] + (cfg.prices[idx] ? '  ·  ' + cfg.prices[idx] + '/MT' : '');
+      titleEl.classList.remove('fading');
+      subEl.classList.remove('fading');
+      titleEl.classList.add('coming');
+      subEl.classList.add('coming');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          titleEl.classList.remove('coming');
+          subEl.classList.remove('coming');
+        });
+      });
+    }, 300);
+
+    // Update onclick
+    const catKey = cfg.materials[0];
+    const matKey = cfg.materials[idx];
+    if (idx === 0) {
+      card.onclick = () => openDetail(catKey);
+    } else {
+      card.onclick = () => { openPriceModal(catKey); setTimeout(()=>renderPriceModal(matKey, catKey), 50); };
+    }
+  }
+
+  // Init: wire element tiles to price modal instead of detail page
+  document.querySelectorAll('.mu-elem').forEach(el => {
+    const cat = el.classList.contains('mu-elem-fe') ? 'ferrous' :
+                el.classList.contains('mu-elem-al') ? 'nf' :
+                el.classList.contains('mu-elem-au') ? 'precious' : 'battery';
+    el.onclick = () => openPriceModal(cat);
+  });
+
+  // Start shuffle after small delay
+  setTimeout(startCardShuffle, 2000);
+
+  // ESC to close price modal
+  document.addEventListener('keydown', e => { if (e.key==='Escape') closePriceModal(); });
+
   /* ── CALCULATOR ── */
   function calcUpdate() {
     const hrc = +document.getElementById('hrc-r').value;
@@ -2114,6 +2509,71 @@
     <div class="dpanel" id="dp2"></div>
     <div class="dpanel" id="dp3"></div>
     <div class="dpanel" id="dp4"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════ PRICE MODAL ═══════════════ -->
+<div id="priceModal">
+  <div class="pm-topbar">
+    <div class="pm-mat-tabs" id="pmTabs"></div>
+    <button class="pm-close" onclick="closePriceModal()">×</button>
+  </div>
+  <div class="pm-body">
+    <div class="pm-hero">
+      <div class="pm-title-block">
+        <div class="pm-title" id="pmTitle">Hot Rolled Coil</div>
+        <div class="pm-subtitle" id="pmSubtitle">Spot Price · $/MT · Source: Sunsirs (China)</div>
+      </div>
+      <div class="pm-price-block">
+        <div class="pm-price-label">Current Price</div>
+        <div>
+          <span class="pm-price-val" id="pmPrice">478.6</span>
+          <span class="pm-price-change up" id="pmChange">▲ +1.3%</span>
+        </div>
+      </div>
+      <div class="pm-avg-block">
+        <div class="pm-avg-label">Avg (7M)</div>
+        <div class="pm-avg-val" id="pmAvg">474.0</div>
+      </div>
+    </div>
+
+    <div class="pm-controls">
+      <span class="pm-ctrl-label">Range:</span>
+      <div class="pm-range-btns">
+        <button class="pm-range-btn active" onclick="setPmRange(3,this)">3M</button>
+        <button class="pm-range-btn" onclick="setPmRange(6,this)">6M</button>
+        <button class="pm-range-btn" onclick="setPmRange(7,this)">Max</button>
+      </div>
+    </div>
+
+    <div class="pm-chart-wrap">
+      <div class="pm-chart-main">
+        <div class="pm-chart-legend">
+          <div class="pm-legend-item"><div class="pm-legend-line" style="background:#2ab8a8"></div> Historical</div>
+        </div>
+        <svg class="pm-chart-svg" id="pmChartSvg" viewBox="0 0 640 200" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="pm-chart-side">
+        <div class="pm-stat-card high">
+          <div class="pm-stat-label">7M High</div>
+          <div class="pm-stat-val" id="pmHigh">—</div>
+        </div>
+        <div class="pm-stat-card low">
+          <div class="pm-stat-label">7M Low</div>
+          <div class="pm-stat-val" id="pmLow">—</div>
+        </div>
+        <div class="pm-stat-card avg">
+          <div class="pm-stat-label">3M Average</div>
+          <div class="pm-stat-val" id="pm3mAvg">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pm-commentary">
+      <div class="pm-commentary-label">📊 Market Commentary</div>
+      <div class="pm-commentary-text" id="pmCommentary"></div>
+    </div>
   </div>
 </div>
 
