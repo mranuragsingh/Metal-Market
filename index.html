@@ -178,8 +178,44 @@
     .mcard-stat { font-size: 0.76rem; color: var(--text-muted); line-height: 1.7; }
     .hint { font-size: 0.68rem; color: var(--text-faint); margin-top: 0.75rem; }
 
+    /* ─── VIZ ROW (Radar + Map) ─── */
+    .mu-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; margin-bottom: 1.5rem; }
+    .mu-viz-row { display: grid; grid-template-columns: 320px 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+    .mu-viz-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; position: relative; overflow: hidden; }
+    .mu-viz-title { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+    .mu-viz-sub { font-size: 0.62rem; color: var(--text-faint); margin-bottom: 0.75rem; letter-spacing: 0.04em; }
+
+    /* Radar */
+    .mu-radar-legend { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .mu-rl { font-size: 0.62rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; cursor: pointer; transition: opacity 0.2s; }
+    .mu-rl-fe  { background: rgba(212,168,67,0.15); color: var(--amber); }
+    .mu-rl-nf  { background: rgba(42,184,168,0.15); color: var(--steel); }
+    .mu-rl-au  { background: rgba(232,192,96,0.15); color: #e8c060; }
+    .mu-rl-li  { background: rgba(40,200,138,0.15); color: var(--green); }
+    .radar-area { transition: opacity 0.3s; }
+
+    /* Map */
+    .mu-map-wrap { position: relative; }
+    .map-dot { cursor: pointer; transition: r 0.2s, opacity 0.2s; }
+    .map-dot:hover { opacity: 1 !important; }
+    .map-tooltip {
+      position: absolute; z-index: 10;
+      background: #1a2d32; border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.55rem 0.85rem;
+      font-size: 0.72rem; color: var(--text); pointer-events: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5); min-width: 160px;
+      white-space: nowrap;
+    }
+    .map-tooltip strong { display: block; color: var(--amber); font-size: 0.78rem; margin-bottom: 0.15rem; }
+    .mu-map-legend { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .mu-ml { font-size: 0.62rem; font-weight: 700; }
+    .mu-ml-fe { color: var(--amber); }
+    .mu-ml-nf { color: var(--steel); }
+    .mu-ml-au { color: #e8c060; }
+    .mu-ml-li { color: var(--green); }
+
     /* ─── METAL UNIVERSE HEADER ─── */
-    .mu-header { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+    .mu-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; }
     .mu-header-left { flex: 1; min-width: 0; }
     .mu-header-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
 
@@ -818,38 +854,11 @@
        SECTION 1 · METAL UNIVERSE
   ────────────────────────────────────── -->
   <div class="section active" id="s0">
-    <div class="mod-header mu-header">
+    <div class="mod-header mu-header-top">
       <div class="mu-header-left">
         <div class="mod-eyebrow">Module 1 · ~5 min</div>
         <div class="mod-title">The Metal Universe</div>
         <div class="mod-desc">Metals trade across four distinct families — each with its own feedstocks, pricing benchmarks, and market dynamics. Click each card to dig deeper.</div>
-      <div class="mu-live-dot">Live data · Oct 2025 – Apr 2026</div>
-        <div class="mu-stat-row">
-          <div class="mu-stat-card s1" onclick="openPriceModal('ferrous')" style="cursor:pointer">
-            <div class="mu-stat-icon">⚙️</div>
-            <div class="mu-stat-val">$479</div>
-            <div class="mu-stat-lbl">HRC · $/MT</div>
-            <div class="mu-stat-sub">China · +1.3% over 7M</div>
-          </div>
-          <div class="mu-stat-card s2" onclick="openPriceModal('nf')" style="cursor:pointer">
-            <div class="mu-stat-icon">🔵</div>
-            <div class="mu-stat-val">$12,499</div>
-            <div class="mu-stat-lbl">Copper · $/MT</div>
-            <div class="mu-stat-sub">LME · +16.3% over 7M</div>
-          </div>
-          <div class="mu-stat-card s4" onclick="openPriceModal('precious')" style="cursor:pointer">
-            <div class="mu-stat-icon">✦</div>
-            <div class="mu-stat-val">$4,753</div>
-            <div class="mu-stat-lbl">Gold · $/troy oz</div>
-            <div class="mu-stat-sub">LBMA · +17.8% over 7M</div>
-          </div>
-          <div class="mu-stat-card s3" onclick="openPriceModal('battery')" style="cursor:pointer">
-            <div class="mu-stat-icon">⚡</div>
-            <div class="mu-stat-val">$23,111</div>
-            <div class="mu-stat-lbl">Li₂CO₃ · $/MT</div>
-            <div class="mu-stat-sub">China · +119.7% over 7M</div>
-          </div>
-        </div>
       </div>
       <div class="mu-header-right">
         <div class="mu-element-grid">
@@ -883,6 +892,66 @@
           </div>
         </div>
         <div class="mu-elem-hint">Click any element to explore</div>
+      </div>
+    </div>
+
+    <!-- ── RADAR + WORLD MAP ROW ── -->
+    <div class="mu-viz-row">
+
+      <!-- RADAR CHART -->
+      <div class="mu-viz-card mu-radar-wrap">
+        <div class="mu-viz-title">Family Profile Radar</div>
+        <div class="mu-viz-sub">5 dimensions · hover a family to highlight</div>
+        <div class="mu-radar-legend">
+          <span class="mu-rl mu-rl-fe" onmouseenter="highlightRadar('ferrous')" onmouseleave="highlightRadar(null)">⚙ Ferrous</span>
+          <span class="mu-rl mu-rl-nf" onmouseenter="highlightRadar('nf')" onmouseleave="highlightRadar(null)">● Non-Ferrous</span>
+          <span class="mu-rl mu-rl-au" onmouseenter="highlightRadar('precious')" onmouseleave="highlightRadar(null)">✦ Precious</span>
+          <span class="mu-rl mu-rl-li" onmouseenter="highlightRadar('battery')" onmouseleave="highlightRadar(null)">⚡ Battery</span>
+        </div>
+        <svg id="radarSvg" viewBox="0 0 300 280" width="100%"></svg>
+      </div>
+
+      <!-- WORLD MAP -->
+      <div class="mu-viz-card mu-map-wrap">
+        <div class="mu-viz-title">Key Supply Origins</div>
+        <div class="mu-viz-sub">Hover a dot to see commodity &amp; producer</div>
+        <div id="mapTooltip" class="map-tooltip" style="display:none"></div>
+        <svg id="worldMapSvg" viewBox="0 0 800 400" width="100%" style="display:block"></svg>
+        <div class="mu-map-legend">
+          <span class="mu-ml mu-ml-fe">⚙ Ferrous</span>
+          <span class="mu-ml mu-ml-nf">● Non-Ferrous</span>
+          <span class="mu-ml mu-ml-au">✦ Precious</span>
+          <span class="mu-ml mu-ml-li">⚡ Battery</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mu-live-dot" style="margin-bottom:1.25rem">Live data · Oct 2025 – Apr 2026</div>
+    <div class="mu-stat-row">
+      <div class="mu-stat-card s1" onclick="openPriceModal('ferrous')" style="cursor:pointer">
+        <div class="mu-stat-icon">⚙️</div>
+        <div class="mu-stat-val">$479</div>
+        <div class="mu-stat-lbl">HRC · $/MT</div>
+        <div class="mu-stat-sub">China · +1.3% over 7M</div>
+      </div>
+      <div class="mu-stat-card s2" onclick="openPriceModal('nf')" style="cursor:pointer">
+        <div class="mu-stat-icon">🔵</div>
+        <div class="mu-stat-val">$12,499</div>
+        <div class="mu-stat-lbl">Copper · $/MT</div>
+        <div class="mu-stat-sub">LME · +16.3% over 7M</div>
+      </div>
+      <div class="mu-stat-card s4" onclick="openPriceModal('precious')" style="cursor:pointer">
+        <div class="mu-stat-icon">✦</div>
+        <div class="mu-stat-val">$4,753</div>
+        <div class="mu-stat-lbl">Gold · $/troy oz</div>
+        <div class="mu-stat-sub">LBMA · +17.8% over 7M</div>
+      </div>
+      <div class="mu-stat-card s3" onclick="openPriceModal('battery')" style="cursor:pointer">
+        <div class="mu-stat-icon">⚡</div>
+        <div class="mu-stat-val">$23,111</div>
+        <div class="mu-stat-lbl">Li₂CO₃ · $/MT</div>
+        <div class="mu-stat-sub">China · +119.7% over 7M</div>
       </div>
     </div>
 
@@ -2415,84 +2484,74 @@
     renderPriceModal(pmCurrentKey);
   }
 
-  /* ── CARD SHUFFLE ── */
-  const cardShuffleConfig = [
-    { cardClass:'ferrous',  materials:['ferrous','hrc','crc','stainless'],
-      labels:['Ferrous Metals','Hot Rolled Coil','Cold Rolled Coil','Stainless Steel'],
-      subs:['Iron-Based · ~90% of all metals','HRC · Benchmark flat product','CRC · HRC + cold rolling','Fe + Cr >10.5%'],
-      prices:['','$'+Math.round(priceValue('hrc')),'$'+Math.round(priceValue('crc')),'$'+Math.round(priceValue('stainless'))],
-      isDetail:[true,false,false,false] },
-    { cardClass:'nf',  materials:['nf','copper','zinc','tin','lead'],
-      labels:['Non-Ferrous Metals','Copper','Zinc','Tin 🎯','Lead'],
-      subs:['No Iron · LME Traded','Cu · $/MT LME','Zn · $/MT LME','Sn · Tinplate input','Pb · $/MT LME'],
-      prices:['','$'+Math.round(priceValue('copper')),'$'+Math.round(priceValue('zinc')),'$'+Math.round(priceValue('tin')),'$'+Math.round(priceValue('lead'))],
-      isDetail:[true,false,false,false,false] },
-    { cardClass:'precious',  materials:['precious','gold','silver','platinum','palladium'],
-      labels:['Precious Metals','Gold','Silver','Platinum','Palladium'],
-      subs:['Rare · Store of Wealth','Au · $/troy oz LBMA','Ag · $/troy oz','Pt · $/troy oz','Pd · $/troy oz'],
-      prices:['','$'+Math.round(priceValue('gold')),'$'+priceValue('silver').toFixed(1),'$'+Math.round(priceValue('platinum')),'$'+Math.round(priceValue('palladium'))],
-      isDetail:[true,false,false,false,false] },
-    { cardClass:'battery',  materials:['battery','lithium','cobalt','nickel_b'],
-      labels:['Battery Materials','Lithium Carbonate','Cobalt','Nickel (Battery Grade)'],
-      subs:['EV-Critical · Fast-Growing','Li₂CO₃ · $/MT China','Co · $/MT China','Ni · $/MT Class 1'],
-      prices:['','$'+Math.round(priceValue('lithium')),'$'+Math.round(priceValue('cobalt')),'$'+Math.round(priceValue('nickel_b'))],
-      isDetail:[true,false,false,false] }
+  function priceValue(key) { const d = priceDB[key]; return d ? d.vals[d.vals.length-1] : 0; }
+
+  /* ── STAT CARD SHUFFLE (header only) ── */
+  const statShuffleConfig = [
+    { idx:0, cat:'ferrous',  materials:['hrc','crc','mild_steel','stainless'],
+      icons:['⚙️','⚙️','⚙️','⚙️'],
+      labels:['HRC · $/MT','CRC · $/MT','Mild Steel · $/MT','Stainless · $/MT'] },
+    { idx:1, cat:'nf',  materials:['copper','zinc','tin','nickel','lead'],
+      icons:['🔵','🔵','🔵','🔵','🔵'],
+      labels:['Copper · $/MT','Zinc · $/MT','Tin · $/MT','Nickel · $/MT','Lead · $/MT'] },
+    { idx:2, cat:'precious',  materials:['gold','silver','platinum','palladium'],
+      icons:['✦','✦','✦','✦'],
+      labels:['Gold · $/troy oz','Silver · $/troy oz','Platinum · $/troy oz','Palladium · $/troy oz'] },
+    { idx:3, cat:'battery',  materials:['lithium','cobalt','nickel_b'],
+      icons:['⚡','⚡','⚡'],
+      labels:['Li₂CO₃ · $/MT','Cobalt · $/MT','Nickel (Battery) · $/MT'] }
   ];
 
-  function priceValue(key) {
-    const d = priceDB[key];
-    return d ? d.vals[d.vals.length-1] : 0;
+  const statIdxState = [0, 0, 0, 0];
+  const statCards = () => document.querySelectorAll('.mu-stat-card');
+
+  function updateStatCard(cardEl, cfg, matIdx) {
+    const key  = cfg.materials[matIdx];
+    const d    = priceDB[key];
+    if (!d || !cardEl) return;
+    const current = d.vals[d.vals.length-1];
+    const first   = d.vals[0];
+    const pct     = ((current - first) / first * 100);
+    const isUp    = pct >= 0;
+    const fmt     = v => v >= 10000 ? '$'+Math.round(v/1000)+'k' : v >= 1000 ? '$'+Math.round(v).toLocaleString() : '$'+v.toFixed(1);
+
+    const valEl = cardEl.querySelector('.mu-stat-val');
+    const lblEl = cardEl.querySelector('.mu-stat-lbl');
+    const subEl = cardEl.querySelector('.mu-stat-sub');
+
+    // Fade out
+    [valEl, lblEl, subEl].forEach(el => el && (el.style.transition='opacity 0.25s', el.style.opacity='0'));
+
+    setTimeout(() => {
+      if (valEl) valEl.textContent = fmt(current);
+      if (lblEl) lblEl.textContent = cfg.labels[matIdx];
+      if (subEl) subEl.innerHTML   = `${isUp?'<span style="color:#28c88a">▲ +':'<span style="color:#e85555">▼ '}${Math.abs(pct).toFixed(1)}%</span> over 7M`;
+      cardEl.onclick = () => { openPriceModal(cfg.cat); setTimeout(()=>renderPriceModal(key, cfg.cat), 50); };
+      [valEl, lblEl, subEl].forEach(el => el && (el.style.opacity='1'));
+    }, 260);
   }
 
-  const cardIdxState = {ferrous:0, nf:0, precious:0, battery:0};
-  let shuffleTimer = null;
-
-  function startCardShuffle() {
-    shuffleTimer = setInterval(() => {
-      cardShuffleConfig.forEach(cfg => {
-        const cls = cfg.cardClass;
-        const card = document.querySelector(`.mcard.${cls}`);
+  function startStatShuffle() {
+    setInterval(() => {
+      const cards = [...statCards()];
+      statShuffleConfig.forEach((cfg, i) => {
+        const card = cards[i];
         if (!card || card.matches(':hover')) return;
-        cardIdxState[cls] = (cardIdxState[cls] + 1) % cfg.materials.length;
-        updateCardFace(card, cfg, cardIdxState[cls]);
+        statIdxState[i] = (statIdxState[i] + 1) % cfg.materials.length;
+        updateStatCard(card, cfg, statIdxState[i]);
       });
     }, 2800);
   }
 
-  function updateCardFace(card, cfg, idx) {
-    const titleEl = card.querySelector('.mcard-title');
-    const subEl   = card.querySelector('.mcard-sub');
-    if (!titleEl || !subEl) return;
+  // Restore main category cards to fixed state (never shuffle)
+  document.querySelectorAll('.mcard').forEach(card => {
+    const key = card.classList.contains('ferrous')  ? 'ferrous'  :
+                card.classList.contains('nf')       ? 'nf'       :
+                card.classList.contains('precious') ? 'precious' : 'battery';
+    card.onclick = () => openDetail(key);
+  });
 
-    titleEl.classList.add('fading');
-    subEl.classList.add('fading');
-
-    setTimeout(() => {
-      titleEl.textContent = cfg.labels[idx];
-      subEl.textContent = cfg.subs[idx] + (cfg.prices[idx] ? '  ·  ' + cfg.prices[idx] + '/MT' : '');
-      titleEl.classList.remove('fading');
-      subEl.classList.remove('fading');
-      titleEl.classList.add('coming');
-      subEl.classList.add('coming');
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          titleEl.classList.remove('coming');
-          subEl.classList.remove('coming');
-        });
-      });
-    }, 300);
-
-    // Update onclick
-    const catKey = cfg.materials[0];
-    const matKey = cfg.materials[idx];
-    if (idx === 0) {
-      card.onclick = () => openDetail(catKey);
-    } else {
-      card.onclick = () => { openPriceModal(catKey); setTimeout(()=>renderPriceModal(matKey, catKey), 50); };
-    }
-  }
-
-  // Init: wire element tiles to price modal instead of detail page
+  // Init: wire element tiles to price modal
   document.querySelectorAll('.mu-elem').forEach(el => {
     const cat = el.classList.contains('mu-elem-fe') ? 'ferrous' :
                 el.classList.contains('mu-elem-al') ? 'nf' :
@@ -2500,11 +2559,223 @@
     el.onclick = () => openPriceModal(cat);
   });
 
-  // Start shuffle after small delay
-  setTimeout(startCardShuffle, 2000);
+  setTimeout(startStatShuffle, 2500);
 
   // ESC to close price modal
   document.addEventListener('keydown', e => { if (e.key==='Escape') closePriceModal(); });
+
+  /* ══════════════════════════
+     RADAR CHART
+  ══════════════════════════ */
+  const radarAxes = ['Market Size','Volatility','Liquidity','ESG Risk','Growth'];
+  const radarData = {
+    ferrous:  { color:'#d4a843', fill:'rgba(212,168,67,0.18)',  vals:[0.95, 0.35, 0.92, 0.45, 0.55] },
+    nf:       { color:'#2ab8a8', fill:'rgba(42,184,168,0.18)',  vals:[0.72, 0.65, 0.88, 0.50, 0.70] },
+    precious: { color:'#e8c060', fill:'rgba(232,192,96,0.18)',  vals:[0.60, 0.55, 0.78, 0.25, 0.45] },
+    battery:  { color:'#28c88a', fill:'rgba(40,200,138,0.18)',  vals:[0.40, 0.92, 0.42, 0.88, 0.95] }
+  };
+  let radarHighlight = null;
+
+  function drawRadar() {
+    const svg = document.getElementById('radarSvg');
+    if (!svg) return;
+    const cx=150, cy=148, R=100, n=5;
+    const angleOf = i => -Math.PI/2 + i*(2*Math.PI/n);
+    const ptOf = (r,i) => [cx + r*Math.cos(angleOf(i)), cy + r*Math.sin(angleOf(i))];
+
+    let html = '<defs>';
+    // Glow filters
+    Object.entries(radarData).forEach(([k,d]) => {
+      html += `<filter id="glow-${k}"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+    });
+    html += '</defs>';
+
+    // Grid rings
+    [0.25,0.5,0.75,1].forEach(r => {
+      const pts = Array.from({length:n},(_,i)=>ptOf(R*r,i)).map(p=>p.join(',')).join(' ');
+      html += `<polygon points="${pts}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
+    });
+    // Axis lines + labels
+    radarAxes.forEach((ax,i) => {
+      const [x,y] = ptOf(R,i);
+      html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`;
+      const [lx,ly] = ptOf(R+18,i);
+      html += `<text x="${lx}" y="${ly+4}" text-anchor="middle" fill="#3d4a58" font-size="9.5" font-family="Sora,sans-serif" font-weight="700">${ax}</text>`;
+    });
+
+    // Data areas
+    Object.entries(radarData).forEach(([k,d]) => {
+      const pts = d.vals.map((v,i) => ptOf(R*v,i).join(',')).join(' ');
+      const isHl = radarHighlight === null || radarHighlight === k;
+      const op = isHl ? 1 : 0.15;
+      html += `<polygon class="radar-area" id="radar-${k}" points="${pts}" fill="${d.fill}" stroke="${d.color}" stroke-width="${isHl?2:1}" stroke-linejoin="round" opacity="${op}" filter="${isHl?`url(#glow-${k})`:''}" style="cursor:pointer" onmouseenter="highlightRadar('${k}')" onmouseleave="highlightRadar(null)"/>`;
+      // Dots
+      d.vals.forEach((v,i) => {
+        const [px,py] = ptOf(R*v,i);
+        html += `<circle cx="${px}" cy="${py}" r="${isHl?4:2.5}" fill="${d.color}" opacity="${op}" style="cursor:pointer"/>`;
+      });
+    });
+
+    // Center label
+    html += `<text x="${cx}" y="${cy+4}" text-anchor="middle" fill="rgba(255,255,255,0.08)" font-size="28" font-weight="700" font-family="Sora,sans-serif">●</text>`;
+    svg.innerHTML = html;
+  }
+
+  function highlightRadar(key) {
+    radarHighlight = key;
+    drawRadar();
+  }
+
+  /* ══════════════════════════
+     WORLD MAP
+  ══════════════════════════ */
+  // Supply dots: [x%, y%, label, commodity, country, color, family]
+  const mapDots = [
+    // Ferrous
+    [71, 72, 'Iron Ore', 'Iron Ore (Pilbara)', 'Australia', '#d4a843', 'fe'],
+    [33, 46, 'Iron Ore', 'Iron Ore (Carajás)', 'Brazil', '#d4a843', 'fe'],
+    [65, 32, 'Coking Coal', 'Coking Coal (Shanxi)', 'China', '#d4a843', 'fe'],
+    [22, 52, 'Iron Ore', 'Iron Ore (Odisha)', 'India', '#d4a843', 'fe'],
+    // Non-Ferrous
+    [31, 76, 'Copper', 'Copper (Atacama)', 'Chile', '#2ab8a8', 'nf'],
+    [58, 26, 'Copper', 'Copper (Morenci)', 'USA', '#2ab8a8', 'nf'],
+    [65, 35, 'Zinc', 'Zinc (Smelting hub)', 'China', '#2ab8a8', 'nf'],
+    [55, 62, 'Nickel', 'Nickel (Sulawesi)', 'Indonesia', '#2ab8a8', 'nf'],
+    [63, 29, 'Tin', 'Tin (Yunnan)', 'China', '#2ab8a8', 'nf'],
+    // Precious
+    [52, 79, 'Gold/PGM', 'Gold & PGMs (Bushveld)', 'South Africa', '#e8c060', 'au'],
+    [60, 25, 'Gold', 'Gold (Nevada)', 'USA', '#e8c060', 'au'],
+    [65, 38, 'Gold', 'Gold (Shandong)', 'China', '#e8c060', 'au'],
+    [64, 28, 'Palladium', 'Palladium (Norilsk)', 'Russia', '#e8c060', 'au'],
+    [22, 55, 'Gold', 'Gold (Rajasthan)', 'India', '#e8c060', 'au'],
+    // Battery
+    [31, 74, 'Lithium', 'Lithium (Atacama Brine)', 'Chile', '#28c88a', 'li'],
+    [73, 72, 'Lithium', 'Lithium (Pilgangoora)', 'Australia', '#28c88a', 'li'],
+    [48, 52, 'Cobalt', 'Cobalt (Katanga)', 'DRC', '#28c88a', 'li'],
+    [65, 40, 'Graphite', 'Graphite (Inner Mongolia)', 'China', '#28c88a', 'li'],
+    [21, 46, 'Lithium', 'Lithium (J&K Deposits)', 'India', '#28c88a', 'li'],
+  ];
+
+  function drawWorldMap() {
+    const svg = document.getElementById('worldMapSvg');
+    if (!svg) return;
+
+    // Simplified world landmass paths (Robinson-ish projection)
+    const land = `
+      M85,95 C95,85 120,78 150,80 C175,82 195,75 220,78 C245,80 265,72 285,75
+      C305,77 320,70 340,73 C360,75 375,68 395,70 C415,72 430,65 450,70
+      C470,75 488,72 505,80 C522,88 535,85 548,90 C560,95 568,100 572,110
+      C576,120 570,130 560,135 C550,140 535,138 520,142
+      C505,145 490,150 478,158 C466,165 458,172 448,178
+      C438,184 425,186 415,182 C405,178 398,170 390,165
+      C382,160 372,158 362,162 C352,165 345,172 338,178
+      C330,184 320,188 310,185 C300,182 292,175 285,170
+      C278,165 270,162 262,165 C254,168 248,175 242,180
+      C236,185 228,188 220,184 C212,180 206,172 200,168
+      C194,164 186,162 178,166 C170,170 165,178 160,184
+      C155,190 148,192 140,188 C132,184 127,176 122,170
+      C117,164 110,160 104,164 C98,168 95,176 92,182
+      C89,188 84,192 78,188 C72,184 70,176 70,168
+      C70,160 72,152 75,145 C78,138 82,132 84,125
+      C86,118 85,110 85,103 Z
+      M85,95 L78,88 C75,82 72,76 74,70 C76,64 80,60 86,58
+      C92,56 98,58 104,62 C110,66 114,72 118,78 L120,80
+      M572,110 C582,105 595,100 608,98 C620,96 632,98 642,104
+      C652,110 658,118 660,128 C662,138 658,148 652,155
+      C646,162 638,166 630,168 C622,170 614,168 608,162
+      C602,156 598,148 596,140 C594,132 592,122 590,115 Z
+    `;
+
+    // Draw continents as simplified filled shapes
+    const continents = [
+      // North America
+      `M155,55 C165,50 178,48 192,50 C206,52 218,58 228,65 C238,72 245,80 248,90
+       C251,100 248,110 244,118 C240,126 234,132 228,136 C222,140 215,140 210,136
+       C205,132 202,125 200,118 C198,111 197,104 198,97 C199,90 200,83 198,76
+       C196,69 190,64 182,60 C174,56 163,55 158,57 Z`,
+      // South America
+      `M218,155 C225,150 234,148 242,150 C250,152 256,158 260,165
+       C264,172 265,180 264,188 C263,196 260,204 256,210 C252,216 246,220 240,220
+       C234,220 228,216 224,210 C220,204 218,196 218,188 C218,180 218,172 218,165 Z`,
+      // Europe
+      `M360,45 C368,40 378,38 388,40 C398,42 406,48 412,55 C418,62 420,70 418,78
+       C416,86 410,92 404,96 C398,100 391,100 385,96 C379,92 375,85 372,78
+       C369,71 368,64 368,57 Z`,
+      // Africa
+      `M370,100 C380,96 392,96 402,100 C412,104 420,112 424,122
+       C428,132 428,143 426,153 C424,163 420,172 414,178 C408,184 401,186 394,184
+       C387,182 381,176 377,169 C373,162 371,154 370,146 C369,138 369,130 370,122
+       C371,114 371,107 370,100 Z`,
+      // Asia (simplified)
+      `M420,40 C435,35 455,33 472,36 C489,39 504,46 516,56 C528,66 536,78 540,91
+       C544,104 544,117 540,129 C536,141 528,151 520,158 C512,165 502,169 492,168
+       C482,167 473,162 465,155 C457,148 451,139 446,130 C441,121 437,112 434,103
+       C431,94 428,85 426,76 C424,67 423,58 422,49 Z`,
+      // Australia
+      `M598,185 C610,180 624,180 636,185 C648,190 656,200 658,212
+       C660,224 655,236 648,244 C641,252 631,256 622,254 C613,252 605,244 600,235
+       C595,226 593,216 594,206 C595,196 597,190 598,185 Z`,
+    ];
+
+    let html = `<defs>
+      <radialGradient id="mapBg" cx="50%" cy="50%">
+        <stop offset="0%" stop-color="rgba(14,72,88,0.3)"/>
+        <stop offset="100%" stop-color="rgba(6,18,20,0)"/>
+      </radialGradient>
+    </defs>
+    <rect width="800" height="400" fill="none"/>
+    <ellipse cx="400" cy="200" rx="395" ry="195" fill="url(#mapBg)" opacity="0.4"/>`;
+
+    // Grid lines (latitude/longitude suggestion)
+    for (let i=1; i<4; i++) {
+      html += `<line x1="0" y1="${i*100}" x2="800" y2="${i*100}" stroke="rgba(42,184,168,0.05)" stroke-width="1"/>`;
+    }
+    for (let i=1; i<8; i++) {
+      html += `<line x1="${i*100}" y1="0" x2="${i*100}" y2="400" stroke="rgba(42,184,168,0.05)" stroke-width="1"/>`;
+    }
+
+    // Continents
+    continents.forEach(path => {
+      html += `<path d="${path}" fill="rgba(42,184,168,0.08)" stroke="rgba(42,184,168,0.18)" stroke-width="1"/>`;
+    });
+
+    // Supply dots
+    mapDots.forEach((dot, i) => {
+      const [xp, yp, , commodity, country, color, family] = dot;
+      const x = xp / 100 * 800;
+      const y = yp / 100 * 400;
+      html += `
+        <g class="map-dot-group" style="cursor:pointer"
+           onmouseenter="showMapTip(event,${i})"
+           onmouseleave="hideMapTip()">
+          <circle cx="${x}" cy="${y}" r="16" fill="${color}" opacity="0.08"/>
+          <circle cx="${x}" cy="${y}" r="7" fill="${color}" opacity="0.25"/>
+          <circle cx="${x}" cy="${y}" r="4" fill="${color}" opacity="0.9" class="map-dot"/>
+          <circle cx="${x}" cy="${y}" r="9" fill="none" stroke="${color}" stroke-width="1" opacity="0.4">
+            <animate attributeName="r" from="5" to="16" dur="2.${i%3}s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.5" to="0" dur="2.${i%3}s" repeatCount="indefinite"/>
+          </circle>
+        </g>`;
+    });
+
+    svg.innerHTML = html;
+  }
+
+  function showMapTip(evt, idx) {
+    const [, , label, commodity, country, color] = mapDots[idx];
+    const tip = document.getElementById('mapTooltip');
+    if (!tip) return;
+    tip.innerHTML = `<strong style="color:${color}">${commodity}</strong>${country}`;
+    tip.style.display = 'block';
+    const rect = evt.currentTarget.closest('.mu-map-wrap').getBoundingClientRect();
+    tip.style.left = (evt.clientX - rect.left + 12) + 'px';
+    tip.style.top  = (evt.clientY - rect.top  - 40) + 'px';
+  }
+  function hideMapTip() { const t=document.getElementById('mapTooltip'); if(t) t.style.display='none'; }
+
+  // Init both charts when s0 is visible
+  document.addEventListener('DOMContentLoaded', () => { drawRadar(); drawWorldMap(); });
+  setTimeout(() => { drawRadar(); drawWorldMap(); }, 300);
 
   /* ── CALCULATOR ── */
   function calcUpdate() {
