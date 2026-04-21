@@ -185,6 +185,19 @@
     .mu-viz-title { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
     .mu-viz-sub { font-size: 0.62rem; color: var(--text-faint); margin-bottom: 0.75rem; letter-spacing: 0.04em; }
 
+    /* Radar breakdown */
+    .radar-breakdown { margin-top: 0.75rem; min-height: 60px; }
+    .rb-hint { font-size: 0.68rem; color: var(--text-faint); text-align: center; padding: 1rem 0; font-style: italic; }
+    .rb-title { font-size: 0.75rem; font-weight: 700; margin-bottom: 0.1rem; }
+    .rb-desc-hint { font-size: 0.58rem; color: var(--text-faint); margin-bottom: 0.6rem; letter-spacing: 0.05em; }
+    .rb-row { display: grid; grid-template-columns: 78px 1fr 32px 44px; align-items: center; gap: 0.4rem; margin-bottom: 0.42rem; }
+    .rb-axis { font-size: 0.65rem; font-weight: 700; }
+    .rb-bar-wrap { height: 5px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+    .rb-bar { height: 100%; border-radius: 3px; transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1); opacity: 0.85; }
+    .rb-pct { font-size: 0.65rem; font-weight: 700; font-family: var(--mono); text-align: right; }
+    .rb-level { font-size: 0.6rem; font-weight: 700; text-align: right; }
+    .mu-rl { transition: opacity 0.2s, outline 0.15s; }
+
     /* Radar */
     .mu-radar-legend { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
     .mu-rl { font-size: 0.62rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; cursor: pointer; transition: opacity 0.2s; }
@@ -209,6 +222,9 @@
     .map-tooltip strong { display: block; color: var(--amber); font-size: 0.78rem; margin-bottom: 0.15rem; }
     .mu-map-legend { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
     .mu-ml { font-size: 0.62rem; font-weight: 700; }
+    .mu-ml { padding: 0.2rem 0.55rem; border-radius: 4px; font-size: 0.65rem; border: 1px solid transparent; transition: all 0.2s; }
+    .mu-ml:hover { background: rgba(255,255,255,0.06); }
+    .mu-ml-active { border-color: currentColor !important; background: rgba(255,255,255,0.08) !important; }
     .mu-ml-fe { color: var(--amber); }
     .mu-ml-nf { color: var(--steel); }
     .mu-ml-au { color: #e8c060; }
@@ -903,12 +919,15 @@
         <div class="mu-viz-title">Family Profile Radar</div>
         <div class="mu-viz-sub">5 dimensions · hover a family to highlight</div>
         <div class="mu-radar-legend">
-          <span class="mu-rl mu-rl-fe" onmouseenter="highlightRadar('ferrous')" onmouseleave="highlightRadar(null)">⚙ Ferrous</span>
-          <span class="mu-rl mu-rl-nf" onmouseenter="highlightRadar('nf')" onmouseleave="highlightRadar(null)">● Non-Ferrous</span>
-          <span class="mu-rl mu-rl-au" onmouseenter="highlightRadar('precious')" onmouseleave="highlightRadar(null)">✦ Precious</span>
-          <span class="mu-rl mu-rl-li" onmouseenter="highlightRadar('battery')" onmouseleave="highlightRadar(null)">⚡ Battery</span>
+          <span class="mu-rl mu-rl-fe" data-rkey="ferrous" onclick="selectRadar('ferrous',this)" style="cursor:pointer">⚙ Ferrous</span>
+          <span class="mu-rl mu-rl-nf" data-rkey="nf"      onclick="selectRadar('nf',this)"      style="cursor:pointer">● Non-Ferrous</span>
+          <span class="mu-rl mu-rl-au" data-rkey="precious" onclick="selectRadar('precious',this)" style="cursor:pointer">✦ Precious</span>
+          <span class="mu-rl mu-rl-li" data-rkey="battery"  onclick="selectRadar('battery',this)"  style="cursor:pointer">⚡ Battery</span>
         </div>
         <svg id="radarSvg" viewBox="0 0 300 280" width="100%"></svg>
+        <div id="radarBreakdown" class="radar-breakdown">
+          <div class="rb-hint">← Click a family to see its profile</div>
+        </div>
       </div>
 
       <!-- WORLD MAP -->
@@ -918,41 +937,13 @@
         <div id="mapTooltip" class="map-tooltip" style="display:none"></div>
         <svg id="worldMapSvg" viewBox="0 0 800 400" width="100%" style="display:block"></svg>
         <div class="mu-map-legend">
-          <span class="mu-ml mu-ml-fe">⚙ Ferrous</span>
-          <span class="mu-ml mu-ml-nf">● Non-Ferrous</span>
-          <span class="mu-ml mu-ml-au">✦ Precious</span>
-          <span class="mu-ml mu-ml-li">⚡ Battery</span>
+          <span class="mu-ml mu-ml-fe" onclick="filterMap('fe',this)" style="cursor:pointer;transition:opacity 0.2s">⚙ Ferrous</span>
+          <span class="mu-ml mu-ml-nf" onclick="filterMap('nf',this)" style="cursor:pointer;transition:opacity 0.2s">● Non-Ferrous</span>
+          <span class="mu-ml mu-ml-au" onclick="filterMap('au',this)" style="cursor:pointer;transition:opacity 0.2s">✦ Precious</span>
+          <span class="mu-ml mu-ml-li" onclick="filterMap('li',this)" style="cursor:pointer;transition:opacity 0.2s">⚡ Battery</span>
         </div>
       </div>
 
-    </div>
-
-    <div class="mu-live-dot" style="margin-bottom:1.25rem">Live data · Oct 2025 – Apr 2026</div>
-    <div class="mu-stat-row">
-      <div class="mu-stat-card s1" onclick="openPriceModal('ferrous')" style="cursor:pointer">
-        <div class="mu-stat-icon">⚙️</div>
-        <div class="mu-stat-val">$479</div>
-        <div class="mu-stat-lbl">HRC · $/MT</div>
-        <div class="mu-stat-sub">China · +1.3% over 7M</div>
-      </div>
-      <div class="mu-stat-card s2" onclick="openPriceModal('nf')" style="cursor:pointer">
-        <div class="mu-stat-icon">🔵</div>
-        <div class="mu-stat-val">$12,499</div>
-        <div class="mu-stat-lbl">Copper · $/MT</div>
-        <div class="mu-stat-sub">LME · +16.3% over 7M</div>
-      </div>
-      <div class="mu-stat-card s4" onclick="openPriceModal('precious')" style="cursor:pointer">
-        <div class="mu-stat-icon">✦</div>
-        <div class="mu-stat-val">$4,753</div>
-        <div class="mu-stat-lbl">Gold · $/troy oz</div>
-        <div class="mu-stat-sub">LBMA · +17.8% over 7M</div>
-      </div>
-      <div class="mu-stat-card s3" onclick="openPriceModal('battery')" style="cursor:pointer">
-        <div class="mu-stat-icon">⚡</div>
-        <div class="mu-stat-val">$23,111</div>
-        <div class="mu-stat-lbl">Li₂CO₃ · $/MT</div>
-        <div class="mu-stat-sub">China · +119.7% over 7M</div>
-      </div>
     </div>
 
     <div class="metal-grid">
@@ -2568,13 +2559,21 @@
      RADAR CHART
   ══════════════════════════ */
   const radarAxes = ['Market Size','Volatility','Liquidity','ESG Risk','Growth'];
+  const radarAxisDesc = [
+    'Global production volume & economic weight',
+    'Price swing magnitude over 12-month cycles',
+    'Ease of trading; depth of futures & spot markets',
+    'Supply chain, emissions & social risk exposure',
+    'Demand growth outlook through 2030'
+  ];
+  const radarAxisColors = ['#d4a843','#e85555','#2ab8a8','#e87840','#28c88a'];
   const radarData = {
-    ferrous:  { color:'#d4a843', fill:'rgba(212,168,67,0.18)',  vals:[0.95, 0.35, 0.92, 0.45, 0.55] },
-    nf:       { color:'#2ab8a8', fill:'rgba(42,184,168,0.18)',  vals:[0.72, 0.65, 0.88, 0.50, 0.70] },
-    precious: { color:'#e8c060', fill:'rgba(232,192,96,0.18)',  vals:[0.60, 0.55, 0.78, 0.25, 0.45] },
-    battery:  { color:'#28c88a', fill:'rgba(40,200,138,0.18)',  vals:[0.40, 0.92, 0.42, 0.88, 0.95] }
+    ferrous:  { name:'Ferrous Metals',    color:'#d4a843', fill:'rgba(212,168,67,0.22)',  vals:[0.95, 0.35, 0.92, 0.45, 0.55] },
+    nf:       { name:'Non-Ferrous Metals',color:'#2ab8a8', fill:'rgba(42,184,168,0.22)',  vals:[0.72, 0.65, 0.88, 0.50, 0.70] },
+    precious: { name:'Precious Metals',   color:'#e8c060', fill:'rgba(232,192,96,0.22)',  vals:[0.60, 0.55, 0.78, 0.25, 0.45] },
+    battery:  { name:'Battery Materials', color:'#28c88a', fill:'rgba(40,200,138,0.22)',  vals:[0.40, 0.92, 0.42, 0.88, 0.95] }
   };
-  let radarHighlight = null;
+  let radarSelected = null;
 
   function drawRadar() {
     const svg = document.getElementById('radarSvg');
@@ -2584,9 +2583,8 @@
     const ptOf = (r,i) => [cx + r*Math.cos(angleOf(i)), cy + r*Math.sin(angleOf(i))];
 
     let html = '<defs>';
-    // Glow filters
     Object.entries(radarData).forEach(([k,d]) => {
-      html += `<filter id="glow-${k}"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+      html += `<filter id="glow-${k}"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
     });
     html += '</defs>';
 
@@ -2594,182 +2592,239 @@
     [0.25,0.5,0.75,1].forEach(r => {
       const pts = Array.from({length:n},(_,i)=>ptOf(R*r,i)).map(p=>p.join(',')).join(' ');
       html += `<polygon points="${pts}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
+      // Ring label at right axis
+      const [rx,ry] = ptOf(R*r,1);
+      html += `<text x="${rx+3}" y="${ry+3}" fill="rgba(255,255,255,0.15)" font-size="7" font-family="DM Mono,monospace">${Math.round(r*100)}%</text>`;
     });
     // Axis lines + labels
     radarAxes.forEach((ax,i) => {
       const [x,y] = ptOf(R,i);
       html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`;
       const [lx,ly] = ptOf(R+18,i);
-      html += `<text x="${lx}" y="${ly+4}" text-anchor="middle" fill="#3d4a58" font-size="9.5" font-family="Sora,sans-serif" font-weight="700">${ax}</text>`;
+      const ac = radarAxisColors[i];
+      html += `<text x="${lx}" y="${ly+4}" text-anchor="middle" fill="${ac}" fill-opacity="0.85" font-size="9.5" font-family="Sora,sans-serif" font-weight="700">${ax}</text>`;
     });
 
-    // Data areas
-    Object.entries(radarData).forEach(([k,d]) => {
+    // Draw families
+    const drawKeys = radarSelected ? [radarSelected] : Object.keys(radarData);
+    const allKeys  = Object.keys(radarData);
+    allKeys.forEach(k => {
+      const d = radarData[k];
+      const active = !radarSelected || k === radarSelected;
+      const op = active ? 1 : 0.08;
+      const sw = active ? 2.5 : 1;
       const pts = d.vals.map((v,i) => ptOf(R*v,i).join(',')).join(' ');
-      const isHl = radarHighlight === null || radarHighlight === k;
-      const op = isHl ? 1 : 0.15;
-      html += `<polygon class="radar-area" id="radar-${k}" points="${pts}" fill="${d.fill}" stroke="${d.color}" stroke-width="${isHl?2:1}" stroke-linejoin="round" opacity="${op}" filter="${isHl?`url(#glow-${k})`:''}" style="cursor:pointer" onmouseenter="highlightRadar('${k}')" onmouseleave="highlightRadar(null)"/>`;
-      // Dots
-      d.vals.forEach((v,i) => {
-        const [px,py] = ptOf(R*v,i);
-        html += `<circle cx="${px}" cy="${py}" r="${isHl?4:2.5}" fill="${d.color}" opacity="${op}" style="cursor:pointer"/>`;
-      });
+      html += `<polygon points="${pts}" fill="${active ? d.fill : 'transparent'}" stroke="${d.color}" stroke-width="${sw}" stroke-linejoin="round" opacity="${op}" ${active ? `filter="url(#glow-${k})"` : ''} style="cursor:pointer;transition:opacity 0.3s" onclick="selectRadar('${k}',null)"/>`;
+      if (active) {
+        d.vals.forEach((v,i) => {
+          const [px,py] = ptOf(R*v,i);
+          const pct = Math.round(v*100);
+          html += `<circle cx="${px}" cy="${py}" r="5" fill="${d.color}" opacity="0.95"/>`;
+          // Value label on selected
+          if (radarSelected) {
+            const [lx,ly] = ptOf(R*v*1.12,i);
+            html += `<text x="${lx}" y="${ly+3}" text-anchor="middle" fill="${d.color}" font-size="9" font-weight="700" font-family="DM Mono,monospace">${pct}%</text>`;
+          }
+        });
+      }
     });
 
-    // Center label
-    html += `<text x="${cx}" y="${cy+4}" text-anchor="middle" fill="rgba(255,255,255,0.08)" font-size="28" font-weight="700" font-family="Sora,sans-serif">●</text>`;
     svg.innerHTML = html;
   }
 
-  function highlightRadar(key) {
-    radarHighlight = key;
+  function selectRadar(key, el) {
+    if (radarSelected === key) {
+      radarSelected = null;
+    } else {
+      radarSelected = key;
+    }
+    // Update legend button states
+    document.querySelectorAll('.mu-rl').forEach(b => {
+      const isActive = b.getAttribute('data-rkey') === radarSelected;
+      b.style.opacity = (!radarSelected || isActive) ? '1' : '0.35';
+      b.style.outline = isActive ? `2px solid currentColor` : 'none';
+      b.style.outlineOffset = '2px';
+    });
     drawRadar();
+    renderRadarBreakdown();
+  }
+
+  function renderRadarBreakdown() {
+    const el = document.getElementById('radarBreakdown');
+    if (!el) return;
+    if (!radarSelected) {
+      el.innerHTML = '<div class="rb-hint">← Click a family to see its profile</div>';
+      return;
+    }
+    const d = radarData[radarSelected];
+    const rows = radarAxes.map((ax, i) => {
+      const pct = Math.round(d.vals[i] * 100);
+      const level = pct >= 75 ? 'High' : pct >= 45 ? 'Medium' : 'Low';
+      const lvlColor = pct >= 75 ? '#28c88a' : pct >= 45 ? '#d4a843' : '#e85555';
+      return `<div class="rb-row">
+        <span class="rb-axis" style="color:${radarAxisColors[i]}">${ax}</span>
+        <div class="rb-bar-wrap">
+          <div class="rb-bar" style="width:${pct}%;background:${d.color}"></div>
+        </div>
+        <span class="rb-pct" style="color:${d.color}">${pct}%</span>
+        <span class="rb-level" style="color:${lvlColor}">${level}</span>
+      </div>`;
+    }).join('');
+    el.innerHTML = `
+      <div class="rb-title" style="color:${d.color}">${d.name} · Score Breakdown</div>
+      <div class="rb-desc-hint">vs 100% theoretical maximum</div>
+      ${rows}
+    `;
   }
 
   /* ══════════════════════════
      WORLD MAP
   ══════════════════════════ */
-  // Supply dots: [x%, y%, label, commodity, country, color, family]
   const mapDots = [
-    // Ferrous
-    [71, 72, 'Iron Ore', 'Iron Ore (Pilbara)', 'Australia', '#d4a843', 'fe'],
-    [33, 46, 'Iron Ore', 'Iron Ore (Carajás)', 'Brazil', '#d4a843', 'fe'],
-    [65, 32, 'Coking Coal', 'Coking Coal (Shanxi)', 'China', '#d4a843', 'fe'],
-    [22, 52, 'Iron Ore', 'Iron Ore (Odisha)', 'India', '#d4a843', 'fe'],
-    // Non-Ferrous
-    [31, 76, 'Copper', 'Copper (Atacama)', 'Chile', '#2ab8a8', 'nf'],
-    [58, 26, 'Copper', 'Copper (Morenci)', 'USA', '#2ab8a8', 'nf'],
-    [65, 35, 'Zinc', 'Zinc (Smelting hub)', 'China', '#2ab8a8', 'nf'],
-    [55, 62, 'Nickel', 'Nickel (Sulawesi)', 'Indonesia', '#2ab8a8', 'nf'],
-    [63, 29, 'Tin', 'Tin (Yunnan)', 'China', '#2ab8a8', 'nf'],
-    // Precious
-    [52, 79, 'Gold/PGM', 'Gold & PGMs (Bushveld)', 'South Africa', '#e8c060', 'au'],
-    [60, 25, 'Gold', 'Gold (Nevada)', 'USA', '#e8c060', 'au'],
-    [65, 38, 'Gold', 'Gold (Shandong)', 'China', '#e8c060', 'au'],
-    [64, 28, 'Palladium', 'Palladium (Norilsk)', 'Russia', '#e8c060', 'au'],
-    [22, 55, 'Gold', 'Gold (Rajasthan)', 'India', '#e8c060', 'au'],
-    // Battery
-    [31, 74, 'Lithium', 'Lithium (Atacama Brine)', 'Chile', '#28c88a', 'li'],
-    [73, 72, 'Lithium', 'Lithium (Pilgangoora)', 'Australia', '#28c88a', 'li'],
-    [48, 52, 'Cobalt', 'Cobalt (Katanga)', 'DRC', '#28c88a', 'li'],
-    [65, 40, 'Graphite', 'Graphite (Inner Mongolia)', 'China', '#28c88a', 'li'],
-    [21, 46, 'Lithium', 'Lithium (J&K Deposits)', 'India', '#28c88a', 'li'],
-  ];
+  [660.0,262.2,"Iron Ore · Pilbara","Australia","#d4a843","fe"],
+  [284.4,233.3,"Iron Ore · Carajás","Brazil","#d4a843","fe"],
+  [655.6,115.6,"Coking Coal · Shanxi","China","#d4a843","fe"],
+  [588.9,151.1,"Iron Ore · Odisha/Jharkhand","India","#d4a843","fe"],
+  [366.7,95.6,"Iron Ore · Mauritania","Mauritania","#d4a843","fe"],
+  [246.7,253.3,"Copper · Atacama","Chile","#2ab8a8","nf"],
+  [146.7,126.7,"Copper · Morenci (Arizona)","USA","#2ab8a8","nf"],
+  [666.7,106.7,"Zinc · Smelting Hub","China","#2ab8a8","nf"],
+  [671.1,204.4,"Nickel · Sulawesi (HPAL)","Indonesia","#2ab8a8","nf"],
+  [626.7,144.4,"Tin · Yunnan","China","#2ab8a8","nf"],
+  [462.2,262.2,"Zinc/Lead · Big Syncline","South Africa","#2ab8a8","nf"],
+  [457.8,264.4,"Gold & PGMs · Bushveld","South Africa","#e8c060","au"],
+  [660.0,120.0,"Gold · Shandong","China","#e8c060","au"],
+  [600.0,62.2,"Palladium · Norilsk","Russia","#e8c060","au"],
+  [571.1,140.0,"Gold · Rajasthan","India","#e8c060","au"],
+  [140.0,111.1,"Gold · Nevada (Carlin)","USA","#e8c060","au"],
+  [457.8,220.0,"Gold · DRC/Congo","DRC","#e8c060","au"],
+  [246.7,251.1,"Lithium · Atacama Brine","Chile","#28c88a","li"],
+  [677.8,248.9,"Lithium · Pilgangoora","Australia","#28c88a","li"],
+  [457.8,217.8,"Cobalt · Katanga Province","DRC","#28c88a","li"],
+  [648.9,102.2,"Graphite · Inner Mongolia","China","#28c88a","li"],
+  [566.7,122.2,"Lithium · J&K Reserves","India","#28c88a","li"],
+  [255.6,253.3,"Lithium · Puna Plateau","Argentina","#28c88a","li"]
+];
+
+  let mapActiveFamily = null; // null = all visible
 
   function drawWorldMap() {
     const svg = document.getElementById('worldMapSvg');
     if (!svg) return;
+    svg.innerHTML = `
+    <!-- ocean bg -->
+    <rect width="800" height="400" fill="rgba(6,28,36,0.7)" rx="8"/>
+    <!-- graticule -->
+    <line x1="66.7" y1="0" x2="66.7" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="133.3" y1="0" x2="133.3" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="200.0" y1="0" x2="200.0" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="266.7" y1="0" x2="266.7" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="333.3" y1="0" x2="333.3" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="400.0" y1="0" x2="400.0" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="466.7" y1="0" x2="466.7" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="533.3" y1="0" x2="533.3" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="600.0" y1="0" x2="600.0" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="666.7" y1="0" x2="666.7" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="733.3" y1="0" x2="733.3" y2="400" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="0" y1="333.3" x2="800" y2="333.3" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="0" y1="266.7" x2="800" y2="266.7" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="0" y1="200.0" x2="800" y2="200.0" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="0" y1="133.3" x2="800" y2="133.3" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/><line x1="0" y1="66.7" x2="800" y2="66.7" stroke="rgba(42,184,168,0.04)" stroke-width="0.5"/>
+    <!-- equator highlight -->
+    <line x1="0" y1="200.0" x2="800" y2="200.0" stroke="rgba(42,184,168,0.12)" stroke-width="1" stroke-dasharray="4 4"/>
+    <!-- continents -->
+    <path d="M 26.7,42.2 L 88.9,40.0 L 177.8,37.8 L 233.3,60.0 L 255.6,95.6 L 251.1,102.2 L 222.2,144.4 L 206.7,166.7 L 200.0,177.8 L 168.9,157.8 L 140.0,128.9 L 124.4,117.8 L 124.4,91.1 L 111.1,77.8 L 88.9,71.1 L 26.7,55.6 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 300.0,15.6 L 344.4,40.0 L 360.0,44.4 L 344.4,55.6 L 322.2,55.6 L 288.9,33.3 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 233.3,175.6 L 266.7,180.0 L 322.2,211.1 L 322.2,222.2 L 304.4,251.1 L 291.1,262.2 L 255.6,322.2 L 237.8,311.1 L 233.3,273.3 L 222.2,211.1 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 377.8,120.0 L 404.4,104.4 L 417.8,102.2 L 431.1,102.2 L 444.4,104.4 L 462.2,108.9 L 480.0,117.8 L 480.0,106.7 L 462.2,95.6 L 448.9,95.6 L 462.2,66.7 L 455.6,55.6 L 433.3,48.9 L 417.8,62.2 L 393.3,80.0 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 388.9,122.2 L 424.4,117.8 L 471.1,131.1 L 495.6,173.3 L 513.3,175.6 L 495.6,226.7 L 473.3,277.8 L 440.0,275.6 L 426.7,237.8 L 417.8,188.9 L 388.9,188.9 L 362.2,166.7 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 480.0,117.8 L 493.3,117.8 L 533.3,151.1 L 524.4,142.2 L 497.8,173.3 L 480.0,151.1 L 471.1,131.1 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 457.8,115.6 L 480.0,117.8 L 493.3,117.8 L 533.3,151.1 L 544.4,148.9 L 577.8,182.2 L 622.2,188.9 L 631.1,151.1 L 640.0,151.1 L 668.9,133.3 L 688.9,106.7 L 711.1,88.9 L 715.6,77.8 L 711.1,55.6 L 622.2,37.8 L 533.3,37.8 L 471.1,44.4 L 466.7,66.7 L 462.2,95.6 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 622.2,155.6 L 631.1,177.8 L 624.4,193.3 L 631.1,197.8 L 640.0,197.8 L 657.8,188.9 L 666.7,177.8 L 640.0,151.1 L 631.1,151.1 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 686.7,126.7 L 691.1,124.4 L 702.2,122.2 L 711.1,115.6 L 713.3,106.7 L 711.1,104.4 L 700.0,122.2 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 640.0,184.4 L 662.2,184.4 L 662.2,197.8 L 640.0,208.9 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 611.1,188.9 L 633.3,211.1 L 635.6,215.6 L 611.1,188.9 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 653.3,248.9 L 671.1,240.0 L 688.9,228.9 L 702.2,226.7 L 722.2,235.6 L 735.6,253.3 L 735.6,275.6 L 726.7,284.4 L 711.1,284.4 L 691.1,286.7 L 657.8,277.8 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 782.2,282.2 L 786.7,284.4 L 791.1,282.2 L 786.7,275.6 L 782.2,282.2 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 773.3,300.0 L 780.0,297.8 L 782.2,293.3 L 777.8,304.4 L 773.3,300.0 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 388.9,88.9 L 404.4,86.7 L 400.0,71.1 L 388.9,71.1 L 393.3,80.0 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 346.7,60.0 L 368.9,57.8 L 371.1,53.3 L 355.6,53.3 L 346.7,57.8 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 497.8,226.7 L 511.1,235.6 L 511.1,255.6 L 497.8,255.6 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 577.8,177.8 L 582.2,182.2 L 582.2,177.8 L 577.8,177.8 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 662.2,160.0 L 671.1,160.0 L 675.6,173.3 L 666.7,177.8 L 662.2,160.0 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+<path d="M 666.7,144.4 L 671.1,144.4 L 668.9,151.1 L 666.7,148.9 Z" fill="rgba(42,184,168,0.09)" stroke="rgba(42,184,168,0.22)" stroke-width="0.8" stroke-linejoin="round"/>
+`;
 
-    // Simplified world landmass paths (Robinson-ish projection)
-    const land = `
-      M85,95 C95,85 120,78 150,80 C175,82 195,75 220,78 C245,80 265,72 285,75
-      C305,77 320,70 340,73 C360,75 375,68 395,70 C415,72 430,65 450,70
-      C470,75 488,72 505,80 C522,88 535,85 548,90 C560,95 568,100 572,110
-      C576,120 570,130 560,135 C550,140 535,138 520,142
-      C505,145 490,150 478,158 C466,165 458,172 448,178
-      C438,184 425,186 415,182 C405,178 398,170 390,165
-      C382,160 372,158 362,162 C352,165 345,172 338,178
-      C330,184 320,188 310,185 C300,182 292,175 285,170
-      C278,165 270,162 262,165 C254,168 248,175 242,180
-      C236,185 228,188 220,184 C212,180 206,172 200,168
-      C194,164 186,162 178,166 C170,170 165,178 160,184
-      C155,190 148,192 140,188 C132,184 127,176 122,170
-      C117,164 110,160 104,164 C98,168 95,176 92,182
-      C89,188 84,192 78,188 C72,184 70,176 70,168
-      C70,160 72,152 75,145 C78,138 82,132 84,125
-      C86,118 85,110 85,103 Z
-      M85,95 L78,88 C75,82 72,76 74,70 C76,64 80,60 86,58
-      C92,56 98,58 104,62 C110,66 114,72 118,78 L120,80
-      M572,110 C582,105 595,100 608,98 C620,96 632,98 642,104
-      C652,110 658,118 660,128 C662,138 658,148 652,155
-      C646,162 638,166 630,168 C622,170 614,168 608,162
-      C602,156 598,148 596,140 C594,132 592,122 590,115 Z
-    `;
-
-    // Draw continents as simplified filled shapes
-    const continents = [
-      // North America
-      `M155,55 C165,50 178,48 192,50 C206,52 218,58 228,65 C238,72 245,80 248,90
-       C251,100 248,110 244,118 C240,126 234,132 228,136 C222,140 215,140 210,136
-       C205,132 202,125 200,118 C198,111 197,104 198,97 C199,90 200,83 198,76
-       C196,69 190,64 182,60 C174,56 163,55 158,57 Z`,
-      // South America
-      `M218,155 C225,150 234,148 242,150 C250,152 256,158 260,165
-       C264,172 265,180 264,188 C263,196 260,204 256,210 C252,216 246,220 240,220
-       C234,220 228,216 224,210 C220,204 218,196 218,188 C218,180 218,172 218,165 Z`,
-      // Europe
-      `M360,45 C368,40 378,38 388,40 C398,42 406,48 412,55 C418,62 420,70 418,78
-       C416,86 410,92 404,96 C398,100 391,100 385,96 C379,92 375,85 372,78
-       C369,71 368,64 368,57 Z`,
-      // Africa
-      `M370,100 C380,96 392,96 402,100 C412,104 420,112 424,122
-       C428,132 428,143 426,153 C424,163 420,172 414,178 C408,184 401,186 394,184
-       C387,182 381,176 377,169 C373,162 371,154 370,146 C369,138 369,130 370,122
-       C371,114 371,107 370,100 Z`,
-      // Asia (simplified)
-      `M420,40 C435,35 455,33 472,36 C489,39 504,46 516,56 C528,66 536,78 540,91
-       C544,104 544,117 540,129 C536,141 528,151 520,158 C512,165 502,169 492,168
-       C482,167 473,162 465,155 C457,148 451,139 446,130 C441,121 437,112 434,103
-       C431,94 428,85 426,76 C424,67 423,58 422,49 Z`,
-      // Australia
-      `M598,185 C610,180 624,180 636,185 C648,190 656,200 658,212
-       C660,224 655,236 648,244 C641,252 631,256 622,254 C613,252 605,244 600,235
-       C595,226 593,216 594,206 C595,196 597,190 598,185 Z`,
-    ];
-
-    let html = `<defs>
-      <radialGradient id="mapBg" cx="50%" cy="50%">
-        <stop offset="0%" stop-color="rgba(14,72,88,0.3)"/>
-        <stop offset="100%" stop-color="rgba(6,18,20,0)"/>
-      </radialGradient>
-    </defs>
-    <rect width="800" height="400" fill="none"/>
-    <ellipse cx="400" cy="200" rx="395" ry="195" fill="url(#mapBg)" opacity="0.4"/>`;
-
-    // Grid lines (latitude/longitude suggestion)
-    for (let i=1; i<4; i++) {
-      html += `<line x1="0" y1="${i*100}" x2="800" y2="${i*100}" stroke="rgba(42,184,168,0.05)" stroke-width="1"/>`;
-    }
-    for (let i=1; i<8; i++) {
-      html += `<line x1="${i*100}" y1="0" x2="${i*100}" y2="400" stroke="rgba(42,184,168,0.05)" stroke-width="1"/>`;
-    }
-
-    // Continents
-    continents.forEach(path => {
-      html += `<path d="${path}" fill="rgba(42,184,168,0.08)" stroke="rgba(42,184,168,0.18)" stroke-width="1"/>`;
-    });
-
-    // Supply dots
+    // Add dots
     mapDots.forEach((dot, i) => {
-      const [xp, yp, , commodity, country, color, family] = dot;
-      const x = xp / 100 * 800;
-      const y = yp / 100 * 400;
-      html += `
-        <g class="map-dot-group" style="cursor:pointer"
-           onmouseenter="showMapTip(event,${i})"
-           onmouseleave="hideMapTip()">
-          <circle cx="${x}" cy="${y}" r="16" fill="${color}" opacity="0.08"/>
-          <circle cx="${x}" cy="${y}" r="7" fill="${color}" opacity="0.25"/>
-          <circle cx="${x}" cy="${y}" r="4" fill="${color}" opacity="0.9" class="map-dot"/>
-          <circle cx="${x}" cy="${y}" r="9" fill="none" stroke="${color}" stroke-width="1" opacity="0.4">
-            <animate attributeName="r" from="5" to="16" dur="2.${i%3}s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" from="0.5" to="0" dur="2.${i%3}s" repeatCount="indefinite"/>
-          </circle>
-        </g>`;
-    });
+      const [x, y, commodity, country, color, family] = dot;
+      const hidden = mapActiveFamily && mapActiveFamily !== family;
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.style.cursor = 'pointer';
+      g.style.opacity = hidden ? '0.08' : '1';
+      g.style.transition = 'opacity 0.3s';
+      g.setAttribute('data-family', family);
 
-    svg.innerHTML = html;
+      // Pulse ring
+      const ring = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      ring.setAttribute('cx', x); ring.setAttribute('cy', y); ring.setAttribute('r','5');
+      ring.setAttribute('fill','none'); ring.setAttribute('stroke', color); ring.setAttribute('stroke-width','1.5');
+      ring.setAttribute('opacity','0');
+      const aR = document.createElementNS('http://www.w3.org/2000/svg','animate');
+      aR.setAttribute('attributeName','r'); aR.setAttribute('from','5'); aR.setAttribute('to','18');
+      aR.setAttribute('dur', (1.8 + i*0.07 % 0.8)+'s'); aR.setAttribute('repeatCount','indefinite');
+      const aO = document.createElementNS('http://www.w3.org/2000/svg','animate');
+      aO.setAttribute('attributeName','opacity'); aO.setAttribute('from','0.6'); aO.setAttribute('to','0');
+      aO.setAttribute('dur', (1.8 + i*0.07 % 0.8)+'s'); aO.setAttribute('repeatCount','indefinite');
+      ring.appendChild(aR); ring.appendChild(aO);
+
+      // Glow halo
+      const halo = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      halo.setAttribute('cx', x); halo.setAttribute('cy', y); halo.setAttribute('r','8');
+      halo.setAttribute('fill', color); halo.setAttribute('opacity','0.12');
+
+      // Core dot
+      const dot2 = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      dot2.setAttribute('cx', x); dot2.setAttribute('cy', y); dot2.setAttribute('r','4');
+      dot2.setAttribute('fill', color); dot2.setAttribute('opacity','0.95');
+
+      g.appendChild(ring); g.appendChild(halo); g.appendChild(dot2);
+
+      g.addEventListener('mouseenter', (e) => showMapTip(e, i, x, y));
+      g.addEventListener('mouseleave', hideMapTip);
+      svg.appendChild(g);
+    });
   }
 
-  function showMapTip(evt, idx) {
-    const [, , label, commodity, country, color] = mapDots[idx];
+  function filterMap(family, el) {
+    if (mapActiveFamily === family) {
+      mapActiveFamily = null;
+    } else {
+      mapActiveFamily = family;
+    }
+    // Update legend styles
+    document.querySelectorAll('.mu-ml').forEach(l => {
+      l.classList.remove('mu-ml-active');
+      l.style.opacity = '0.45';
+    });
+    if (mapActiveFamily) {
+      const active = el;
+      if (active) { active.classList.add('mu-ml-active'); active.style.opacity = '1'; }
+    } else {
+      document.querySelectorAll('.mu-ml').forEach(l => l.style.opacity = '1');
+    }
+    // Update dot visibility
+    document.querySelectorAll('#worldMapSvg g[data-family]').forEach(g => {
+      const hidden = mapActiveFamily && g.getAttribute('data-family') !== mapActiveFamily;
+      g.style.opacity = hidden ? '0.06' : '1';
+    });
+  }
+
+  function showMapTip(evt, idx, dotX, dotY) {
+    const [x, y, commodity, country, color] = mapDots[idx];
     const tip = document.getElementById('mapTooltip');
-    if (!tip) return;
+    const wrap = document.querySelector('.mu-map-wrap');
+    if (!tip || !wrap) return;
     tip.innerHTML = `<strong style="color:${color}">${commodity}</strong>${country}`;
     tip.style.display = 'block';
-    const rect = evt.currentTarget.closest('.mu-map-wrap').getBoundingClientRect();
-    tip.style.left = (evt.clientX - rect.left + 12) + 'px';
-    tip.style.top  = (evt.clientY - rect.top  - 40) + 'px';
+    const rect = wrap.getBoundingClientRect();
+    // Position tooltip above the dot
+    const svgEl = document.getElementById('worldMapSvg');
+    const svgRect = svgEl.getBoundingClientRect();
+    const scaleX = svgRect.width / 800;
+    const scaleY = svgRect.height / 400;
+    let tx = svgRect.left - rect.left + dotX * scaleX + 10;
+    let ty = svgRect.top  - rect.top  + dotY * scaleY - 48;
+    if (tx + 180 > rect.width) tx -= 180;
+    if (ty < 0) ty = svgRect.top - rect.top + dotY * scaleY + 12;
+    tip.style.left = tx + 'px';
+    tip.style.top  = ty + 'px';
   }
   function hideMapTip() { const t=document.getElementById('mapTooltip'); if(t) t.style.display='none'; }
 
