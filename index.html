@@ -752,6 +752,67 @@
     .dp-gap { margin-bottom: 2.5rem; }
 
 
+
+    /* ─── STEEL DEEP DIVE TAB ─── */
+    .sdv-process-wrap { margin-top: 0.5rem; }
+    .sdv-route-label { font-size: 0.72rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 0.03em; }
+    .sdv-flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin-bottom: 0.5rem; }
+    .sdv-step { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.65rem; text-align: center; min-width: 88px; max-width: 100px; transition: border-color 0.2s; }
+    .sdv-step:hover { border-color: var(--border-hover); }
+    .sdv-step.sdv-hot { border-top: 2px solid #e85555; }
+    .sdv-step.sdv-cold { border-top: 2px solid #52a9e8; }
+    .sdv-step.sdv-output { border: 1px solid var(--amber-border); background: var(--amber-dim); }
+    .sdv-step-icon { font-size: 1.1rem; margin-bottom: 0.25rem; line-height: 1; }
+    .sdv-step-name { font-size: 0.68rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .sdv-step-note { font-size: 0.58rem; color: var(--text-faint); line-height: 1.4; }
+    .sdv-arrow { color: var(--text-faint); font-size: 1rem; padding: 0 0.25rem; flex-shrink: 0; }
+
+    /* vs grid */
+    .sdv-vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem; }
+    .sdv-vs-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+    .sdv-vs-carbon { border-top: 3px solid var(--amber); }
+    .sdv-vs-ss { border-top: 3px solid var(--steel); }
+    .sdv-vs-title { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .sdv-vs-price { font-size: 0.68rem; font-family: var(--mono); color: var(--amber); margin-bottom: 0.85rem; font-weight: 700; }
+    .sdv-vs-ss .sdv-vs-price { color: var(--steel); }
+    .sdv-driver { display: flex; gap: 0.6rem; margin-bottom: 0.6rem; align-items: flex-start; font-size: 0.75rem; color: var(--text-muted); line-height: 1.65; }
+    .sdv-d-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .sdv-driver strong { color: var(--text); }
+
+    /* grade table */
+    .sdv-grade-table { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-top: 0.75rem; }
+    .sdv-grade-header { display: grid; grid-template-columns: 100px 180px 100px 80px 1fr 90px; gap: 0.5rem; padding: 0.65rem 1rem; background: var(--surface2); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); }
+    .sdv-grade-row { display: grid; grid-template-columns: 100px 180px 100px 80px 1fr 90px; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-muted); align-items: center; transition: background 0.15s; }
+    .sdv-grade-row:hover { background: rgba(255,255,255,0.03); }
+    .sdv-g-highlight { background: rgba(42,184,168,0.05); border-left: 3px solid var(--steel); }
+    .sdv-g-name { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .sdv-star-badge { font-size: 0.55rem; background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border); border-radius: 3px; padding: 0.1rem 0.35rem; font-weight: 700; margin-left: 0.3rem; vertical-align: middle; }
+    .sdv-badge-blue { background: var(--steel-dim) !important; color: var(--steel) !important; border-color: var(--steel-border) !important; }
+    .sdv-yes { color: #28c88a; font-weight: 700; }
+    .sdv-no  { color: var(--text-faint); }
+    .sdv-price-tier { font-size: 0.68rem; font-weight: 700; }
+    .sdv-tier-1 { color: #8a6040; }
+    .sdv-tier-2 { color: #a07040; }
+    .sdv-tier-3 { color: var(--amber); }
+    .sdv-tier-4 { color: var(--steel); }
+    .sdv-tier-5 { color: #28c88a; }
+
+    /* callout box */
+    .sdv-callout { background: rgba(42,184,168,0.06); border: 1px solid rgba(42,184,168,0.2); border-radius: 10px; padding: 1.25rem; margin-top: 1.25rem; }
+    .sdv-callout-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.85rem; }
+    .sdv-callout-grid { display: grid; grid-template-columns: 1fr 40px 1fr; gap: 0.75rem; align-items: start; }
+    .sdv-callout-divider { font-size: 0.8rem; font-weight: 700; color: var(--text-faint); text-align: center; padding-top: 1.5rem; }
+    .sdv-callout-head { font-size: 0.78rem; font-weight: 700; color: var(--amber); margin-bottom: 0.5rem; }
+    .sdv-callout-col ul { padding-left: 1rem; }
+    .sdv-callout-col ul li { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem; line-height: 1.55; }
+    .sdv-callout-note { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid rgba(42,184,168,0.15); }
+
+    /* price ladder */
+    .sdv-price-ladder { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.75rem; }
+    .sdv-pl-row { display: flex; align-items: center; gap: 0.75rem; }
+    .sdv-pl-bar { height: 26px; border-radius: 4px; display: flex; align-items: center; padding-left: 0.6rem; font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.85); min-width: 50px; transition: width 0.5s; font-family: var(--mono); }
+    .sdv-pl-row span { font-size: 0.7rem; color: var(--text-muted); }
+
     /* ─── PRICE MODAL ─── */
     #priceModal {
       display: none; position: fixed; inset: 0; z-index: 2000;
@@ -1932,6 +1993,10 @@
     document.getElementById('dp2').innerHTML = d.materials;
     document.getElementById('dp3').innerHTML = d.industries;
     document.getElementById('dp4').innerHTML = d.regions;
+    document.getElementById('dp5').innerHTML = d.steel_grades || '';
+    // Show/hide Steel Deep Dive tab (only for ferrous)
+    const t5 = document.getElementById('dtab5');
+    if (t5) t5.style.display = d.steel_grades ? '' : 'none';
     // Show
     document.getElementById('metalDetail').classList.add('active');
     document.getElementById('metalDetail').scrollTop = 0;
@@ -1941,79 +2006,282 @@
   const metalDetailData = {
     ferrous: {
       title: 'Ferrous Metals', eyebrow: 'Metal Family · Iron-Based', symbol: 'Fe',
-      subtitle: 'Any metal with iron (Fe) as its primary constituent. The most widely used class of metals — accounting for ~90% of all refined metal production worldwide.',
+      subtitle: 'Any metal with iron (Fe) as its primary component. The backbone of global industry — accounting for ~90% of all refined metal production worldwide.',
       color: '#d4a843',
       stats: [
         { val: '~90%', lbl: 'of all refined metals' },
         { val: '1.9B t', lbl: 'steel produced/year' },
-        { val: '~$900/t', lbl: 'avg HRC price' },
-        { val: '50%+', lbl: 'from China' }
+        { val: '$479/t', lbl: 'HRC spot price' },
+        { val: '100%', lbl: 'recyclable' }
       ],
       definition: `<div class="dp-section-title">What are <span>Ferrous Metals</span>?</div>
-        <div class="dp-def-text">Ferrous metals are defined as metals in which <strong>iron (Fe) is the primary constituent element</strong>. The term comes from the Latin <em>ferrum</em>, meaning iron. Because iron is one of Earth's most abundant elements (making up ~5% of the Earth's crust), ferrous metals are the most widely produced and used class of metals globally.</div>
-        <div class="dp-def-text">All ferrous metals are alloys — <strong>iron combined with carbon and other elements</strong> to achieve specific mechanical and chemical properties. Carbon content is the primary variable: pure iron is soft and weak, but adding just 0.02–2.1% carbon transforms it into steel — stronger, harder, and formable. Adding more than 2.1% carbon produces cast iron — harder but brittle.</div>
-        <div class="dp-def-text"><strong>Why do they matter to us?</strong> Our desk's primary products — HRC, CRC, galvanized steel, and tinplate — are all ferrous metals. Every price we derive starts with iron ore and ends with a coated flat steel product. Understanding the ferrous family underpins every analysis we do.</div>`,
+        <div class="dp-def-text">Ferrous metals are defined as <strong>any metals that contain iron (Fe) as their primary component</strong>. The term derives from the Latin <em>ferrum</em>, meaning iron. Examples include wrought iron, cast iron, steel, and stainless steel — all sharing iron as their base element while differing in carbon content and alloying additions.</div>
+        <div class="dp-def-text">These metals are typically characterised by <strong>high strength, durability, and magnetic properties</strong>. Most ferrous metals are prone to rust when exposed to moisture and oxygen — iron reacts with these to form iron oxide (rust), weakening the metal over time. Stainless steel is the notable exception: its chromium content (>10.5%) forms a passive protective oxide layer that resists corrosion.</div>
+        <div class="dp-def-text">Ferrous metals are <strong>highly recyclable</strong> — they can be melted down and re-forged repeatedly without significant loss of structural integrity. This recyclability makes them both economically and environmentally advantageous, and is a key reason why steel is the world's most recycled material. Their combination of strength, availability, and cost-effectiveness makes them the dominant material in construction, automotive, manufacturing, and industrial applications.</div>
+        <div class="dp-def-text"><strong>Why do they matter to our desk?</strong> Our primary products — HRC, CRC, galvanized steel, and tinplate — are all ferrous metals. Every price we analyse starts with iron ore and ends with a coated flat steel product.</div>`,
       properties: `<div class="dp-section-title"><span>Properties</span> of Ferrous Metals</div>
         <div class="dp-prop-grid">
-          <div class="dp-prop-card"><div class="dp-prop-icon">🧲</div><div class="dp-prop-name">Magnetic</div><div class="dp-prop-val">Strongly ferromagnetic</div><div class="dp-prop-note">Most ferrous metals are attracted to magnets — key to many electrical applications (transformers, motors). Exception: austenitic stainless steel (Cr-Ni grade) is non-magnetic.</div></div>
-          <div class="dp-prop-card"><div class="dp-prop-icon">💪</div><div class="dp-prop-name">Tensile Strength</div><div class="dp-prop-val">400 – 2,000 MPa</div><div class="dp-prop-note">Mild steel ~400 MPa. High-strength structural steel up to 690 MPa. Tool steel can exceed 2,000 MPa. This range makes ferrous metals irreplaceable in construction and automotive.</div></div>
-          <div class="dp-prop-card"><div class="dp-prop-icon">🌡️</div><div class="dp-prop-name">Melting Point</div><div class="dp-prop-val">~1,370 – 1,540°C</div><div class="dp-prop-note">Pure iron melts at 1,538°C. Steel melts at 1,370–1,530°C depending on carbon and alloy content. Cast iron melts at ~1,150–1,200°C (lower C melting point).</div></div>
-          <div class="dp-prop-card"><div class="dp-prop-icon">⚖️</div><div class="dp-prop-name">Density</div><div class="dp-prop-val">7.6 – 8.0 g/cm³</div><div class="dp-prop-note">Denser than aluminium (2.7 g/cm³) and titanium (4.5 g/cm³). This weight is a disadvantage in transport but offset by cost efficiency and weldability.</div></div>
-          <div class="dp-prop-card"><div class="dp-prop-icon">🔥</div><div class="dp-prop-name">Thermal Conductivity</div><div class="dp-prop-val">~50 W/m·K (steel)</div><div class="dp-prop-note">Good thermal conductor, though less than copper (~400 W/m·K) or aluminium (~200 W/m·K). Stainless steel is notably lower (~16 W/m·K) due to alloying elements.</div></div>
-          <div class="dp-prop-card"><div class="dp-prop-icon">🦺</div><div class="dp-prop-name">Corrosion Resistance</div><div class="dp-prop-val">Low (uncoated)</div><div class="dp-prop-note">Carbon steel rusts in the presence of moisture and oxygen. This is why coatings (zinc/galvanizing, tin/tinplate) are applied — and why that coating premium exists in our pricing work.</div></div>
-        </div>`,
+          <div class="dp-prop-card"><div class="dp-prop-icon">♻️</div><div class="dp-prop-name">Recyclability</div><div class="dp-prop-val">Infinitely recyclable</div><div class="dp-prop-note">Ferrous metals can be melted and re-forged repeatedly without losing structural integrity — making them environmentally and economically advantageous. Steel is the world's most recycled material at 85%+ end-of-life recovery.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🔥</div><div class="dp-prop-name">Heat Resistance</div><div class="dp-prop-val">Excellent (esp. alloy grades)</div><div class="dp-prop-note">Ferrous metals — especially high-alloy types like stainless steel — exhibit excellent heat resistance, making them ideal for engines, boilers, and high-temperature industrial applications without deforming or breaking down.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🧲</div><div class="dp-prop-name">Magnetic Properties</div><div class="dp-prop-val">Strongly ferromagnetic</div><div class="dp-prop-note">Most ferrous metals are magnetic, making them essential in motors, generators, and transformers. Exception: austenitic stainless steel (high Cr-Ni grades) is non-magnetic due to its crystal structure.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">💪</div><div class="dp-prop-name">High Tensile Strength</div><div class="dp-prop-val">400 – 2,000+ MPa</div><div class="dp-prop-note">Ferrous metals can endure significant stretching without breaking. This is why they are the dominant material in buildings, bridges, and structural frameworks. Mild steel ~400 MPa; high-strength structural steel up to 690 MPa.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🏗️</div><div class="dp-prop-name">Structural Durability</div><div class="dp-prop-val">Exceptional long-term</div><div class="dp-prop-note">Ferrous metals maintain structural integrity over time, withstanding the stresses of modern architecture and infrastructure — from skyscrapers to residential homes — making them the go-to material for load-bearing applications.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🛡️</div><div class="dp-prop-name">Corrosion Resistance</div><div class="dp-prop-val">Variable by grade</div><div class="dp-prop-note">Carbon steel rusts readily when exposed to moisture. Stainless steel is highly corrosion-resistant thanks to a chromium oxide passive layer. Coatings (zinc = galvanized, tin = tinplate) extend carbon steel life — and create our premium products.</div></div>
+        </div>
+        <div class="dp-section-title" style="margin-top:1.5rem">Key <span>Limitations</span></div>
+        <div class="dp-def-text" style="margin-bottom:0.5rem">⚠️ <strong>Prone to rust:</strong> Iron reacts with oxygen and moisture to form iron oxide, significantly weakening unprotected carbon steel over time. This is why surface coatings (galvanizing, tinning, painting) are critical — and commercially valuable.</div>
+        <div class="dp-def-text">⚠️ <strong>Heavy:</strong> Ferrous metals are denser than non-ferrous alternatives (steel ~7.8 g/cm³ vs aluminium 2.7 g/cm³). This limits use in weight-sensitive applications such as aerospace and some automotive parts. <strong>Low electrical/thermal conductivity:</strong> Compared to copper or aluminium, ferrous metals are poor conductors — unsuitable for wiring or heat exchange applications.</div>`,
       materials: `<div class="dp-section-title">Types &amp; <span>Materials</span></div>
         <div class="dp-mat-grid">
-          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C 0.05–0.3%</span><div class="dp-mat-info"><div class="dp-mat-name">Mild / Low-Carbon Steel</div><div class="dp-mat-desc">The most widely produced steel. Includes HRC and CRC — the core of our desk's products. Easy to weld and form. Used in construction, auto bodies, pipes, and packaging substrates.</div></div></div>
-          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C 0.3–0.6%</span><div class="dp-mat-info"><div class="dp-mat-name">Medium-Carbon Steel</div><div class="dp-mat-desc">Higher strength and hardness than mild steel. Used in machinery parts, axles, gears, and railways. Less weldable than low-carbon grades.</div></div></div>
-          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C + Cr/Ni/Mo</span><div class="dp-mat-info"><div class="dp-mat-name">Alloy Steel</div><div class="dp-mat-desc">Steel with deliberate additions of Cr, Ni, Mo, V, Mn to achieve superior strength, toughness, or wear resistance. Used in aerospace, oil &amp; gas, and high-performance automotive.</div></div></div>
-          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + Cr &gt;10.5%</span><div class="dp-mat-info"><div class="dp-mat-name">Stainless Steel</div><div class="dp-mat-desc">Chromium forms a passive oxide layer giving excellent corrosion resistance. Grades: 304 (food/kitchen), 316 (marine/chemical), 410 (cutlery). Traded separately from carbon steel.</div></div></div>
-          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C 2.1–4%</span><div class="dp-mat-info"><div class="dp-mat-name">Cast Iron</div><div class="dp-mat-desc">High carbon content makes it hard but brittle. Cannot be rolled or drawn. Used in engine blocks, pipes, cookware, and heavy machinery. Much lower cost than steel per tonne.</div></div></div>
-          <div class="dp-mat-item"><span class="dp-mat-badge eaf">Tin-coated CRC</span><div class="dp-mat-info"><div class="dp-mat-name">Tinplate 🎯 Our Product</div><div class="dp-mat-desc">CRC substrate electrolytically coated with 2.8–11.2 g/m² of tin per side. Food-safe, solderable, and corrosion-resistant. Price = CRC + LME Tin + ETL processing premium.</div></div></div>
-          <div class="dp-mat-item"><span class="dp-mat-badge eaf">Zinc-coated CRC</span><div class="dp-mat-info"><div class="dp-mat-name">Galvanized (HDG) 🎯 Our Product</div><div class="dp-mat-desc">CRC passed through molten zinc bath at ~460°C. Zinc provides cathodic protection — it corrodes sacrificially before the underlying steel. Dominant product in construction and auto.</div></div></div>
-          <div class="dp-mat-item"><span class="dp-mat-badge grn">Electrical Steel</span><div class="dp-mat-info"><div class="dp-mat-name">Silicon Steel (GOES / NOES)</div><div class="dp-mat-desc">Steel with 2–4% silicon addition that reduces magnetic losses. Critical for transformers and electric motor cores. Fast-growing demand due to energy transition and EV motors.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + Cr >10.5%</span><div class="dp-mat-info"><div class="dp-mat-name">Stainless Steel</div><div class="dp-mat-desc">Chromium forms a passive oxide layer that blocks oxygen diffusion and prevents corrosion. Used in cookware, cutlery, surgical instruments, major appliances, and construction cladding. Classified into austenitic, ferritic, and martensitic types. More expensive than carbon steel due to alloying costs.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C >2%</span><div class="dp-mat-info"><div class="dp-mat-name">Cast Iron</div><div class="dp-mat-desc">High carbon content (>2%) gives excellent castability (silicon controls structure) but makes it relatively brittle. Good wear resistance and low melting point. Used in heavy-duty cookware, machine tools, automotive engine components, and pipes.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + 1–2% slag</span><div class="dp-mat-info"><div class="dp-mat-name">Wrought Iron</div><div class="dp-mat-desc">Near-pure iron with fibrous slag inclusions giving a wood-like grain. Known for ductility, malleability, and natural corrosion resistance. Primarily used in ornamental ironwork (gates, fences, railings). Largely replaced by mild steel in structural applications.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C up to 2.1%</span><div class="dp-mat-info"><div class="dp-mat-name">Carbon Steel (Low / Medium / High)</div><div class="dp-mat-desc">Low-carbon (mild) steel: ductile, easy to weld — used in car bodies, appliances, building frameworks. Medium-carbon: harder, less ductile — springs, axles. High-carbon: very hard — cutting tools, high-strength wires. Our HRC and CRC products are primarily low-carbon grades.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + Mn/Si/Ni/Cr</span><div class="dp-mat-info"><div class="dp-mat-name">Alloy Steel</div><div class="dp-mat-desc">Carbon steel with deliberate additions of manganese, silicon, nickel, chromium, or vanadium to improve strength, hardness, wear resistance, and toughness. Used in automotive gears and axles, wind turbine shafts, and high-durability machinery.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + W/Mo/V</span><div class="dp-mat-info"><div class="dp-mat-name">Tool Steel</div><div class="dp-mat-desc">Engineered for tool making: extremely hard, deformation-resistant, maintains a sharp edge at high temperatures. Contains tungsten, molybdenum, cobalt, and vanadium. Used in drill bits, gear cutters, dies, and moulds.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge eaf">Tin-coated CRC</span><div class="dp-mat-info"><div class="dp-mat-name">Tinplate 🎯 Our Product</div><div class="dp-mat-desc">CRC substrate electrolytically coated with 2.8–11.2 g/m² of tin per side. Food-safe, corrosion-resistant, solderable. Used almost exclusively in food and beverage packaging. Price = CRC + LME Tin metal cost + ETL processing premium.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge eaf">Zinc-coated CRC</span><div class="dp-mat-info"><div class="dp-mat-name">Galvanized Steel (HDG) 🎯 Our Product</div><div class="dp-mat-desc">CRC passed through molten zinc bath at ~460°C. Zinc provides cathodic protection — it corrodes sacrificially before the underlying steel. Dominant product in construction roofing and automotive body panels. Premium tracks LME Zinc directly.</div></div></div>
         </div>`,
       industries: `<div class="dp-section-title">End-Use <span>Industries</span></div>
         <div class="dp-ind-grid">
-          <div class="dp-ind-card"><div class="dp-ind-icon">🏗️</div><div class="dp-ind-name">Construction &amp; Infrastructure</div><div class="dp-ind-share">~52% of steel demand</div><div class="dp-ind-desc">Rebar for concrete reinforcement, structural beams, roofing sheets (galvanized), piling. China's construction boom has been the single largest driver of global steel demand since 2000.</div></div>
-          <div class="dp-ind-card"><div class="dp-ind-icon">🚗</div><div class="dp-ind-name">Automotive</div><div class="dp-ind-share">~12% of steel demand</div><div class="dp-ind-desc">Body panels (CRC/HDG), chassis, suspension, engine components. A typical passenger car contains 900–1,000 kg of steel. AHSS (advanced high-strength steel) enables lightweighting.</div></div>
-          <div class="dp-ind-card"><div class="dp-ind-icon">🥫</div><div class="dp-ind-name">Packaging</div><div class="dp-ind-share">~4% of steel demand</div><div class="dp-ind-desc">Almost exclusively tinplate. Food cans, beverage cans, paint tins, aerosol containers. Key demand driver for tinplate pricing — our core product.</div></div>
-          <div class="dp-ind-card"><div class="dp-ind-icon">⚡</div><div class="dp-ind-name">Energy &amp; Utilities</div><div class="dp-ind-share">~7% of steel demand</div><div class="dp-ind-desc">Oil &amp; gas pipelines (seamless tubes), wind turbine towers and foundations, power transformers (silicon steel), solar mounting structures. Growing with energy transition capex.</div></div>
-          <div class="dp-ind-card"><div class="dp-ind-icon">🚢</div><div class="dp-ind-name">Shipbuilding</div><div class="dp-ind-share">~3% of steel demand</div><div class="dp-ind-desc">Heavy plate for ship hulls and offshore structures. China, South Korea, and Japan dominate shipbuilding, consuming large volumes of thick plate (>12mm).</div></div>
-          <div class="dp-ind-card"><div class="dp-ind-icon">⚙️</div><div class="dp-ind-name">Machinery &amp; Equipment</div><div class="dp-ind-share">~15% of steel demand</div><div class="dp-ind-desc">Industrial machinery, agricultural equipment, mining machinery, white goods (washers, fridges). Uses both flat (HDG/CRC) and long products (bars, tubes). China is the largest market.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🏗️</div><div class="dp-ind-name">Construction</div><div class="dp-ind-share">~52% of steel demand</div><div class="dp-ind-desc">Steel is fundamental for structural frameworks, rebar for concrete reinforcement, beams and columns in high-rise buildings, bridges, and infrastructure projects. China's construction boom has been the single largest driver of global steel demand since 2000.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🚗</div><div class="dp-ind-name">Automotive</div><div class="dp-ind-share">~12% of steel demand</div><div class="dp-ind-desc">Car frames, cylinder blocks, gear wheels, engine components, and body panels. Steel is valued for its durability and ability to absorb impact energy. A typical passenger car contains 900–1,000 kg of steel. Advanced high-strength steel (AHSS) enables lightweighting.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🥫</div><div class="dp-ind-name">Packaging</div><div class="dp-ind-share">~4% of steel demand</div><div class="dp-ind-desc">Almost exclusively tinplate. Food cans, beverage cans, paint tins, and aerosol containers. Our core product for the metals desk. Food safety compliance and corrosion resistance drive tinplate preference over alternative packaging materials.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">⚙️</div><div class="dp-ind-name">Manufacturing &amp; Tools</div><div class="dp-ind-share">~15% of steel demand</div><div class="dp-ind-desc">Machine tool parts, chisels, lathe tools, cutting equipment, industrial machinery, and heavy equipment. Steel and cast iron are preferred for their strength and wear resistance. Also includes everyday items: kitchen draining boards, cutlery, garden tools, hammers, and drills.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🚢</div><div class="dp-ind-name">Transportation &amp; Shipping</div><div class="dp-ind-share">~3% of steel demand</div><div class="dp-ind-desc">Beyond automotive — shipbuilding, railway construction (girders, rails, metal cables), and production of freight containers. The strength and durability of ferrous metals support the weight and stress involved in all modes of transportation.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">✈️</div><div class="dp-ind-name">Aerospace &amp; Energy</div><div class="dp-ind-share">~7% of steel demand</div><div class="dp-ind-desc">Selected aircraft structural parts use high-strength ferrous alloys. Energy infrastructure (pipelines, wind turbine towers, power transmission structures) is a growing demand driver. Silicon steels are critical for electrical transformers and EV motors.</div></div>
+        </div>
+        <div class="dp-section-title" style="margin-top:1.5rem">Advantages &amp; <span>Disadvantages</span></div>
+        <div class="dp-cols">
+          <div class="dp-col"><div class="dp-col-hd">Advantages</div><ul>
+            <li>High strength and durability for structural/load-bearing use</li>
+            <li>Magnetic — essential for motors, generators, transformers</li>
+            <li>Generally lower cost than non-ferrous metals</li>
+            <li>100% recyclable without quality degradation</li>
+            <li>Good heat distribution for high-temperature applications</li>
+            <li>Highly versatile — wide range of grades for specific needs</li>
+          </ul></div>
+          <div class="dp-col"><div class="dp-col-hd">Disadvantages</div><ul>
+            <li>Most grades prone to rust without protective coating</li>
+            <li>Heavy — denser than Al, Ti, and Mg alternatives</li>
+            <li>Low electrical and thermal conductivity vs copper/aluminium</li>
+            <li>Some grades require specialist welding techniques</li>
+          </ul></div>
         </div>`,
+      steel_grades: `
+      <!-- PROCESS VISUALS SVG -->
+      <div class="dp-section-title">How <span>HRC & CRC</span> are Made — From Slab to Coil</div>
+
+      <div class="sdv-process-wrap">
+        <div class="sdv-route-label" style="color:#d4a843">🔶 Hot Rolled Coil (HRC) Route</div>
+        <div class="sdv-flow">
+          <div class="sdv-step"><div class="sdv-step-icon">📦</div><div class="sdv-step-name">Steel Slab</div><div class="sdv-step-note">~200–250mm thick<br>from continuous caster</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name">Reheat Furnace</div><div class="sdv-step-note">~1,200°C<br>slab softened</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Roughing Mill</div><div class="sdv-step-note">200mm → ~25mm<br>4–6 passes</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Finishing Mill</div><div class="sdv-step-note">25mm → 1.5–12mm<br>6–7 stand tandem</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step"><div class="sdv-step-icon">💧</div><div class="sdv-step-name">Runout Cooling</div><div class="sdv-step-note">Water spray<br>controls properties</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name">HRC Coil</div><div class="sdv-step-note">1.5–12mm thick<br>mill scale surface</div></div>
+        </div>
+
+        <div class="sdv-route-label" style="color:#2ab8a8; margin-top:1rem">🔵 Cold Rolled Coil (CRC) Route — starts from HRC</div>
+        <div class="sdv-flow">
+          <div class="sdv-step sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name">HRC Input</div><div class="sdv-step-note">1.5–6mm hot rolled<br>mill scale on surface</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step"><div class="sdv-step-icon">🧪</div><div class="sdv-step-name">Acid Pickling</div><div class="sdv-step-note">HCl bath removes<br>mill scale oxide</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-cold"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Tandem Cold Mill</div><div class="sdv-step-note">Room temp rolling<br>50–80% reduction</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name">Annealing Furnace</div><div class="sdv-step-note">~700°C restores<br>ductility (work hardening)</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step"><div class="sdv-step-icon">✨</div><div class="sdv-step-name">Temper Rolling</div><div class="sdv-step-note">1–3% skin pass<br>improves flatness</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name">CRC Coil</div><div class="sdv-step-note">0.25–3mm thick<br>smooth bright surface</div></div>
+        </div>
+
+        <div class="sdv-route-label" style="color:#e8c060; margin-top:1rem">✦ Stainless Steel HRC / CRC Route — AOD is the key difference</div>
+        <div class="sdv-flow">
+          <div class="sdv-step"><div class="sdv-step-icon">⚡</div><div class="sdv-step-name">EAF Melt</div><div class="sdv-step-note">Scrap + ferro-alloys<br>melted at 3,000°C</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🫧</div><div class="sdv-step-name">AOD Converter</div><div class="sdv-step-note">Argon-Oxygen<br>Decarburization<br>removes C without<br>losing Cr</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step"><div class="sdv-step-icon">📦</div><div class="sdv-step-name">SS Slab</div><div class="sdv-step-note">Continuous cast<br>stainless slab</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name">Hot Rolling</div><div class="sdv-step-note">→ SS HRC<br>1,200°C</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step"><div class="sdv-step-icon">🧪</div><div class="sdv-step-name">HF/HNO₃ Pickling</div><div class="sdv-step-note">Stronger acid mix<br>removes SS scale</div></div>
+          <div class="sdv-arrow">→</div>
+          <div class="sdv-step sdv-cold"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Cold Rolling</div><div class="sdv-step-note">→ SS CRC<br>bright annealed (BA)<br>or 2B finish</div></div>
+        </div>
+      </div>
+
+      <!-- STEEL VS STAINLESS PRICING -->
+      <div class="dp-section-title" style="margin-top:2rem">Steel vs Stainless — <span>How Prices Are Set</span></div>
+      <div class="sdv-vs-grid">
+        <div class="sdv-vs-card sdv-vs-carbon">
+          <div class="sdv-vs-title">⚙️ Carbon Steel (HRC/CRC)</div>
+          <div class="sdv-vs-price">$450–550/t (HRC) · $530–650/t (CRC)</div>
+          <div class="sdv-vs-drivers">
+            <div class="sdv-driver"><span class="sdv-d-icon">⛏️</span><div><strong>Iron Ore</strong> — primary cost driver. ~1.6t ore per tonne of steel. Platts 62% Fe CFR China index is the global benchmark.</div></div>
+            <div class="sdv-driver"><span class="sdv-d-icon">🪨</span><div><strong>Coking Coal</strong> — ~0.6t per tonne of BF-BOF steel. PLV coking coal price (Australia FOB) drives cost floor.</div></div>
+            <div class="sdv-driver"><span class="sdv-d-icon">⚡</span><div><strong>Scrap + Electricity</strong> — for EAF route. Turkish scrap price (HMS 1&2 CFR Turkey) is a key indicator.</div></div>
+            <div class="sdv-driver"><span class="sdv-d-icon">📊</span><div><strong>Traded on:</strong> CME HRC futures (US), SGX TSI HRC (Asia), Platts/Fastmarkets assessments. LME offers contract but less liquid.</div></div>
+          </div>
+        </div>
+        <div class="sdv-vs-card sdv-vs-ss">
+          <div class="sdv-vs-title">✦ Stainless Steel</div>
+          <div class="sdv-vs-price">$1,800–2,200/t (304 HRC) · $2,200–2,800/t (316 HRC)</div>
+          <div class="sdv-vs-drivers">
+            <div class="sdv-driver"><span class="sdv-d-icon">🔵</span><div><strong>Nickel (LME)</strong> — the dominant variable. Each $1,000/t move in LME Ni adds ~$120–150/t to 304 price. 316 has more Ni, so it's even more sensitive.</div></div>
+            <div class="sdv-driver"><span class="sdv-d-icon">🪨</span><div><strong>Ferrochrome</strong> — chromium alloy cost. Quarterly benchmark set by South African producers. ~18% Cr content in 304 means Cr cost is ~15–20% of stainless price.</div></div>
+            <div class="sdv-driver"><span class="sdv-d-icon">⚙️</span><div><strong>Alloy Surcharge Mechanism</strong> — mills publish a monthly alloy surcharge on top of a base price. Alloy surcharge = Ni cost + Cr cost + Mo cost (for 316). This is how stainless steel price moves monthly even if base production cost is stable.</div></div>
+            <div class="sdv-driver"><span class="sdv-d-icon">📊</span><div><strong>Not exchange-traded</strong> — no futures contract for stainless. Prices set via mill announcements and Fastmarkets/CRU assessments. Less transparent than carbon steel.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAINLESS GRADE COMPARISON -->
+      <div class="dp-section-title" style="margin-top:2rem">Stainless Steel Grades — <span>What the Numbers Mean</span></div>
+      <div class="dp-def-text">Stainless steel grades use the <strong>AISI/SAE numbering system</strong> (American Iron and Steel Institute). The 3-digit number indicates the alloy family and composition. The number itself does NOT represent a percentage — it is simply a standardised designation code assigned sequentially as grades were developed.</div>
+
+      <div class="sdv-grade-table">
+        <div class="sdv-grade-header">
+          <span>Grade</span><span>Composition</span><span>Type</span><span>Magnetic?</span><span>Key Property</span><span>Price Tier</span>
+        </div>
+        <div class="sdv-grade-row sdv-g-409">
+          <span class="sdv-g-name">409</span>
+          <span>Fe + 11% Cr</span>
+          <span>Ferritic</span>
+          <span class="sdv-yes">✓ Yes</span>
+          <span>Cheapest grade. Minimum corrosion resistance. Used in automotive exhaust systems.</span>
+          <span class="sdv-price-tier sdv-tier-1">💰 Lowest</span>
+        </div>
+        <div class="sdv-grade-row sdv-g-430">
+          <span class="sdv-g-name">430</span>
+          <span>Fe + 17% Cr</span>
+          <span>Ferritic</span>
+          <span class="sdv-yes">✓ Yes</span>
+          <span>No nickel — lower cost than 300-series. Good corrosion resistance. Used in automotive trim, appliances, decorative panels.</span>
+          <span class="sdv-price-tier sdv-tier-2">💰💰 Low</span>
+        </div>
+        <div class="sdv-grade-row sdv-g-201">
+          <span class="sdv-g-name">201</span>
+          <span>Fe + 16% Cr + 5% Mn + 1% Ni</span>
+          <span>Austenitic</span>
+          <span class="sdv-no">✗ No</span>
+          <span>Manganese replaces nickel — cheaper than 304. Lower corrosion resistance. Widely used in Asia as a 304 substitute in non-critical applications.</span>
+          <span class="sdv-price-tier sdv-tier-2">💰💰 Low-Mid</span>
+        </div>
+        <div class="sdv-grade-row sdv-g-304">
+          <span class="sdv-g-name">304 <span class="sdv-star-badge">Most Common</span></span>
+          <span>Fe + 18% Cr + 8% Ni</span>
+          <span>Austenitic</span>
+          <span class="sdv-no">✗ No</span>
+          <span>The "18/8" grade. Most widely used stainless (~50% of global production). Excellent corrosion resistance, easy to weld and form. Food processing, kitchen equipment, architecture, sinks, tanks.</span>
+          <span class="sdv-price-tier sdv-tier-3">💰💰💰 Mid</span>
+        </div>
+        <div class="sdv-grade-row sdv-g-316">
+          <span class="sdv-g-name">316</span>
+          <span>Fe + 16% Cr + 10% Ni + 2% Mo</span>
+          <span>Austenitic</span>
+          <span class="sdv-no">✗ No</span>
+          <span>Molybdenum addition gives superior resistance to chlorides and pitting corrosion. Used in marine environments, chemical plants, pharmaceutical equipment, food processing in salty/acidic conditions.</span>
+          <span class="sdv-price-tier sdv-tier-4">💰💰💰💰 High</span>
+        </div>
+        <div class="sdv-grade-row sdv-g-316L sdv-g-highlight">
+          <span class="sdv-g-name">316L <span class="sdv-star-badge sdv-badge-blue">vs 316</span></span>
+          <span>Same as 316 but C &lt;0.03%</span>
+          <span>Austenitic</span>
+          <span class="sdv-no">✗ No</span>
+          <span><strong>"L" = Low Carbon.</strong> Carbon reduced from 0.08% to &lt;0.03%. Prevents sensitisation — carbide precipitation at grain boundaries during welding that causes "weld decay" corrosion. 316L is preferred for all welded applications. Price is slightly HIGHER than 316 due to tighter carbon control in steelmaking.</span>
+          <span class="sdv-price-tier sdv-tier-4">💰💰💰💰 High+</span>
+        </div>
+        <div class="sdv-grade-row sdv-g-904">
+          <span class="sdv-g-name">904L</span>
+          <span>Fe + 20% Cr + 25% Ni + 4.5% Mo</span>
+          <span>Super Austenitic</span>
+          <span class="sdv-no">✗ No</span>
+          <span>Super austenitic grade with extreme corrosion resistance. Used in sulfuric acid processing, seawater desalination, offshore oil. Very expensive due to high Ni and Mo content.</span>
+          <span class="sdv-price-tier sdv-tier-5">💰💰💰💰💰 Highest</span>
+        </div>
+      </div>
+
+      <!-- 316 vs 316L callout box -->
+      <div class="sdv-callout">
+        <div class="sdv-callout-title">🔬 316 vs 316L — The Key Difference</div>
+        <div class="sdv-callout-grid">
+          <div class="sdv-callout-col">
+            <div class="sdv-callout-head">316 (Standard)</div>
+            <ul>
+              <li>Carbon: up to <strong>0.08%</strong></li>
+              <li>Suitable for non-welded applications</li>
+              <li>Slightly lower cost</li>
+              <li>Good for machined parts, castings, non-structural uses</li>
+            </ul>
+          </div>
+          <div class="sdv-callout-divider">vs</div>
+          <div class="sdv-callout-col">
+            <div class="sdv-callout-head" style="color:#2ab8a8">316L (Low Carbon)</div>
+            <ul>
+              <li>Carbon: max <strong>0.03%</strong></li>
+              <li>Essential for welded structures</li>
+              <li>Slightly <strong>higher price</strong> — tighter spec</li>
+              <li>Standard choice in chemical, marine, food processing</li>
+            </ul>
+          </div>
+        </div>
+        <div class="sdv-callout-note">💡 When in doubt, specify 316L — it can always be used where 316 is specified, but not vice versa when welding is involved.</div>
+      </div>
+
+      <!-- PRICE LADDER -->
+      <div class="dp-section-title" style="margin-top:2rem">Grade <span>Price Ladder</span> — Approximate Relative Pricing</div>
+      <div class="sdv-price-ladder">
+        <div class="sdv-pl-row"><div class="sdv-pl-bar" style="width:22%;background:#8a6040">409</div><span>Lowest — no Ni, min Cr</span></div>
+        <div class="sdv-pl-row"><div class="sdv-pl-bar" style="width:35%;background:#a07040">430</div><span>Low — Cr only, no Ni</span></div>
+        <div class="sdv-pl-row"><div class="sdv-pl-bar" style="width:45%;background:#b08040">201</div><span>Low-mid — Mn replaces Ni</span></div>
+        <div class="sdv-pl-row"><div class="sdv-pl-bar" style="width:60%;background:#d4a843">304</div><span>Mid — 18% Cr + 8% Ni (benchmark)</span></div>
+        <div class="sdv-pl-row"><div class="sdv-pl-bar" style="width:75%;background:#2ab8a8">316</div><span>High — adds 2% Mo</span></div>
+        <div class="sdv-pl-row"><div class="sdv-pl-bar" style="width:78%;background:#1a9888">316L</div><span>High+ — same + low carbon control</span></div>
+        <div class="sdv-pl-row"><div class="sdv-pl-bar" style="width:95%;background:#28c88a">904L</div><span>Highest — 25% Ni + 4.5% Mo</span></div>
+      </div>
+`,
       regions: `<div class="dp-section-title">Production by <span>Region</span></div>
         <div class="dp-region-grid">
           <div class="dp-region-card china">
             <div class="dp-region-flag">🇨🇳</div>
             <div class="dp-region-name">China</div>
             <div class="dp-region-vol">~1,019 Mt crude steel (2023) · 54% of global output</div>
-            <div class="dp-region-body">China dominates global steel production by a vast margin. The industry is anchored by massive state-owned enterprises: <strong>Baowu, HBIS, Ansteel, Shagang</strong>. Over <strong>70% of Chinese steel</strong> is still produced via the BF-BOF route using domestic and imported iron ore. China imports ~70% of global seaborne iron ore, primarily from Australia and Brazil.<br><br>The government has been pushing <strong>"capacity consolidation"</strong> — cutting inefficient smaller mills and encouraging mergers — to reduce excess capacity and carbon emissions. EAF share is growing but still under 10% vs 30%+ in the US.</div>
+            <div class="dp-region-body">China dominates global steel production by a vast margin, anchored by state-owned enterprises: <strong>Baowu, HBIS, Ansteel, Shagang</strong>. Over <strong>70% of Chinese steel</strong> uses the BF-BOF route, relying heavily on imported iron ore from Australia and Brazil. The government's "capacity consolidation" push — cutting inefficient mills and encouraging mergers — aims to reduce excess capacity and carbon emissions. EAF share is growing but still under 10%, versus 30%+ in the US.</div>
             <div class="dp-region-tags"><span class="dp-region-tag">Baowu Group</span><span class="dp-region-tag">HBIS</span><span class="dp-region-tag">BF-BOF dominant</span><span class="dp-region-tag">Exports ~90 Mt/yr</span><span class="dp-region-tag">SHFE futures</span></div>
           </div>
           <div class="dp-region-card india">
             <div class="dp-region-flag">🇮🇳</div>
             <div class="dp-region-name">India</div>
             <div class="dp-region-vol">~140 Mt crude steel (2023) · ~7% of global output</div>
-            <div class="dp-region-body">India is the world's <strong>second-largest steel producer</strong> and the fastest-growing major market. The government's <strong>National Steel Policy</strong> targets 300 Mt capacity by 2030. Key producers: <strong>Tata Steel, JSW Steel, SAIL (state-owned), JSPL</strong>.<br><br>Unlike China, India has significant EAF capacity (~40% of output) driven by abundant domestic scrap availability. <strong>Iron ore is largely self-sufficient</strong> — Odisha and Jharkhand hold major deposits (Bailadila, Noamundi). The domestic market is booming on infrastructure spend, but India remains primarily a net importer of flat products including tinplate.</div>
+            <div class="dp-region-body">India is the world's <strong>second-largest steel producer</strong> and fastest-growing major market. The National Steel Policy targets 300 Mt capacity by 2030. Key producers: <strong>Tata Steel, JSW Steel, SAIL, JSPL</strong>. India has ~40% EAF capacity driven by domestic scrap availability and is <strong>largely self-sufficient in iron ore</strong> (Odisha and Jharkhand). Remains primarily a net importer of flat products including tinplate.</div>
             <div class="dp-region-tags"><span class="dp-region-tag">Tata Steel</span><span class="dp-region-tag">JSW Steel</span><span class="dp-region-tag">SAIL</span><span class="dp-region-tag">BF + EAF mix</span><span class="dp-region-tag">Flat imports</span></div>
           </div>
           <div class="dp-region-card usa">
             <div class="dp-region-flag">🇺🇸</div>
             <div class="dp-region-name">USA</div>
             <div class="dp-region-vol">~81 Mt crude steel (2023) · ~4% of global output</div>
-            <div class="dp-region-body">The US steel industry is <strong>EAF-dominant (~70% of output)</strong> — the highest share of any major economy — driven by abundant domestic scrap availability and cheap natural gas. Key producers: <strong>Nucor, Steel Dynamics, US Steel, Cleveland-Cliffs</strong>.<br><br>The US is a <strong>net steel importer</strong> despite large domestic capacity. <strong>Section 232 tariffs</strong> (25% on steel imports, introduced 2018) have reshaped trade flows significantly. CME HRC futures are the global flat steel benchmark. The US is a key tinplate importer, primarily sourcing from Europe and Asia.</div>
+            <div class="dp-region-body">The US steel industry is <strong>EAF-dominant (~70% of output)</strong> — driven by abundant domestic scrap and cheap natural gas. Key producers: <strong>Nucor, Steel Dynamics, US Steel, Cleveland-Cliffs</strong>. The US is a net steel importer despite large domestic capacity. <strong>Section 232 tariffs (25%)</strong> introduced in 2018 reshaped import flows. CME HRC futures set the global flat steel price benchmark. The US is a key tinplate importer.</div>
             <div class="dp-region-tags"><span class="dp-region-tag">Nucor</span><span class="dp-region-tag">Steel Dynamics</span><span class="dp-region-tag">EAF ~70%</span><span class="dp-region-tag">Sec 232 tariffs</span><span class="dp-region-tag">CME HRC benchmark</span></div>
           </div>
           <div class="dp-region-card europe">
             <div class="dp-region-flag">🇪🇺</div>
             <div class="dp-region-name">Europe</div>
             <div class="dp-region-vol">~126 Mt crude steel (2023) · ~7% of global output</div>
-            <div class="dp-region-body">Europe's steel industry is under intense pressure from <strong>energy costs, carbon pricing (EU ETS), and Chinese import competition</strong>. Key producers: <strong>ArcelorMittal, ThyssenKrupp, Salzgitter, Tata Steel Europe, SSAB</strong>. The EU is the world's largest tinplate producer and a major exporter — European mills set the floor price for global tinplate.<br><br>The region is leading the <strong>green steel transition</strong>: H₂-DRI projects (SSAB's HYBRIT, Thyssenkrupp's tkH2Steel) aim to replace coal-based production. CBAM (Carbon Border Adjustment Mechanism) is reshaping import economics — imposing a carbon cost on imported steel from 2026.</div>
+            <div class="dp-region-body">Europe's steel industry faces severe pressure from <strong>high energy costs, EU ETS carbon pricing, and Chinese import competition</strong>. Key producers: <strong>ArcelorMittal, ThyssenKrupp, Salzgitter, Tata Steel Europe, SSAB</strong>. The EU is the world's largest tinplate producer and exporter. Leading the <strong>green steel transition</strong> — SSAB's HYBRIT, ThyssenKrupp's tkH2Steel use H₂-DRI to eliminate coal. CBAM (Carbon Border Adjustment Mechanism) imposes carbon cost on imported steel from 2026.</div>
             <div class="dp-region-tags"><span class="dp-region-tag">ArcelorMittal</span><span class="dp-region-tag">Tata Steel EU</span><span class="dp-region-tag">CBAM from 2026</span><span class="dp-region-tag">H₂-DRI transition</span><span class="dp-region-tag">Tinplate exporter</span></div>
           </div>
         </div>`
     },
+
 
     nf: {
       title: 'Non-Ferrous Metals', eyebrow: 'Metal Family · No Iron Content', symbol: 'Al',
@@ -2056,6 +2324,7 @@
           <div class="dp-ind-card"><div class="dp-ind-icon">🚗</div><div class="dp-ind-name">Automotive (Al, Zn)</div><div class="dp-ind-share">~25% of Al demand</div><div class="dp-ind-desc">Aluminium engine blocks, wheels, and body panels for lightweighting. Galvanized steel for body-in-white. Zinc die-casting for doorhandles, brackets, and fuel system components.</div></div>
           <div class="dp-ind-card"><div class="dp-ind-icon">🔋</div><div class="dp-ind-name">Batteries (Ni, Cu)</div><div class="dp-ind-share">Growing rapidly</div><div class="dp-ind-desc">Nickel in NMC/NCA cathodes. Copper in battery cell tabs, motor windings, and charging infrastructure. Fastest-growing demand driver for both metals through 2030.</div></div>
         </div>`,
+      steel_grades: ``,
       regions: `<div class="dp-section-title">Production by <span>Region</span></div>
         <div class="dp-region-grid">
           <div class="dp-region-card china">
@@ -2130,6 +2399,7 @@
           <div class="dp-ind-card"><div class="dp-ind-icon">💻</div><div class="dp-ind-name">Electronics</div><div class="dp-ind-share">~10% of Au demand</div><div class="dp-ind-desc">Gold plating on connectors, bonding wire in semiconductors. Silver in switches and contacts. Demand relatively inelastic — tiny quantities used per device, but massive volumes due to global electronics production.</div></div>
           <div class="dp-ind-card"><div class="dp-ind-icon">📊</div><div class="dp-ind-name">Investment / ETFs</div><div class="dp-ind-share">~15% of gold demand</div><div class="dp-ind-desc">Physical-backed gold ETFs (GLD, IAU) allow financial investors to access gold. ETF flows are a major near-term price driver. COMEX futures trading volume dwarfs physical gold consumption.</div></div>
         </div>`,
+      steel_grades: ``,
       regions: `<div class="dp-section-title">Production by <span>Region</span></div>
         <div class="dp-region-grid">
           <div class="dp-region-card china">
@@ -2204,6 +2474,7 @@
           <div class="dp-ind-card"><div class="dp-ind-icon">🏭</div><div class="dp-ind-name">Industrial / Mining</div><div class="dp-ind-share">Growing</div><div class="dp-ind-desc">Electric mining trucks, forklifts, port equipment. Reduces diesel costs and improves ventilation in underground mines. Large format LFP batteries suited to heavy-duty applications.</div></div>
           <div class="dp-ind-card"><div class="dp-ind-icon">🌞</div><div class="dp-ind-name">Residential Storage</div><div class="dp-ind-share">Emerging</div><div class="dp-ind-desc">Home battery systems (Tesla Powerwall, BYD Battery-Box) paired with rooftop solar. Growing in Australia, Europe, and California. LFP dominant due to safety and cycle life in residential settings.</div></div>
         </div>`,
+      steel_grades: ``,
       regions: `<div class="dp-section-title">Production by <span>Region</span></div>
         <div class="dp-region-grid">
           <div class="dp-region-card china">
@@ -2883,6 +3154,7 @@
     <button class="dtab" onclick="showDTab(2,this)">Types &amp; Materials</button>
     <button class="dtab" onclick="showDTab(3,this)">End-Use Industries</button>
     <button class="dtab" onclick="showDTab(4,this)">Production by Region</button>
+    <button class="dtab" id="dtab5" onclick="showDTab(5,this)">Steel Deep Dive</button>
   </nav>
 
   <div class="detail-body">
@@ -2891,6 +3163,7 @@
     <div class="dpanel" id="dp2"></div>
     <div class="dpanel" id="dp3"></div>
     <div class="dpanel" id="dp4"></div>
+    <div class="dpanel" id="dp5"></div>
   </div>
 </div>
 
