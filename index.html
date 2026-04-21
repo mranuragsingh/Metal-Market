@@ -9,41 +9,55 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0c1118;
-      --surface: #131a23;
-      --surface2: #1a2330;
-      --border: rgba(255,255,255,0.07);
-      --border-hover: rgba(255,255,255,0.13);
-      --amber: #f0a500;
-      --amber-light: #ffc445;
-      --amber-dim: rgba(240,165,0,0.12);
-      --amber-border: rgba(240,165,0,0.35);
-      --steel: #52a9e8;
-      --steel-dim: rgba(82,169,232,0.12);
-      --steel-border: rgba(82,169,232,0.3);
-      --green: #3dbf89;
-      --green-dim: rgba(61,191,137,0.12);
+      /* ── Teal/Navy/Gold palette ── */
+      --bg: #061214;
+      --surface: #0c1e22;
+      --surface2: #112428;
+      --border: rgba(32,180,160,0.12);
+      --border-hover: rgba(32,180,160,0.25);
+
+      /* Gold — primary accent (replaces amber) */
+      --amber: #d4a843;
+      --amber-light: #e8c060;
+      --amber-dim: rgba(212,168,67,0.14);
+      --amber-border: rgba(212,168,67,0.4);
+
+      /* Teal — secondary accent (replaces steel blue) */
+      --steel: #2ab8a8;
+      --steel-dim: rgba(42,184,168,0.13);
+      --steel-border: rgba(42,184,168,0.35);
+
+      /* Emerald — tertiary (replaces green) */
+      --green: #28c88a;
+      --green-dim: rgba(40,200,138,0.13);
+
+      /* Red stays for warnings */
       --red: #e85555;
       --red-dim: rgba(232,85,85,0.12);
-      --gold: #c9a84c;
-      --gold-dim: rgba(201,168,76,0.12);
-      --text: #dde4ed;
-      --text-muted: #6e7d8f;
-      --text-faint: #3d4a58;
+
+      /* Deep teal — used for precious/gold tone */
+      --gold: #d4a843;
+      --gold-dim: rgba(212,168,67,0.13);
+
+      /* Text */
+      --text: #d8ecea;
+      --text-muted: #5a8a88;
+      --text-faint: #254040;
+
       --font: 'Sora', system-ui, sans-serif;
       --mono: 'DM Mono', 'Courier New', monospace;
       --radius: 10px;
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.65; font-size: 15px; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.65; font-size: 15px; background-image: radial-gradient(ellipse at 20% 0%, rgba(26,100,90,0.18) 0%, transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(10,60,55,0.22) 0%, transparent 50%); background-attachment: fixed; }
 
     /* ─── HEADER ─── */
     .header {
       padding: 2rem 3rem 1.5rem;
       border-bottom: 1px solid var(--border);
       display: flex; align-items: flex-end; justify-content: space-between;
-      background: linear-gradient(180deg, rgba(240,165,0,0.04) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(42,184,168,0.06) 0%, rgba(212,168,67,0.03) 60%, transparent 100%);
     }
     .header-eyebrow {
       font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
@@ -103,7 +117,7 @@
     .metal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 1.75rem; }
 
     .mcard {
-      background: var(--surface); border: 1px solid var(--border);
+      background: linear-gradient(160deg, var(--surface) 70%, rgba(14,72,82,0.4) 100%); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 1.75rem 1.5rem;
       cursor: pointer; transition: border-color 0.25s, transform 0.2s, box-shadow 0.2s;
       position: relative; overflow: hidden; min-height: 260px;
@@ -116,10 +130,10 @@
     /* Big background number for visual depth */
     .mcard::before {
       content: attr(data-num); position: absolute; bottom: -0.5rem; right: 0.75rem;
-      font-size: 7rem; font-weight: 700; line-height: 1; opacity: 0.04;
-      font-family: var(--font); pointer-events: none;
+      font-size: 7rem; font-weight: 700; line-height: 1; opacity: 0.06;
+      font-family: var(--font); pointer-events: none; color: var(--steel);
     }
-    .mcard:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+    .mcard:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(42,184,168,0.12); }
     .mcard:hover::after, .mcard.open::after { opacity: 1; }
     .mcard.open { border-color: var(--border-hover); }
 
@@ -133,10 +147,10 @@
       display: flex; align-items: center; justify-content: center;
       font-size: 1.25rem; margin-bottom: 1.1rem;
     }
-    .mcard.ferrous .mcard-icon  { background: var(--amber-dim); }
-    .mcard.nf .mcard-icon       { background: var(--steel-dim); }
-    .mcard.precious .mcard-icon { background: var(--gold-dim); }
-    .mcard.battery .mcard-icon  { background: var(--green-dim); }
+    .mcard.ferrous .mcard-icon  { background: var(--amber-dim); border: 1px solid var(--amber-border); }
+    .mcard.nf .mcard-icon       { background: var(--steel-dim); border: 1px solid var(--steel-border); }
+    .mcard.precious .mcard-icon { background: var(--gold-dim); border: 1px solid rgba(212,168,67,0.3); }
+    .mcard.battery .mcard-icon  { background: var(--green-dim); border: 1px solid rgba(40,200,138,0.25); }
 
     .mcard-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
     .mcard.ferrous .mcard-title  { color: var(--amber-light); }
@@ -349,15 +363,15 @@
     .ws-content { flex: 1; padding: 1.25rem 2rem; }
 
     /* Stage sidebar colors */
-    .ws-s1 .ws-sidebar { background: linear-gradient(135deg, #3d4a70, #2a3560); } .ws-s1 .ws-content { background: rgba(61,74,112,0.15); }
-    .ws-s2 .ws-sidebar { background: linear-gradient(135deg, #8a1a60, #5a0a3a); } .ws-s2 .ws-content { background: rgba(138,26,96,0.12); }
-    .ws-s3 .ws-sidebar { background: linear-gradient(135deg, #651e88, #3d0e5a); } .ws-s3 .ws-content { background: rgba(101,30,136,0.12); }
-    .ws-s4 .ws-sidebar { background: linear-gradient(135deg, #1e44a0, #0e2870); } .ws-s4 .ws-content { background: rgba(30,68,160,0.12); }
-    .ws-s5 .ws-sidebar { background: linear-gradient(135deg, #1e7870, #0e4a44); } .ws-s5 .ws-content { background: rgba(30,120,112,0.12); }
-    .ws-s6 .ws-sidebar { background: linear-gradient(135deg, #1e4a80, #0e2a55); } .ws-s6 .ws-content { background: rgba(30,74,128,0.12); }
-    .ws-s7 .ws-sidebar { background: linear-gradient(135deg, #1e2480, #0e1255); } .ws-s7 .ws-content { background: rgba(30,36,128,0.12); }
-    .ws-s8 .ws-sidebar { background: linear-gradient(135deg, #526c28, #303e18); } .ws-s8 .ws-content { background: rgba(82,108,40,0.12); }
-    .ws-s9 .ws-sidebar { background: linear-gradient(135deg, #1e2050, #0e1030); } .ws-s9 .ws-content { background: rgba(30,32,80,0.15); }
+    .ws-s1 .ws-sidebar { background: linear-gradient(135deg, #0e4852, #082830); } .ws-s1 .ws-content { background: rgba(14,72,82,0.15); }
+    .ws-s2 .ws-sidebar { background: linear-gradient(135deg, #0e5a52, #073a34); } .ws-s2 .ws-content { background: rgba(14,90,82,0.12); }
+    .ws-s3 .ws-sidebar { background: linear-gradient(135deg, #0a4858, #052e3a); } .ws-s3 .ws-content { background: rgba(10,72,88,0.12); }
+    .ws-s4 .ws-sidebar { background: linear-gradient(135deg, #0d6860, #083e3a); } .ws-s4 .ws-content { background: rgba(13,104,96,0.12); }
+    .ws-s5 .ws-sidebar { background: linear-gradient(135deg, #1a6858, #0e3e34); } .ws-s5 .ws-content { background: rgba(26,104,88,0.12); }
+    .ws-s6 .ws-sidebar { background: linear-gradient(135deg, #0e5060, #082e3a); } .ws-s6 .ws-content { background: rgba(14,80,96,0.12); }
+    .ws-s7 .ws-sidebar { background: linear-gradient(135deg, #0a3848, #052230); } .ws-s7 .ws-content { background: rgba(10,56,72,0.12); }
+    .ws-s8 .ws-sidebar { background: linear-gradient(135deg, #1a5848, #0e3428); } .ws-s8 .ws-content { background: rgba(26,88,72,0.12); }
+    .ws-s9 .ws-sidebar { background: linear-gradient(135deg, #0a2830, #051618); } .ws-s9 .ws-content { background: rgba(10,40,48,0.15); }
 
     /* Larger material cards */
     .ws-mat-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 0.6rem; }
@@ -365,12 +379,12 @@
     .ws-mat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
     .ws-mat-name { color: white; font-size: 0.88rem; font-weight: 700; margin: 0 0 0.5rem; line-height: 1.35; }
     .ws-mat-img { width: 100%; height: 85px; object-fit: contain; object-position: bottom; margin-top: auto; }
-    .ws-mat-iron { background: linear-gradient(160deg, #8B4200, #5a2800); }
-    .ws-mat-lime { background: linear-gradient(160deg, #d88000, #a05a00); }
-    .ws-mat-coal { background: linear-gradient(160deg, #1a1a1a, #0a0a0a); border: 1px solid #333; }
-    .ws-mat-scrap { background: linear-gradient(160deg, #cc5000, #8a3000); }
-    .ws-mat-alt  { background: linear-gradient(160deg, #5a8000, #374d00); }
-    .ws-mat-gas  { background: linear-gradient(160deg, #9a0a00, #620000); }
+    .ws-mat-iron { background: linear-gradient(160deg, #0e5a50, #073830); }
+    .ws-mat-lime { background: linear-gradient(160deg, #c49030, #8a6018); }
+    .ws-mat-coal { background: linear-gradient(160deg, #0a2028, #061014); border: 1px solid rgba(42,184,168,0.2); }
+    .ws-mat-scrap { background: linear-gradient(160deg, #1a7868, #0e4a40); }
+    .ws-mat-alt  { background: linear-gradient(160deg, #1e8a5a, #0e5034); }
+    .ws-mat-gas  { background: linear-gradient(160deg, #0a5868, #052e38); }
 
     /* Larger equipment images */
     .ws-eq-grid { display: grid; gap: 1rem; align-items: center; }
