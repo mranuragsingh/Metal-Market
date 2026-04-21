@@ -444,6 +444,156 @@
       .content { padding: 1.5rem; }
       .nav { padding: 0 1.5rem; }
     }
+
+    /* ─── METAL DETAIL PAGE ─── */
+    #metalDetail {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: var(--bg); overflow-y: auto;
+      animation: slideInDetail 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    #metalDetail.active { display: block; }
+    @keyframes slideInDetail {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .detail-topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(6,18,20,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 0.85rem 3rem;
+    }
+    .detail-back {
+      background: none; border: 1px solid var(--border); color: var(--text-muted);
+      border-radius: 8px; padding: 0.4rem 0.9rem; cursor: pointer;
+      font-family: var(--font); font-size: 0.72rem; font-weight: 600;
+      display: flex; align-items: center; gap: 0.4rem; transition: all 0.18s;
+    }
+    .detail-back:hover { border-color: var(--border-hover); color: var(--text); }
+    .detail-breadcrumb { font-size: 0.72rem; color: var(--text-faint); }
+    .detail-breadcrumb span { color: var(--amber); }
+
+    .detail-hero {
+      padding: 3rem 3rem 0;
+      background-image: radial-gradient(ellipse at 0% 0%, rgba(42,184,168,0.08) 0%, transparent 55%);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .detail-hero::after {
+      content: attr(data-symbol);
+      position: absolute; right: 3rem; top: 50%; transform: translateY(-50%);
+      font-size: 14rem; font-weight: 700; opacity: 0.04;
+      color: var(--steel); line-height: 1; pointer-events: none;
+    }
+    .detail-eyebrow { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.6rem; }
+    .detail-title { font-size: 2.8rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+    .detail-subtitle { font-size: 0.9rem; color: var(--text-muted); max-width: 600px; line-height: 1.75; margin-bottom: 2rem; }
+    .detail-stats { display: flex; gap: 2.5rem; padding: 1.5rem 0; }
+    .detail-stat { }
+    .detail-stat-val { font-size: 1.6rem; font-weight: 700; font-family: var(--mono); color: var(--amber); line-height: 1; }
+    .detail-stat-lbl { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-top: 0.3rem; }
+
+    /* Tab nav */
+    .detail-tabs {
+      display: flex; gap: 0; padding: 0 3rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg); position: sticky; top: 48px; z-index: 9;
+      overflow-x: auto;
+    }
+    .dtab {
+      background: none; border: none; border-bottom: 2px solid transparent;
+      color: var(--text-faint); padding: 0.9rem 1.25rem;
+      font-family: var(--font); font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; white-space: nowrap; transition: color 0.18s;
+      letter-spacing: 0.03em;
+    }
+    .dtab:hover { color: var(--text-muted); }
+    .dtab.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    .detail-body { padding: 2.5rem 3rem; max-width: 1100px; }
+    .dpanel { display: none; }
+    .dpanel.active { display: block; animation: fadeIn 0.25s ease; }
+
+    /* Section headings */
+    .dp-section-title {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem;
+      padding-bottom: 0.6rem; border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .dp-section-title span { color: var(--amber); }
+
+    /* Definition panel */
+    .dp-def-text { font-size: 0.9rem; line-height: 1.85; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .dp-def-text strong { color: var(--text); }
+
+    /* Properties grid */
+    .dp-prop-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+    .dp-prop-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.1rem;
+    }
+    .dp-prop-card:hover { border-color: var(--border-hover); }
+    .dp-prop-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .dp-prop-name { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.3rem; }
+    .dp-prop-val { font-size: 0.85rem; color: var(--text); font-weight: 600; }
+    .dp-prop-note { font-size: 0.73rem; color: var(--text-muted); margin-top: 0.2rem; line-height: 1.5; }
+
+    /* Materials list */
+    .dp-mat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.6rem; }
+    .dp-mat-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 0.9rem;
+    }
+    .dp-mat-badge {
+      font-size: 0.62rem; font-weight: 700; font-family: var(--mono);
+      background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border);
+      border-radius: 4px; padding: 0.15rem 0.45rem; white-space: nowrap; margin-top: 0.1rem;
+    }
+    .dp-mat-badge.eaf { background: var(--steel-dim); color: var(--steel); border-color: var(--steel-border); }
+    .dp-mat-badge.grn { background: var(--green-dim); color: var(--green); border-color: rgba(40,200,138,0.3); }
+    .dp-mat-info { flex: 1; }
+    .dp-mat-name { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .dp-mat-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* Industries */
+    .dp-ind-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+    .dp-ind-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.1rem;
+    }
+    .dp-ind-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .dp-ind-name { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .dp-ind-desc { font-size: 0.73rem; color: var(--text-muted); line-height: 1.6; }
+    .dp-ind-share { font-size: 0.68rem; font-family: var(--mono); color: var(--amber); font-weight: 700; margin-top: 0.35rem; }
+
+    /* Regional production */
+    .dp-region-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 0.5rem; }
+    .dp-region-card {
+      border-radius: 12px; padding: 1.5rem;
+      border: 1px solid var(--border); position: relative; overflow: hidden;
+    }
+    .dp-region-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .dp-region-card.india::before   { background: linear-gradient(90deg, #ff9933, #138808); }
+    .dp-region-card.china::before   { background: linear-gradient(90deg, #de2910, #ffde00); }
+    .dp-region-card.usa::before     { background: linear-gradient(90deg, #3c3b6e, #b22234); }
+    .dp-region-card.europe::before  { background: linear-gradient(90deg, #003399, #ffcc00); }
+    .dp-region-card.india   { background: linear-gradient(135deg, rgba(255,153,51,0.06) 0%, var(--surface) 60%); }
+    .dp-region-card.china   { background: linear-gradient(135deg, rgba(222,41,16,0.06) 0%, var(--surface) 60%); }
+    .dp-region-card.usa     { background: linear-gradient(135deg, rgba(60,59,110,0.08) 0%, var(--surface) 60%); }
+    .dp-region-card.europe  { background: linear-gradient(135deg, rgba(0,51,153,0.07) 0%, var(--surface) 60%); }
+    .dp-region-flag { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .dp-region-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .dp-region-vol { font-size: 0.68rem; font-family: var(--mono); font-weight: 700; color: var(--amber); margin-bottom: 0.75rem; }
+    .dp-region-body { font-size: 0.78rem; color: var(--text-muted); line-height: 1.78; }
+    .dp-region-body strong { color: var(--text); }
+    .dp-region-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.75rem; }
+    .dp-region-tag { font-size: 0.62rem; font-weight: 700; font-family: var(--mono); background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); padding: 0.15rem 0.45rem; border-radius: 3px; }
+
+    .dp-gap { margin-bottom: 2.5rem; }
+
   </style>
 </head>
 <body>
@@ -491,7 +641,7 @@
 
     <div class="metal-grid">
 
-      <div class="mcard ferrous" data-num="Fe" onclick="toggleCard(this)">
+      <div class="mcard ferrous" data-num="Fe">
         <div class="mcard-icon">⚙️</div>
         <div class="mcard-title">Ferrous Metals</div>
         <div class="mcard-sub">Iron-based · ~90% of all metals used globally</div>
@@ -512,7 +662,7 @@
         <div class="hint">↓ Tap to expand</div>
       </div>
 
-      <div class="mcard nf" data-num="Al" onclick="toggleCard(this)">
+      <div class="mcard nf" data-num="Al">
         <div class="mcard-icon">🔵</div>
         <div class="mcard-title">Non-Ferrous Metals</div>
         <div class="mcard-sub">No iron · Lightweight · Corrosion-resistant</div>
@@ -533,7 +683,7 @@
         <div class="hint">↓ Tap to expand</div>
       </div>
 
-      <div class="mcard precious" data-num="Au" onclick="toggleCard(this)">
+      <div class="mcard precious" data-num="Au">
         <div class="mcard-icon">✦</div>
         <div class="mcard-title">Precious Metals</div>
         <div class="mcard-sub">Rare · High unit value · Store of wealth</div>
@@ -553,7 +703,7 @@
         <div class="hint">↓ Tap to expand</div>
       </div>
 
-      <div class="mcard battery" data-num="Li" onclick="toggleCard(this)">
+      <div class="mcard battery" data-num="Li">
         <div class="mcard-icon">⚡</div>
         <div class="mcard-title">Battery Materials</div>
         <div class="mcard-sub">EV-critical · Energy transition · Fast-growing</div>
@@ -1442,6 +1592,358 @@
        <div class="cp-meta">${d.meta}</div>`;
   }
 
+  /* ── METAL DETAIL PAGE ── */
+  function showDTab(n, btn) {
+    document.querySelectorAll('.dpanel').forEach((p,i) => p.classList.toggle('active', i===n));
+    document.querySelectorAll('.dtab').forEach((b,i) => b.classList.toggle('active', i===n));
+  }
+
+  function closeDetail() {
+    document.getElementById('metalDetail').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function openDetail(key) {
+    const d = metalDetailData[key];
+    if (!d) return;
+    // Reset tabs
+    document.querySelectorAll('.dtab').forEach((b,i) => b.classList.toggle('active', i===0));
+    document.querySelectorAll('.dpanel').forEach((p,i) => p.classList.toggle('active', i===0));
+    // Hero
+    document.getElementById('detailBreadcrumb').textContent = d.title;
+    document.getElementById('detailTitle').textContent = d.title;
+    document.getElementById('detailSubtitle').textContent = d.subtitle;
+    document.getElementById('detailEyebrow').textContent = d.eyebrow;
+    document.getElementById('detailHero').setAttribute('data-symbol', d.symbol);
+    document.getElementById('detailHero').style.borderBottom = `1px solid ${d.color}33`;
+    document.getElementById('detailStats').innerHTML = d.stats.map(s =>
+      `<div class="detail-stat"><div class="detail-stat-val" style="color:${d.color}">${s.val}</div><div class="detail-stat-lbl">${s.lbl}</div></div>`
+    ).join('');
+    // Panels
+    document.getElementById('dp0').innerHTML = d.definition;
+    document.getElementById('dp1').innerHTML = d.properties;
+    document.getElementById('dp2').innerHTML = d.materials;
+    document.getElementById('dp3').innerHTML = d.industries;
+    document.getElementById('dp4').innerHTML = d.regions;
+    // Show
+    document.getElementById('metalDetail').classList.add('active');
+    document.getElementById('metalDetail').scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+
+  const metalDetailData = {
+    ferrous: {
+      title: 'Ferrous Metals', eyebrow: 'Metal Family · Iron-Based', symbol: 'Fe',
+      subtitle: 'Any metal with iron (Fe) as its primary constituent. The most widely used class of metals — accounting for ~90% of all refined metal production worldwide.',
+      color: '#d4a843',
+      stats: [
+        { val: '~90%', lbl: 'of all refined metals' },
+        { val: '1.9B t', lbl: 'steel produced/year' },
+        { val: '~$900/t', lbl: 'avg HRC price' },
+        { val: '50%+', lbl: 'from China' }
+      ],
+      definition: `<div class="dp-section-title">What are <span>Ferrous Metals</span>?</div>
+        <div class="dp-def-text">Ferrous metals are defined as metals in which <strong>iron (Fe) is the primary constituent element</strong>. The term comes from the Latin <em>ferrum</em>, meaning iron. Because iron is one of Earth's most abundant elements (making up ~5% of the Earth's crust), ferrous metals are the most widely produced and used class of metals globally.</div>
+        <div class="dp-def-text">All ferrous metals are alloys — <strong>iron combined with carbon and other elements</strong> to achieve specific mechanical and chemical properties. Carbon content is the primary variable: pure iron is soft and weak, but adding just 0.02–2.1% carbon transforms it into steel — stronger, harder, and formable. Adding more than 2.1% carbon produces cast iron — harder but brittle.</div>
+        <div class="dp-def-text"><strong>Why do they matter to us?</strong> Our desk's primary products — HRC, CRC, galvanized steel, and tinplate — are all ferrous metals. Every price we derive starts with iron ore and ends with a coated flat steel product. Understanding the ferrous family underpins every analysis we do.</div>`,
+      properties: `<div class="dp-section-title"><span>Properties</span> of Ferrous Metals</div>
+        <div class="dp-prop-grid">
+          <div class="dp-prop-card"><div class="dp-prop-icon">🧲</div><div class="dp-prop-name">Magnetic</div><div class="dp-prop-val">Strongly ferromagnetic</div><div class="dp-prop-note">Most ferrous metals are attracted to magnets — key to many electrical applications (transformers, motors). Exception: austenitic stainless steel (Cr-Ni grade) is non-magnetic.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">💪</div><div class="dp-prop-name">Tensile Strength</div><div class="dp-prop-val">400 – 2,000 MPa</div><div class="dp-prop-note">Mild steel ~400 MPa. High-strength structural steel up to 690 MPa. Tool steel can exceed 2,000 MPa. This range makes ferrous metals irreplaceable in construction and automotive.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🌡️</div><div class="dp-prop-name">Melting Point</div><div class="dp-prop-val">~1,370 – 1,540°C</div><div class="dp-prop-note">Pure iron melts at 1,538°C. Steel melts at 1,370–1,530°C depending on carbon and alloy content. Cast iron melts at ~1,150–1,200°C (lower C melting point).</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">⚖️</div><div class="dp-prop-name">Density</div><div class="dp-prop-val">7.6 – 8.0 g/cm³</div><div class="dp-prop-note">Denser than aluminium (2.7 g/cm³) and titanium (4.5 g/cm³). This weight is a disadvantage in transport but offset by cost efficiency and weldability.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🔥</div><div class="dp-prop-name">Thermal Conductivity</div><div class="dp-prop-val">~50 W/m·K (steel)</div><div class="dp-prop-note">Good thermal conductor, though less than copper (~400 W/m·K) or aluminium (~200 W/m·K). Stainless steel is notably lower (~16 W/m·K) due to alloying elements.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🦺</div><div class="dp-prop-name">Corrosion Resistance</div><div class="dp-prop-val">Low (uncoated)</div><div class="dp-prop-note">Carbon steel rusts in the presence of moisture and oxygen. This is why coatings (zinc/galvanizing, tin/tinplate) are applied — and why that coating premium exists in our pricing work.</div></div>
+        </div>`,
+      materials: `<div class="dp-section-title">Types &amp; <span>Materials</span></div>
+        <div class="dp-mat-grid">
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C 0.05–0.3%</span><div class="dp-mat-info"><div class="dp-mat-name">Mild / Low-Carbon Steel</div><div class="dp-mat-desc">The most widely produced steel. Includes HRC and CRC — the core of our desk's products. Easy to weld and form. Used in construction, auto bodies, pipes, and packaging substrates.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C 0.3–0.6%</span><div class="dp-mat-info"><div class="dp-mat-name">Medium-Carbon Steel</div><div class="dp-mat-desc">Higher strength and hardness than mild steel. Used in machinery parts, axles, gears, and railways. Less weldable than low-carbon grades.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C + Cr/Ni/Mo</span><div class="dp-mat-info"><div class="dp-mat-name">Alloy Steel</div><div class="dp-mat-desc">Steel with deliberate additions of Cr, Ni, Mo, V, Mn to achieve superior strength, toughness, or wear resistance. Used in aerospace, oil &amp; gas, and high-performance automotive.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + Cr &gt;10.5%</span><div class="dp-mat-info"><div class="dp-mat-name">Stainless Steel</div><div class="dp-mat-desc">Chromium forms a passive oxide layer giving excellent corrosion resistance. Grades: 304 (food/kitchen), 316 (marine/chemical), 410 (cutlery). Traded separately from carbon steel.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Fe + C 2.1–4%</span><div class="dp-mat-info"><div class="dp-mat-name">Cast Iron</div><div class="dp-mat-desc">High carbon content makes it hard but brittle. Cannot be rolled or drawn. Used in engine blocks, pipes, cookware, and heavy machinery. Much lower cost than steel per tonne.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge eaf">Tin-coated CRC</span><div class="dp-mat-info"><div class="dp-mat-name">Tinplate 🎯 Our Product</div><div class="dp-mat-desc">CRC substrate electrolytically coated with 2.8–11.2 g/m² of tin per side. Food-safe, solderable, and corrosion-resistant. Price = CRC + LME Tin + ETL processing premium.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge eaf">Zinc-coated CRC</span><div class="dp-mat-info"><div class="dp-mat-name">Galvanized (HDG) 🎯 Our Product</div><div class="dp-mat-desc">CRC passed through molten zinc bath at ~460°C. Zinc provides cathodic protection — it corrodes sacrificially before the underlying steel. Dominant product in construction and auto.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">Electrical Steel</span><div class="dp-mat-info"><div class="dp-mat-name">Silicon Steel (GOES / NOES)</div><div class="dp-mat-desc">Steel with 2–4% silicon addition that reduces magnetic losses. Critical for transformers and electric motor cores. Fast-growing demand due to energy transition and EV motors.</div></div></div>
+        </div>`,
+      industries: `<div class="dp-section-title">End-Use <span>Industries</span></div>
+        <div class="dp-ind-grid">
+          <div class="dp-ind-card"><div class="dp-ind-icon">🏗️</div><div class="dp-ind-name">Construction &amp; Infrastructure</div><div class="dp-ind-share">~52% of steel demand</div><div class="dp-ind-desc">Rebar for concrete reinforcement, structural beams, roofing sheets (galvanized), piling. China's construction boom has been the single largest driver of global steel demand since 2000.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🚗</div><div class="dp-ind-name">Automotive</div><div class="dp-ind-share">~12% of steel demand</div><div class="dp-ind-desc">Body panels (CRC/HDG), chassis, suspension, engine components. A typical passenger car contains 900–1,000 kg of steel. AHSS (advanced high-strength steel) enables lightweighting.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🥫</div><div class="dp-ind-name">Packaging</div><div class="dp-ind-share">~4% of steel demand</div><div class="dp-ind-desc">Almost exclusively tinplate. Food cans, beverage cans, paint tins, aerosol containers. Key demand driver for tinplate pricing — our core product.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">⚡</div><div class="dp-ind-name">Energy &amp; Utilities</div><div class="dp-ind-share">~7% of steel demand</div><div class="dp-ind-desc">Oil &amp; gas pipelines (seamless tubes), wind turbine towers and foundations, power transformers (silicon steel), solar mounting structures. Growing with energy transition capex.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🚢</div><div class="dp-ind-name">Shipbuilding</div><div class="dp-ind-share">~3% of steel demand</div><div class="dp-ind-desc">Heavy plate for ship hulls and offshore structures. China, South Korea, and Japan dominate shipbuilding, consuming large volumes of thick plate (>12mm).</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">⚙️</div><div class="dp-ind-name">Machinery &amp; Equipment</div><div class="dp-ind-share">~15% of steel demand</div><div class="dp-ind-desc">Industrial machinery, agricultural equipment, mining machinery, white goods (washers, fridges). Uses both flat (HDG/CRC) and long products (bars, tubes). China is the largest market.</div></div>
+        </div>`,
+      regions: `<div class="dp-section-title">Production by <span>Region</span></div>
+        <div class="dp-region-grid">
+          <div class="dp-region-card china">
+            <div class="dp-region-flag">🇨🇳</div>
+            <div class="dp-region-name">China</div>
+            <div class="dp-region-vol">~1,019 Mt crude steel (2023) · 54% of global output</div>
+            <div class="dp-region-body">China dominates global steel production by a vast margin. The industry is anchored by massive state-owned enterprises: <strong>Baowu, HBIS, Ansteel, Shagang</strong>. Over <strong>70% of Chinese steel</strong> is still produced via the BF-BOF route using domestic and imported iron ore. China imports ~70% of global seaborne iron ore, primarily from Australia and Brazil.<br><br>The government has been pushing <strong>"capacity consolidation"</strong> — cutting inefficient smaller mills and encouraging mergers — to reduce excess capacity and carbon emissions. EAF share is growing but still under 10% vs 30%+ in the US.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Baowu Group</span><span class="dp-region-tag">HBIS</span><span class="dp-region-tag">BF-BOF dominant</span><span class="dp-region-tag">Exports ~90 Mt/yr</span><span class="dp-region-tag">SHFE futures</span></div>
+          </div>
+          <div class="dp-region-card india">
+            <div class="dp-region-flag">🇮🇳</div>
+            <div class="dp-region-name">India</div>
+            <div class="dp-region-vol">~140 Mt crude steel (2023) · ~7% of global output</div>
+            <div class="dp-region-body">India is the world's <strong>second-largest steel producer</strong> and the fastest-growing major market. The government's <strong>National Steel Policy</strong> targets 300 Mt capacity by 2030. Key producers: <strong>Tata Steel, JSW Steel, SAIL (state-owned), JSPL</strong>.<br><br>Unlike China, India has significant EAF capacity (~40% of output) driven by abundant domestic scrap availability. <strong>Iron ore is largely self-sufficient</strong> — Odisha and Jharkhand hold major deposits (Bailadila, Noamundi). The domestic market is booming on infrastructure spend, but India remains primarily a net importer of flat products including tinplate.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Tata Steel</span><span class="dp-region-tag">JSW Steel</span><span class="dp-region-tag">SAIL</span><span class="dp-region-tag">BF + EAF mix</span><span class="dp-region-tag">Flat imports</span></div>
+          </div>
+          <div class="dp-region-card usa">
+            <div class="dp-region-flag">🇺🇸</div>
+            <div class="dp-region-name">USA</div>
+            <div class="dp-region-vol">~81 Mt crude steel (2023) · ~4% of global output</div>
+            <div class="dp-region-body">The US steel industry is <strong>EAF-dominant (~70% of output)</strong> — the highest share of any major economy — driven by abundant domestic scrap availability and cheap natural gas. Key producers: <strong>Nucor, Steel Dynamics, US Steel, Cleveland-Cliffs</strong>.<br><br>The US is a <strong>net steel importer</strong> despite large domestic capacity. <strong>Section 232 tariffs</strong> (25% on steel imports, introduced 2018) have reshaped trade flows significantly. CME HRC futures are the global flat steel benchmark. The US is a key tinplate importer, primarily sourcing from Europe and Asia.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Nucor</span><span class="dp-region-tag">Steel Dynamics</span><span class="dp-region-tag">EAF ~70%</span><span class="dp-region-tag">Sec 232 tariffs</span><span class="dp-region-tag">CME HRC benchmark</span></div>
+          </div>
+          <div class="dp-region-card europe">
+            <div class="dp-region-flag">🇪🇺</div>
+            <div class="dp-region-name">Europe</div>
+            <div class="dp-region-vol">~126 Mt crude steel (2023) · ~7% of global output</div>
+            <div class="dp-region-body">Europe's steel industry is under intense pressure from <strong>energy costs, carbon pricing (EU ETS), and Chinese import competition</strong>. Key producers: <strong>ArcelorMittal, ThyssenKrupp, Salzgitter, Tata Steel Europe, SSAB</strong>. The EU is the world's largest tinplate producer and a major exporter — European mills set the floor price for global tinplate.<br><br>The region is leading the <strong>green steel transition</strong>: H₂-DRI projects (SSAB's HYBRIT, Thyssenkrupp's tkH2Steel) aim to replace coal-based production. CBAM (Carbon Border Adjustment Mechanism) is reshaping import economics — imposing a carbon cost on imported steel from 2026.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">ArcelorMittal</span><span class="dp-region-tag">Tata Steel EU</span><span class="dp-region-tag">CBAM from 2026</span><span class="dp-region-tag">H₂-DRI transition</span><span class="dp-region-tag">Tinplate exporter</span></div>
+          </div>
+        </div>`
+    },
+
+    nf: {
+      title: 'Non-Ferrous Metals', eyebrow: 'Metal Family · No Iron Content', symbol: 'Al',
+      subtitle: 'Metals containing no significant iron. Lighter, corrosion-resistant, and non-magnetic — critical for packaging, electronics, wiring, and corrosion protection.',
+      color: '#2ab8a8',
+      stats: [
+        { val: '~70Mt', lbl: 'aluminium/year' },
+        { val: '$2,400/t', lbl: 'LME Aluminium' },
+        { val: 'LME', lbl: 'price discovery' },
+        { val: 'Tin, Zinc', lbl: 'directly in our pricing' }
+      ],
+      definition: `<div class="dp-section-title">What are <span>Non-Ferrous Metals</span>?</div>
+        <div class="dp-def-text">Non-ferrous metals are metals that <strong>contain no significant quantity of iron</strong>. They are generally lighter, more corrosion-resistant, and non-magnetic compared to ferrous metals. Their lack of iron means they do not rust — a major advantage in applications requiring long-term corrosion protection.</div>
+        <div class="dp-def-text"><strong>Why critical to our desk?</strong> Two non-ferrous metals sit directly in our tinplate and galvanized pricing formulas: <strong>Tin (Sn)</strong> coats steel to create tinplate, and <strong>Zinc (Zn)</strong> coats steel to create galvanized. Both are LME-traded, and their spot prices feed directly into the downstream flat steel product prices we derive daily.</div>
+        <div class="dp-def-text">Non-ferrous metals are priced on the <strong>London Metal Exchange (LME)</strong>, which provides 3-month forward contracts and daily settlement prices for aluminium, copper, zinc, tin, lead, and nickel. This LME linkage is what ties our ferrous product pricing to the non-ferrous market.</div>`,
+      properties: `<div class="dp-section-title"><span>Properties</span> of Non-Ferrous Metals</div>
+        <div class="dp-prop-grid">
+          <div class="dp-prop-card"><div class="dp-prop-icon">⚡</div><div class="dp-prop-name">Electrical Conductivity</div><div class="dp-prop-val">Excellent (Cu, Al)</div><div class="dp-prop-note">Copper is the primary electrical conductor worldwide. Aluminium is used for high-voltage power lines due to its lower weight/cost per unit conductance.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🪶</div><div class="dp-prop-name">Weight</div><div class="dp-prop-val">Lighter than steel</div><div class="dp-prop-note">Aluminium density: 2.7 g/cm³ vs steel 7.8 g/cm³. This ~65% weight saving drives aluminium use in aerospace, automotive, and transport packaging.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🛡️</div><div class="dp-prop-name">Corrosion Resistance</div><div class="dp-prop-val">Naturally high</div><div class="dp-prop-note">Aluminium forms a self-healing oxide layer. Tin and zinc are used specifically to protect steel via their own corrosion resistance (tin) or sacrificial protection (zinc).</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">♻️</div><div class="dp-prop-name">Recyclability</div><div class="dp-prop-val">100% recyclable</div><div class="dp-prop-note">Aluminium recycling uses only 5% of the energy required for primary production. Copper scrap retains ~95% of its value. Both metals have deep secondary markets.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🧲</div><div class="dp-prop-name">Magnetic</div><div class="dp-prop-val">Non-magnetic</div><div class="dp-prop-note">The absence of magnetism enables use in electronics, MRI equipment, and sensitive instruments where magnetic interference would be disruptive.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🌡️</div><div class="dp-prop-name">Melting Points</div><div class="dp-prop-val">232°C – 1,085°C</div><div class="dp-prop-note">Tin melts at just 232°C (critical for soldering and ETL coating). Zinc at 420°C (galvanizing bath). Copper at 1,085°C. Wide range across the family.</div></div>
+        </div>`,
+      materials: `<div class="dp-section-title">Types &amp; <span>Materials</span></div>
+        <div class="dp-mat-grid">
+          <div class="dp-mat-item"><span class="dp-mat-badge eaf">LME traded</span><div class="dp-mat-info"><div class="dp-mat-name">Tin (Sn) 🎯 Our Product</div><div class="dp-mat-desc">Used in our tinplate pricing formula. LME 3-month tin price × coating weight (kg/t) = tin metal cost per tonne of tinplate. Grade T57/T61/T65 coating weights differ. Indonesia and China dominate supply.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge eaf">LME traded</span><div class="dp-mat-info"><div class="dp-mat-name">Zinc (Zn) 🎯 Our Product</div><div class="dp-mat-desc">Applied to CRC at ~460°C in the hot-dip galvanizing process. Coating weights 40–600 g/m². LME Zinc price drives the HDG premium over CRC. Key for construction roofing and auto body panels.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">LME traded</span><div class="dp-mat-info"><div class="dp-mat-name">Aluminium (Al)</div><div class="dp-mat-desc">Most widely used non-ferrous metal. Beverage cans, aircraft fuselage, automotive panels, power lines, construction foil. Produced via electrolysis of bauxite (alumina). China produces ~58% of global supply.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">LME traded</span><div class="dp-mat-info"><div class="dp-mat-name">Copper (Cu)</div><div class="dp-mat-desc">The global proxy for industrial activity. Used in wiring, plumbing, heat exchangers, motors. Strong demand signal from EV transition (3–4x more copper per EV vs ICE vehicle).</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">LME traded</span><div class="dp-mat-info"><div class="dp-mat-name">Nickel (Ni)</div><div class="dp-mat-desc">Critical alloying element in stainless steel (~65–70% of demand). Also key in EV batteries (NMC cathodes). Indonesia now dominates supply after China's nickel pig iron (NPI) disruption.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">LME traded</span><div class="dp-mat-info"><div class="dp-mat-name">Lead (Pb)</div><div class="dp-mat-desc">Used in lead-acid batteries (still dominant in automotive SLI batteries), radiation shielding, and cable sheaths. Demand declining due to lithium battery displacement in some applications.</div></div></div>
+        </div>`,
+      industries: `<div class="dp-section-title">End-Use <span>Industries</span></div>
+        <div class="dp-ind-grid">
+          <div class="dp-ind-card"><div class="dp-ind-icon">🥫</div><div class="dp-ind-name">Packaging (Tin)</div><div class="dp-ind-share">~40% of tin demand</div><div class="dp-ind-desc">Tinplate food and beverage cans. Our primary downstream market for tin pricing. Food safety compliance (tin is non-toxic) and solderability drive tin coating preference over alternatives.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🏗️</div><div class="dp-ind-name">Construction (Zinc)</div><div class="dp-ind-share">~55% of zinc demand</div><div class="dp-ind-desc">Galvanized roofing, purlins, structural sections, and pipes. The single largest end-use for zinc globally. Demand tightly linked to construction activity in China and emerging markets.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">✈️</div><div class="dp-ind-name">Aerospace (Al)</div><div class="dp-ind-share">~7% of Al demand</div><div class="dp-ind-desc">Fuselage structures, wing spars, engine nacelles. Aluminium alloys (7075, 2024) provide the best strength-to-weight ratio for high-performance aircraft applications.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">⚡</div><div class="dp-ind-name">Electrical (Cu, Al)</div><div class="dp-ind-share">~40% of Cu demand</div><div class="dp-ind-desc">Copper wiring in buildings, motors, transformers, and electronics. Aluminium for high-voltage transmission lines. EV transition is a major growth driver for copper demand.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🚗</div><div class="dp-ind-name">Automotive (Al, Zn)</div><div class="dp-ind-share">~25% of Al demand</div><div class="dp-ind-desc">Aluminium engine blocks, wheels, and body panels for lightweighting. Galvanized steel for body-in-white. Zinc die-casting for doorhandles, brackets, and fuel system components.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🔋</div><div class="dp-ind-name">Batteries (Ni, Cu)</div><div class="dp-ind-share">Growing rapidly</div><div class="dp-ind-desc">Nickel in NMC/NCA cathodes. Copper in battery cell tabs, motor windings, and charging infrastructure. Fastest-growing demand driver for both metals through 2030.</div></div>
+        </div>`,
+      regions: `<div class="dp-section-title">Production by <span>Region</span></div>
+        <div class="dp-region-grid">
+          <div class="dp-region-card china">
+            <div class="dp-region-flag">🇨🇳</div>
+            <div class="dp-region-name">China</div>
+            <div class="dp-region-vol">~58% of global aluminium · Zinc smelting leader · Tin ~30%</div>
+            <div class="dp-region-body">China dominates non-ferrous metals production at every stage — from mining to smelting to downstream processing. <strong>Aluminium:</strong> China produces ~41 Mt/year, powered largely by coal-based electricity — a key ESG concern for the industry. <strong>Zinc:</strong> China smelts over 40% of global refined zinc output. <strong>Tin:</strong> Yunnan province is one of the world's largest tin mining regions; China and Indonesia together supply ~70% of global refined tin.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Chalco (Al)</span><span class="dp-region-tag">Yunnan Tin</span><span class="dp-region-tag">Coal-powered smelting</span><span class="dp-region-tag">SHFE pricing</span></div>
+          </div>
+          <div class="dp-region-card india">
+            <div class="dp-region-flag">🇮🇳</div>
+            <div class="dp-region-name">India</div>
+            <div class="dp-region-vol">~4 Mt aluminium · Zinc mining in Rajasthan</div>
+            <div class="dp-region-body">India is a significant aluminium and zinc producer. <strong>Hindalco Industries</strong> and <strong>Vedanta (Bharat Aluminium)</strong> are key aluminium producers. <strong>Hindustan Zinc</strong> (Vedanta Group) operates the world's largest zinc-lead mine complex at Rampura Agucha, Rajasthan. India is a <strong>net importer of tin</strong> — nearly all tinplate substrate is imported and then coated at domestic ETL lines or imported as finished tinplate, primarily from China, Japan, and Europe.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Hindalco</span><span class="dp-region-tag">Hindustan Zinc</span><span class="dp-region-tag">Vedanta</span><span class="dp-region-tag">Tin importer</span></div>
+          </div>
+          <div class="dp-region-card usa">
+            <div class="dp-region-flag">🇺🇸</div>
+            <div class="dp-region-name">USA</div>
+            <div class="dp-region-vol">~1 Mt primary aluminium · Major Cu producer</div>
+            <div class="dp-region-body">US primary aluminium production has declined sharply due to high energy costs — most smelters have closed since the 1980s. The US now imports ~90% of its aluminium needs. <strong>Copper</strong> is a strength: Freeport-McMoRan operates the world's largest copper mining complex (Morenci, Arizona). The US produces minimal tin and is the world's <strong>largest tin importer</strong> for its packaging and electronics industries. LME price serves as the US reference.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Freeport-McMoRan (Cu)</span><span class="dp-region-tag">Alcoa</span><span class="dp-region-tag">Al importer</span><span class="dp-region-tag">LME reference</span></div>
+          </div>
+          <div class="dp-region-card europe">
+            <div class="dp-region-flag">🇪🇺</div>
+            <div class="dp-region-name">Europe</div>
+            <div class="dp-region-vol">~3.5 Mt aluminium · Major Cu refining</div>
+            <div class="dp-region-body">Europe's non-ferrous industry faces severe cost pressure from high energy prices post-2021. Many aluminium smelters curtailed production during the 2022 energy crisis. <strong>Norsk Hydro</strong> (Norway, hydropower-based) is Europe's largest aluminium producer with one of the lowest carbon footprints globally. <strong>Aurubis</strong> (Germany) is Europe's largest copper recycler. The LME (London) is headquartered in Europe and sets global non-ferrous price benchmarks. Europe is the world's largest tinplate producer and exporter.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Norsk Hydro</span><span class="dp-region-tag">Aurubis (Cu)</span><span class="dp-region-tag">LME London</span><span class="dp-region-tag">Tinplate exporter</span></div>
+          </div>
+        </div>`
+    },
+
+    precious: {
+      title: 'Precious Metals', eyebrow: 'Metal Family · High Value · Rare', symbol: 'Au',
+      subtitle: 'Rare, naturally occurring metallic elements with high economic value. Used as financial instruments, in jewellery, and in critical industrial applications including automotive catalysts.',
+      color: '#d4a843',
+      stats: [
+        { val: '~3,200', lbl: 'gold price $/oz' },
+        { val: '~$30/oz', lbl: 'silver price' },
+        { val: '~4,900t', lbl: 'gold mined/year' },
+        { val: 'troy oz', lbl: 'pricing unit' }
+      ],
+      definition: `<div class="dp-section-title">What are <span>Precious Metals</span>?</div>
+        <div class="dp-def-text">Precious metals are <strong>rare, naturally occurring metallic elements of high economic value</strong>. Their rarity, lustre, resistance to corrosion, and industrial utility combine to make them highly sought after. They are priced in <strong>troy ounces</strong> (1 troy oz = 31.1g), unlike base/ferrous metals which are priced per tonne.</div>
+        <div class="dp-def-text"><strong>Gold and Silver</strong> are monetary metals — they have historically served as currency and continue to function as stores of value and safe-haven assets. Their prices are driven as much by financial flows, central bank reserves, and macro sentiment as by physical supply and demand.</div>
+        <div class="dp-def-text"><strong>Platinum Group Metals (PGMs)</strong> — platinum, palladium, rhodium, iridium, osmium, and ruthenium — are primarily industrial metals critical for automotive catalytic converters and chemical production. Their prices are more responsive to industrial demand cycles, particularly automotive production rates in China and Europe.</div>`,
+      properties: `<div class="dp-section-title"><span>Properties</span> of Precious Metals</div>
+        <div class="dp-prop-grid">
+          <div class="dp-prop-card"><div class="dp-prop-icon">✨</div><div class="dp-prop-name">Corrosion Resistance</div><div class="dp-prop-val">Exceptional</div><div class="dp-prop-note">Gold does not oxidise or corrode under any normal conditions — it maintains its lustre indefinitely. This chemical inertness makes it ideal for electronics, connectors, and jewellery.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">⚡</div><div class="dp-prop-name">Conductivity</div><div class="dp-prop-val">Silver: best conductor</div><div class="dp-prop-note">Silver has the highest electrical and thermal conductivity of any element. Gold is used in electronics for its conductivity combined with corrosion resistance (connector plating).</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🔬</div><div class="dp-prop-name">Catalytic Activity</div><div class="dp-prop-val">PGMs: critical catalysts</div><div class="dp-prop-note">Platinum and palladium are exceptional catalysts — they accelerate chemical reactions without being consumed. Used in autocatalysts (reducing NOx, CO from exhaust) and in chemical production.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🏋️</div><div class="dp-prop-name">Density</div><div class="dp-prop-val">Gold: 19.3 g/cm³</div><div class="dp-prop-note">Gold is one of the densest metals. Iridium (22.6 g/cm³) is the densest naturally occurring element. High density aids in gold bar storage value density and in verification (density testing).</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">📈</div><div class="dp-prop-name">Price Drivers</div><div class="dp-prop-val">Macro + Industrial</div><div class="dp-prop-note">Gold: USD strength, real interest rates, central bank buying, geopolitical risk. PGMs: auto production rates, emissions regulations, fuel cell demand, South African supply.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🏦</div><div class="dp-prop-name">Financial Role</div><div class="dp-prop-val">Reserve asset</div><div class="dp-prop-note">Gold is held by central banks as a reserve asset. The US holds ~8,133 tonnes ($750B+). Central bank gold buying has been a major price support factor since 2022.</div></div>
+        </div>`,
+      materials: `<div class="dp-section-title">Types &amp; <span>Materials</span></div>
+        <div class="dp-mat-grid">
+          <div class="dp-mat-item"><span class="dp-mat-badge">COMEX / LBMA</span><div class="dp-mat-info"><div class="dp-mat-name">Gold (Au)</div><div class="dp-mat-desc">The ultimate store of value. ~3,200 $/oz (2024). ~50% jewellery demand, ~25% central banks, ~10% technology/electronics. Central bank buying from China, India, Poland has been a key price driver since 2022.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">COMEX / LBMA</span><div class="dp-mat-info"><div class="dp-mat-name">Silver (Ag)</div><div class="dp-mat-desc">Both monetary and industrial metal. ~30% of demand is from solar panels (silver paste in PV cells). Also used in electronics, photography, and jewellery. Trades at a Gold/Silver ratio of ~80–100x.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">PGM</span><div class="dp-mat-info"><div class="dp-mat-name">Platinum (Pt)</div><div class="dp-mat-desc">Used primarily in diesel autocatalysts and fuel cell stacks (H₂ economy). Also in jewellery. South Africa supplies ~70% of global platinum. Price sensitive to European diesel car production and fuel cell CAPEX.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">PGM</span><div class="dp-mat-info"><div class="dp-mat-name">Palladium (Pd)</div><div class="dp-mat-desc">Used in gasoline/petrol autocatalysts. Russia (Norilsk Nickel) and South Africa supply ~80% globally. The shift from diesel to petrol engines in Europe post-Dieselgate drove palladium to >$3,000/oz in 2022.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">PGM</span><div class="dp-mat-info"><div class="dp-mat-name">Rhodium (Rh)</div><div class="dp-mat-desc">The most expensive precious metal — peaked at ~$29,000/oz in 2021. Used in three-way catalytic converters (reduces NOx). Extremely thin market: ~30 tonnes mined annually globally. South Africa ~80% supply.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Industrial</span><div class="dp-mat-info"><div class="dp-mat-name">Iridium / Ruthenium / Osmium</div><div class="dp-mat-desc">Minor PGMs used in specialist applications: iridium for spark plugs and electrodes, ruthenium for hard drives and electrodes, osmium for fountain pen nibs. Tiny markets, very thin liquidity.</div></div></div>
+        </div>`,
+      industries: `<div class="dp-section-title">End-Use <span>Industries</span></div>
+        <div class="dp-ind-grid">
+          <div class="dp-ind-card"><div class="dp-ind-icon">💎</div><div class="dp-ind-name">Jewellery</div><div class="dp-ind-share">~50% of gold demand</div><div class="dp-ind-desc">India and China are the largest gold jewellery markets. Indian wedding season (Oct–Nov) and Chinese New Year are seasonal demand peaks. 18K (75% Au), 22K (91.7% Au) are common purities.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🏦</div><div class="dp-ind-name">Central Banks / Reserves</div><div class="dp-ind-share">~25% of gold demand</div><div class="dp-ind-desc">Central banks (China PBoC, Russia CBR, India RBI, Poland NBP) have been net buyers since 2010. Gold serves as a dollar-alternative reserve asset — particularly important since US sanctions on Russia in 2022.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🚗</div><div class="dp-ind-name">Automotive (PGMs)</div><div class="dp-ind-share">~40% of Pt/Pd demand</div><div class="dp-ind-desc">Catalytic converters in ICE vehicles require Pd (petrol) or Pt (diesel). EV transition is bearish for PGM autocatalyst demand long-term, offset partially by fuel cell vehicle growth (requires Pt).</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">☀️</div><div class="dp-ind-name">Solar Energy (Silver)</div><div class="dp-ind-share">~30% of silver demand</div><div class="dp-ind-desc">Silver paste is used in solar cell contacts and fingers. Rapid growth in solar PV installation has made this the fastest-growing silver end-use. China dominates solar panel manufacturing.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">💻</div><div class="dp-ind-name">Electronics</div><div class="dp-ind-share">~10% of Au demand</div><div class="dp-ind-desc">Gold plating on connectors, bonding wire in semiconductors. Silver in switches and contacts. Demand relatively inelastic — tiny quantities used per device, but massive volumes due to global electronics production.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">📊</div><div class="dp-ind-name">Investment / ETFs</div><div class="dp-ind-share">~15% of gold demand</div><div class="dp-ind-desc">Physical-backed gold ETFs (GLD, IAU) allow financial investors to access gold. ETF flows are a major near-term price driver. COMEX futures trading volume dwarfs physical gold consumption.</div></div>
+        </div>`,
+      regions: `<div class="dp-section-title">Production by <span>Region</span></div>
+        <div class="dp-region-grid">
+          <div class="dp-region-card china">
+            <div class="dp-region-flag">🇨🇳</div>
+            <div class="dp-region-name">China</div>
+            <div class="dp-region-vol">~370t gold mined/year · Largest consumer</div>
+            <div class="dp-region-body">China is both the world's largest gold <strong>producer and consumer</strong>. Major mining regions include Shandong, Henan, and Fujian provinces. The <strong>Shanghai Gold Exchange (SGE)</strong> is the world's largest physical gold exchange and sets the RMB gold price benchmark. China's PBoC has been buying gold aggressively since 2022, holding over 2,200 tonnes. Chinese silver demand from solar is a key market driver.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">SGE benchmark</span><span class="dp-region-tag">PBoC buying</span><span class="dp-region-tag">Solar silver demand</span><span class="dp-region-tag">Zijin Mining</span></div>
+          </div>
+          <div class="dp-region-card india">
+            <div class="dp-region-flag">🇮🇳</div>
+            <div class="dp-region-name">India</div>
+            <div class="dp-region-vol">~800t gold imported/year · PGM minor</div>
+            <div class="dp-region-body">India is the world's second-largest gold consumer but a minimal producer — it imports nearly all its gold (primarily from Switzerland and UAE). <strong>Jewellery accounts for ~80%</strong> of Indian gold demand. The Indian government levies import duties on gold (currently ~15%) which drives a significant grey market. India has no meaningful PGM production. Gold is deeply embedded in Indian culture as wealth storage and gifting.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">~800t/yr imports</span><span class="dp-region-tag">15% import duty</span><span class="dp-region-tag">Wedding demand</span><span class="dp-region-tag">MCX futures</span></div>
+          </div>
+          <div class="dp-region-card usa">
+            <div class="dp-region-flag">🇺🇸</div>
+            <div class="dp-region-name">USA</div>
+            <div class="dp-region-vol">~170t gold mined/year · COMEX benchmark</div>
+            <div class="dp-region-body">The US is a significant gold producer (Nevada is the top state — Carlin Trend). <strong>COMEX</strong> (CME Group, New York) sets the global gold and silver futures benchmark. The US holds the world's largest official gold reserve (~8,133 tonnes at Fort Knox/NY Fed). <strong>Newmont</strong> is the world's largest gold mining company, headquartered in the US with global operations.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">COMEX benchmark</span><span class="dp-region-tag">Fort Knox reserves</span><span class="dp-region-tag">Newmont</span><span class="dp-region-tag">Nevada mines</span></div>
+          </div>
+          <div class="dp-region-card europe">
+            <div class="dp-region-flag">🇪🇺</div>
+            <div class="dp-region-name">Europe / South Africa</div>
+            <div class="dp-region-vol">SA: ~90t Au · ~70% of Pt supply</div>
+            <div class="dp-region-body">South Africa's <strong>Bushveld Igneous Complex</strong> contains ~75–80% of the world's known platinum group metal (PGM) reserves. <strong>Anglo American Platinum (Amplats)</strong> and <strong>Sibanye-Stillwater</strong> are the dominant PGM producers. Mine supply disruptions in South Africa (power outages, labour strikes) cause significant PGM price volatility. The <strong>LBMA (London Bullion Market Association)</strong> sets the daily gold and silver reference prices used globally.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">LBMA gold fix</span><span class="dp-region-tag">Bushveld PGMs</span><span class="dp-region-tag">Amplats</span><span class="dp-region-tag">Sibanye-Stillwater</span></div>
+          </div>
+        </div>`
+    },
+
+    battery: {
+      title: 'Battery Materials', eyebrow: 'Metal Family · Energy Transition Critical', symbol: 'Li',
+      subtitle: 'Metals powering the global shift to clean energy. Demand tightly linked to EV production, grid storage, and consumer electronics — the fastest-growing segment in metals.',
+      color: '#28c88a',
+      stats: [
+        { val: '~14M', lbl: 'EVs sold 2023' },
+        { val: '~$13/kg', lbl: 'lithium carbonate' },
+        { val: '2030', lbl: 'demand inflection' },
+        { val: 'DRC, Chile', lbl: 'supply concentration' }
+      ],
+      definition: `<div class="dp-section-title">What are <span>Battery Materials</span>?</div>
+        <div class="dp-def-text">Battery materials are metals and minerals essential for the production of <strong>lithium-ion batteries</strong> — the dominant energy storage technology powering electric vehicles, grid storage, and consumer electronics. Unlike traditional metals with centuries of established markets, battery materials markets are <strong>relatively young, fast-moving, and politically sensitive</strong>.</div>
+        <div class="dp-def-text">The key battery metals are <strong>lithium (Li), cobalt (Co), nickel (Ni), manganese (Mn), and graphite (C)</strong> — the components of the cathode, anode, and electrolyte in Li-ion cells. Different battery chemistries use different combinations: <strong>NMC</strong> (nickel-manganese-cobalt), <strong>LFP</strong> (lithium iron phosphate — no cobalt), and <strong>NCA</strong> (nickel-cobalt-aluminium) are the main variants.</div>
+        <div class="dp-def-text"><strong>Market structure:</strong> Most battery metals are not traded on exchanges like the LME. Prices are set through bilateral offtake agreements, spot market indices (Fastmarkets, SMM, Benchmark Mineral Intelligence), and long-term contracts. This makes pricing less transparent than traditional metals — an emerging area for commodity desks.</div>`,
+      properties: `<div class="dp-section-title"><span>Properties</span> that make them critical</div>
+        <div class="dp-prop-grid">
+          <div class="dp-prop-card"><div class="dp-prop-icon">⚡</div><div class="dp-prop-name">Energy Density</div><div class="dp-prop-val">High (vs alternatives)</div><div class="dp-prop-note">Lithium is the lightest metal (0.53 g/cm³) and has the highest electrochemical potential of any element — giving Li-ion batteries the best energy density available at commercial scale.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🌡️</div><div class="dp-prop-name">Thermal Stability</div><div class="dp-prop-val">Varies by chemistry</div><div class="dp-prop-note">LFP (lithium iron phosphate) batteries are inherently more thermally stable and safer than NMC. Key reason Chinese EV makers (BYD) favour LFP, while Western EV makers prefer NMC for range.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🔄</div><div class="dp-prop-name">Cycle Life</div><div class="dp-prop-val">500–3,000 cycles</div><div class="dp-prop-note">LFP batteries can last 3,000+ charge cycles (suited for grid storage / low-range EVs). NMC ~500–1,000 cycles but higher energy density (better for long-range EVs).</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">🌍</div><div class="dp-prop-name">Supply Geography</div><div class="dp-prop-val">Highly concentrated</div><div class="dp-prop-note">Cobalt: 70% from DRC. Lithium: 60%+ from Chile/Argentina (brine) and Australia (hard rock). Graphite: 90% from China. Concentration creates geopolitical and supply chain risk.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">📉</div><div class="dp-prop-name">Price Volatility</div><div class="dp-prop-val">Very high</div><div class="dp-prop-note">Lithium carbonate rose from $7/kg in 2020 to $80/kg in late 2022, then collapsed back to ~$13/kg in 2024 — an 85% decline — driven by EV demand disappointment and supply surge.</div></div>
+          <div class="dp-prop-card"><div class="dp-prop-icon">♻️</div><div class="dp-prop-name">Recyclability</div><div class="dp-prop-val">Improving rapidly</div><div class="dp-prop-note">Battery recycling (hydrometallurgy) can recover 95%+ of lithium, cobalt, and nickel. The EU Battery Regulation mandates minimum recycled content from 2027 — creating a secondary market.</div></div>
+        </div>`,
+      materials: `<div class="dp-section-title">Types &amp; <span>Materials</span></div>
+        <div class="dp-mat-grid">
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">Cathode + electrolyte</span><div class="dp-mat-info"><div class="dp-mat-name">Lithium (Li)</div><div class="dp-mat-desc">The foundation of every Li-ion battery — in the cathode (LCO, NMC, LFP) and the electrolyte (lithium salt). Produced from brine (Chile, Argentina) or spodumene hard rock (Australia). Two key forms: lithium carbonate (Li₂CO₃) and lithium hydroxide (LiOH — for high-Ni NMC).</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">NMC/NCA cathode</span><div class="dp-mat-info"><div class="dp-mat-name">Cobalt (Co)</div><div class="dp-mat-desc">Improves energy density and thermal stability in NMC cathodes. DRC supplies ~70% of global cobalt, mostly as a byproduct of copper mining. ESG risk is high (artisanal mining, child labour concerns). Battery makers are actively reducing cobalt loading (NMC 811 has only ~10% Co vs older NMC 111).</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">NMC/NCA cathode</span><div class="dp-mat-info"><div class="dp-mat-name">Nickel (Ni)</div><div class="dp-mat-desc">Higher nickel content = higher energy density = more EV range. NMC 811 is 80% Ni, 10% Mn, 10% Co. Indonesia has disrupted global supply with massive laterite nickel processing using HPAL and NPI technology. Class 1 (battery-grade) nickel premium over LME is a key pricing spread.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge grn">NMC cathode / LFP</span><div class="dp-mat-info"><div class="dp-mat-name">Manganese (Mn)</div><div class="dp-mat-desc">Stabilises the crystal structure in NMC cathodes. Also the sole cathode metal in LMO (lithium manganese oxide) chemistry. Very abundant and low-cost versus cobalt and nickel. The LMFP chemistry (LFP + Mn) is gaining traction as the next-gen affordable battery.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Anode</span><div class="dp-mat-info"><div class="dp-mat-name">Graphite (C)</div><div class="dp-mat-desc">The dominant anode material in all Li-ion batteries today. China produces and processes ~90% of global battery-grade graphite. The US and EU are scrambling to develop alternative supply chains. Both natural graphite (mined) and synthetic graphite (petroleum coke-derived) are used.</div></div></div>
+          <div class="dp-mat-item"><span class="dp-mat-badge">Emerging</span><div class="dp-mat-info"><div class="dp-mat-name">Sodium (Na) — Next Gen</div><div class="dp-mat-desc">Sodium-ion batteries (SIBs) eliminate lithium entirely. BYD and CATL are commercialising SIBs for low-cost, short-range applications. Uses iron, manganese, and sodium (abundant) — zero cobalt or lithium. Could displace LFP in some segments by 2027.</div></div></div>
+        </div>`,
+      industries: `<div class="dp-section-title">End-Use <span>Industries</span></div>
+        <div class="dp-ind-grid">
+          <div class="dp-ind-card"><div class="dp-ind-icon">🚗</div><div class="dp-ind-name">Electric Vehicles</div><div class="dp-ind-share">~60% of Li demand (2023)</div><div class="dp-ind-desc">The dominant driver of battery materials demand. A typical 75 kWh EV battery pack contains ~8–10 kg Li, ~12 kg Co (NMC), ~35–40 kg Ni, ~10 kg Mn, and ~50–60 kg graphite. BYD and CATL together control ~50% of global EV battery supply.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🔋</div><div class="dp-ind-name">Grid Energy Storage</div><div class="dp-ind-share">Fast-growing segment</div><div class="dp-ind-desc">Large-scale battery storage (BESS) for solar and wind integration. LFP chemistry dominates due to long cycle life and lower cost. Expected to be larger than EV batteries by 2030–2035. China leads deployment.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">📱</div><div class="dp-ind-name">Consumer Electronics</div><div class="dp-ind-share">~20% of Li demand</div><div class="dp-ind-desc">Smartphones, laptops, tablets, power tools. The original battery metals market — relatively stable demand, but being displaced as the dominant use case by EVs and grid storage.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">✈️</div><div class="dp-ind-name">Aerospace / Defence</div><div class="dp-ind-share">Niche, high-value</div><div class="dp-ind-desc">Aircraft electrification (eVTOL, urban air mobility), defence drones, submarines. Very high performance requirements — drives demand for high-Ni NMC and solid-state battery development.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🏭</div><div class="dp-ind-name">Industrial / Mining</div><div class="dp-ind-share">Growing</div><div class="dp-ind-desc">Electric mining trucks, forklifts, port equipment. Reduces diesel costs and improves ventilation in underground mines. Large format LFP batteries suited to heavy-duty applications.</div></div>
+          <div class="dp-ind-card"><div class="dp-ind-icon">🌞</div><div class="dp-ind-name">Residential Storage</div><div class="dp-ind-share">Emerging</div><div class="dp-ind-desc">Home battery systems (Tesla Powerwall, BYD Battery-Box) paired with rooftop solar. Growing in Australia, Europe, and California. LFP dominant due to safety and cycle life in residential settings.</div></div>
+        </div>`,
+      regions: `<div class="dp-section-title">Production by <span>Region</span></div>
+        <div class="dp-region-grid">
+          <div class="dp-region-card china">
+            <div class="dp-region-flag">🇨🇳</div>
+            <div class="dp-region-name">China</div>
+            <div class="dp-region-vol">~75% of battery cell manufacturing · Graphite ~90% · Li processing ~60%</div>
+            <div class="dp-region-body">China dominates the entire battery materials value chain — from raw material processing to cell manufacturing to EV assembly. <strong>CATL</strong> is the world's largest battery maker (~37% global share). <strong>BYD</strong> is both the largest EV maker and a major battery producer. China processes the vast majority of lithium, cobalt, and graphite into battery-grade materials, even when the raw material is mined elsewhere. This processing dominance is a critical supply chain vulnerability for the West.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">CATL</span><span class="dp-region-tag">BYD</span><span class="dp-region-tag">Graphite dominant</span><span class="dp-region-tag">LMFP / LFP tech</span><span class="dp-region-tag">SMM pricing</span></div>
+          </div>
+          <div class="dp-region-card india">
+            <div class="dp-region-flag">🇮🇳</div>
+            <div class="dp-region-name">India</div>
+            <div class="dp-region-vol">~1.5M EVs sold 2023 · Emerging cell production</div>
+            <div class="dp-region-body">India is in early stages of building a domestic battery supply chain. <strong>PLI (Production Linked Incentive)</strong> schemes are attracting cell manufacturing investment: Tata Group (partnered with Agratas/Jaguar Land Rover), Ola Electric, and Reliance are setting up gigafactories. India has significant <strong>lithium reserves recently discovered in Jammu &amp; Kashmir</strong> (~5.9 Mt) but commercial extraction is years away. India imports all battery-grade materials currently, primarily from China.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">PLI scheme</span><span class="dp-region-tag">Tata Agratas</span><span class="dp-region-tag">J&K lithium reserves</span><span class="dp-region-tag">China dependent</span></div>
+          </div>
+          <div class="dp-region-card usa">
+            <div class="dp-region-flag">🇺🇸</div>
+            <div class="dp-region-name">USA</div>
+            <div class="dp-region-vol">IRA-driven gigafactory buildout · Lithium in Nevada/Arkansas</div>
+            <div class="dp-region-body">The <strong>Inflation Reduction Act (IRA, 2022)</strong> has triggered massive battery manufacturing investment in the US — $100B+ in gigafactory announcements (Tesla, Panasonic, Samsung SDI, SK On, LG Energy). The act requires batteries to use North American or allied-sourced materials to qualify for EV tax credits, creating incentives to build a domestic supply chain. <strong>Albemarle</strong> (Silver Peak, Nevada) is the only active US lithium producer. The US has significant lithium brine resources in the Salton Sea and lithium in Smackover brine (Arkansas).</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">IRA tax credits</span><span class="dp-region-tag">Albemarle</span><span class="dp-region-tag">Tesla Nevada</span><span class="dp-region-tag">FEOC restrictions</span></div>
+          </div>
+          <div class="dp-region-card europe">
+            <div class="dp-region-flag">🇪🇺</div>
+            <div class="dp-region-name">Europe</div>
+            <div class="dp-region-vol">Northvolt (SE) · ACC (FR/DE) · CATL Germany</div>
+            <div class="dp-region-body">Europe is racing to build a domestic battery supply chain to reduce dependence on China and Korea. <strong>Northvolt</strong> (Sweden) was the European champion but faced severe financial difficulties in 2024, filing for bankruptcy — highlighting the difficulty of competing with Chinese cost structures. <strong>CATL's Thuringia gigafactory</strong> (Germany) is now operating. The EU Battery Regulation mandates minimum recycled content and carbon footprint declarations. European lithium projects (Portugal, Serbia, Czech Republic) are advancing but face permitting delays.</div>
+            <div class="dp-region-tags"><span class="dp-region-tag">Northvolt (bankrupt 2024)</span><span class="dp-region-tag">CATL Germany</span><span class="dp-region-tag">EU Battery Regulation</span><span class="dp-region-tag">Portugal Li mining</span></div>
+          </div>
+        </div>`
+    }
+  };
+
+  // Wire up card clicks to open detail
+  document.querySelectorAll('.mcard').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function(e) {
+      // Don't trigger if clicking expand area - let toggleCard run first then open detail
+      const key = this.classList.contains('ferrous')  ? 'ferrous'  :
+                  this.classList.contains('nf')       ? 'nf'       :
+                  this.classList.contains('precious') ? 'precious' :
+                  this.classList.contains('battery')  ? 'battery'  : null;
+      if (key) openDetail(key);
+    });
+  });
+
   /* ── CALCULATOR ── */
   function calcUpdate() {
     const hrc = +document.getElementById('hrc-r').value;
@@ -1471,6 +1973,38 @@
 
   calcUpdate(); // init
 </script>
+
+
+<!-- ═══════════════ METAL DETAIL PAGE ═══════════════ -->
+<div id="metalDetail">
+  <div class="detail-topbar">
+    <button class="detail-back" onclick="closeDetail()">← Back</button>
+    <div class="detail-breadcrumb">Metal Universe &rsaquo; <span id="detailBreadcrumb">Ferrous Metals</span></div>
+  </div>
+
+  <div class="detail-hero" id="detailHero" data-symbol="Fe">
+    <div class="detail-eyebrow" id="detailEyebrow">Metal Family · Deep Dive</div>
+    <div class="detail-title" id="detailTitle">Ferrous Metals</div>
+    <div class="detail-subtitle" id="detailSubtitle">Iron-based metals that form the backbone of global industry.</div>
+    <div class="detail-stats" id="detailStats"></div>
+  </div>
+
+  <nav class="detail-tabs">
+    <button class="dtab active" onclick="showDTab(0,this)">Definition</button>
+    <button class="dtab" onclick="showDTab(1,this)">Properties</button>
+    <button class="dtab" onclick="showDTab(2,this)">Types &amp; Materials</button>
+    <button class="dtab" onclick="showDTab(3,this)">End-Use Industries</button>
+    <button class="dtab" onclick="showDTab(4,this)">Production by Region</button>
+  </nav>
+
+  <div class="detail-body">
+    <div class="dpanel active" id="dp0"></div>
+    <div class="dpanel" id="dp1"></div>
+    <div class="dpanel" id="dp2"></div>
+    <div class="dpanel" id="dp3"></div>
+    <div class="dpanel" id="dp4"></div>
+  </div>
+</div>
 
 </body>
 </html>
