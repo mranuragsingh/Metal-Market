@@ -1198,6 +1198,39 @@
 
 
 
+
+    /* ─── DETAIL PAGE KPI CARDS ─── */
+    .dkpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 0.75rem; margin-top: 1.5rem; padding-bottom: 0.5rem; width: 100%;
+    }
+    .dkpi-card {
+      background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.25) 100%);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      padding: 1rem 1.1rem; cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .dkpi-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--dkpi-color, #d4a843), transparent);
+    }
+    .dkpi-card:hover {
+      border-color: rgba(255,255,255,0.22); transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+    }
+    .dkpi-name  { font-size: 0.72rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dkpi-price-row { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 0.15rem; flex-wrap: wrap; }
+    .dkpi-price { font-size: 1.15rem; font-weight: 700; font-family: var(--mono); line-height: 1; }
+    .dkpi-chg   { font-size: 0.62rem; font-weight: 700; font-family: var(--mono); padding: 0.12rem 0.35rem; border-radius: 4px; }
+    .dkpi-chg.up   { background: rgba(40,200,138,0.18); color: #28c88a; }
+    .dkpi-chg.down { background: rgba(232,85,85,0.18);  color: #e85555; }
+    .dkpi-unit  { font-size: 0.58rem; color: var(--text-faint); margin-bottom: 0.5rem; font-family: var(--mono); }
+    .dkpi-spark { width: 100%; height: 36px; display: block; margin-bottom: 0.4rem; }
+    .dkpi-hint  { font-size: 0.58rem; color: var(--text-faint); text-align: right; }
+    .dkpi-card:hover .dkpi-hint { color: var(--steel); }
+
     /* ─── PRICE MODAL ─── */
     #priceModal {
       display: none; position: fixed; inset: 0; z-index: 2000;
@@ -5319,7 +5352,7 @@
       const pts  = vals.map((v, i) => xOf(i) + ',' + yOf(v)).join(' ');
       const area = 'M ' + xOf(0) + ',' + H + ' L ' + pts + ' L ' + xOf(vals.length - 1) + ',' + H + ' Z';
 
-      return `<div class="dkpi-card" onclick="dkpiOpen('${key}','${catKey}')">
+      return `<div class="dkpi-card" style="--dkpi-color:${d.color}" onclick="dkpiOpen('${key}','${catKey}')">
         <div class="dkpi-name">${d.name}</div>
         <div class="dkpi-price-row">
           <span class="dkpi-price" style="color:${d.color}">${fmt(current)}</span>
