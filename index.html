@@ -930,6 +930,107 @@
     .leaflet-control-attribution { background: rgba(6,18,20,0.8) !important; color: #254040 !important; }
     .leaflet-control-attribution a { color: #2ab8a8 !important; }
 
+
+    /* ─── PRICE RESEARCH TAB ─── */
+    .pr-intro { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; max-width: 720px; }
+    .pr-intro strong { color: var(--text); }
+    .pr-steps { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .pr-step {
+      display: grid; grid-template-columns: 72px 1fr; gap: 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; transition: border-color 0.2s;
+    }
+    .pr-step:hover { border-color: var(--border-hover); }
+
+    .pr-step-num {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: flex-start; padding: 1.5rem 0.75rem 1rem;
+      border-right: 1px solid var(--border);
+    }
+    .pr-num-circle {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 800; font-family: var(--mono);
+      margin-bottom: 0.6rem; flex-shrink: 0;
+    }
+    .pr-step-icon-big { font-size: 1.4rem; line-height: 1; }
+
+    .pr-step-body { padding: 1.25rem 1.5rem; }
+    .pr-step-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .pr-step-sub { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.85rem; }
+    .pr-step-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.8; }
+    .pr-step-desc strong { color: var(--text); }
+
+    /* keyword chips */
+    .pr-keyword-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.85rem 0 0; }
+    .pr-kw {
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 600;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      border: 1px dashed rgba(255,255,255,0.15); color: var(--text-muted);
+    }
+    .pr-kw.kw-mat  { background: rgba(212,168,67,0.12);  border-color: rgba(212,168,67,0.3);  color: var(--amber); }
+    .pr-kw.kw-sym  { background: rgba(42,184,168,0.12);  border-color: rgba(42,184,168,0.3);  color: var(--steel); }
+    .pr-kw.kw-geo  { background: rgba(40,200,138,0.12);  border-color: rgba(40,200,138,0.3);  color: var(--green); }
+    .pr-kw.kw-yr   { background: rgba(232,192,96,0.12);  border-color: rgba(232,192,96,0.3);  color: #e8c060; }
+    .pr-kw.kw-tip  { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); color: var(--text-faint); font-style: italic; font-family: var(--font); }
+    .pr-kw-plus    { font-size: 0.75rem; color: var(--text-faint); align-self: center; }
+
+    /* source grid (step 2) */
+    .pr-sources { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.55rem; margin-top: 0.85rem; }
+    .pr-source-card {
+      border-radius: 9px; padding: 0.75rem 0.9rem;
+      border: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .pr-source-name { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+    .pr-source-type { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .pr-source-note { font-size: 0.68rem; color: var(--text-muted); line-height: 1.45; }
+    .pr-source-card.paid   { background: rgba(232,85,85,0.06);  border-color: rgba(232,85,85,0.2);  }
+    .pr-source-card.paid .pr-source-type   { color: #e85555; }
+    .pr-source-card.free   { background: rgba(40,200,138,0.06); border-color: rgba(40,200,138,0.2); }
+    .pr-source-card.free .pr-source-type   { color: var(--green); }
+
+    /* gov table (step 3) */
+    .pr-gov-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.5rem; margin-top: 0.85rem; }
+    .pr-gov-row {
+      display: flex; align-items: center; gap: 0.65rem;
+      background: var(--surface2); border-radius: 8px; padding: 0.6rem 0.85rem;
+      font-size: 0.75rem; border: 1px solid var(--border);
+    }
+    .pr-gov-flag { font-size: 1.1rem; flex-shrink: 0; }
+    .pr-gov-name { font-weight: 700; color: var(--text); margin-bottom: 0.1rem; font-size: 0.75rem; }
+    .pr-gov-site { color: var(--steel); font-size: 0.65rem; font-family: var(--mono); }
+
+    /* step 4 company examples */
+    .pr-company-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+    .pr-company-chip {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 6px; padding: 0.3rem 0.7rem;
+      font-size: 0.7rem; color: var(--text-muted);
+      display: flex; flex-direction: column; gap: 0.1rem;
+    }
+    .pr-company-chip strong { color: var(--text); font-size: 0.72rem; }
+
+    /* step 5 language */
+    .pr-lang-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+    .pr-lang-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.6rem 0.9rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .pr-lang-flag { font-size: 1.1rem; }
+    .pr-lang-name { font-size: 0.72rem; font-weight: 700; color: var(--text); }
+    .pr-lang-kw   { font-size: 0.65rem; font-family: var(--mono); color: var(--steel); }
+
+    /* warning box */
+    .pr-warn { background: rgba(232,85,85,0.07); border: 1px solid rgba(232,85,85,0.2); border-radius: 8px; padding: 0.75rem 1rem; margin-top: 0.85rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.65; }
+    .pr-warn strong { color: #e85555; }
+    .pr-tip  { background: rgba(42,184,168,0.07); border: 1px solid rgba(42,184,168,0.2); border-radius: 8px; padding: 0.75rem 1rem; margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.65; }
+    .pr-tip  strong { color: var(--steel); }
+
+    /* connector line between steps */
+    .pr-connector { width: 2px; height: 20px; background: linear-gradient(to bottom, var(--border), transparent); margin: 0 0 0 35px; }
+
+
     /* ─── PRICE MODAL ─── */
     #priceModal {
       display: none; position: fixed; inset: 0; z-index: 2000;
@@ -2115,6 +2216,7 @@
     document.getElementById('dp3').innerHTML = d.industries;
     document.getElementById('dp4').innerHTML = d.regions;
     document.getElementById('dp5').innerHTML = d.steel_grades || '';
+    document.getElementById('dp6').innerHTML = buildPriceResearch(d.title, d.color);
     // Show/hide Steel Deep Dive tab (only for ferrous)
     const t5 = document.getElementById('dtab5');
     if (t5) t5.style.display = d.steel_grades ? '' : 'none';
@@ -3448,6 +3550,236 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSteelTracker(); });
 
 
+
+  /* ── PRICE RESEARCH GUIDE ── */
+  function buildPriceResearch(familyTitle, accentColor) {
+    const c = accentColor || '#d4a843';
+    return `
+    <div class="dp-section-title">How to <span>Find Metal Prices</span> on the Internet</div>
+    <div class="pr-intro">
+      Tracking down reliable metal price data requires a systematic approach. These are the <strong>5 proven steps</strong> used on the metals desk — from a quick Google search to searching in the local language of the producing country.
+    </div>
+
+    <div class="pr-steps">
+
+      <!-- STEP 1 -->
+      <div class="pr-step">
+        <div class="pr-step-num">
+          <div class="pr-num-circle" style="background:${c}22;border:2px solid ${c};color:${c}">01</div>
+          <div class="pr-step-icon-big">🔍</div>
+        </div>
+        <div class="pr-step-body">
+          <div class="pr-step-title">Random Targeted Internet Search</div>
+          <div class="pr-step-sub">Start here — always</div>
+          <div class="pr-step-desc">
+            Build your search query using a specific formula: <strong>material name + chemical symbol + country + year or year range</strong>. Start broad, then narrow down. Click through search results and evaluate each source carefully.
+            <br><br>
+            <strong>⚠️ Critical rule:</strong> Always skip <em>market research companies</em> (e.g. Mordor Intelligence, MarketsandMarkets, Grand View Research). They publish headline numbers to attract paying customers — the data is often unreliable for spot price work. Look instead for government portals, exchange platforms, and established commodity news services.
+          </div>
+          <div class="pr-keyword-row">
+            <span class="pr-kw kw-mat">Hot Rolled Coil</span>
+            <span class="pr-kw-plus">+</span>
+            <span class="pr-kw kw-sym">HRC</span>
+            <span class="pr-kw-plus">+</span>
+            <span class="pr-kw kw-geo">China</span>
+            <span class="pr-kw-plus">+</span>
+            <span class="pr-kw kw-yr">2025</span>
+            <span class="pr-kw-plus">or</span>
+            <span class="pr-kw kw-yr">2024–2025</span>
+          </div>
+          <div class="pr-keyword-row">
+            <span class="pr-kw kw-mat">Copper</span>
+            <span class="pr-kw-plus">+</span>
+            <span class="pr-kw kw-sym">Cu</span>
+            <span class="pr-kw-plus">+</span>
+            <span class="pr-kw kw-geo">LME</span>
+            <span class="pr-kw-plus">+</span>
+            <span class="pr-kw kw-yr">price 2025</span>
+          </div>
+          <div class="pr-warn">
+            <strong>🚫 Ignore:</strong> Market research firms publishing "Global X Market Size USD XX Billion by 2030" — these are not pricing sources. Look for actual $/tonne or $/troy oz data.
+          </div>
+        </div>
+      </div>
+
+      <div class="pr-connector"></div>
+
+      <!-- STEP 2 -->
+      <div class="pr-step">
+        <div class="pr-step-num">
+          <div class="pr-num-circle" style="background:${c}22;border:2px solid ${c};color:${c}">02</div>
+          <div class="pr-step-icon-big">📊</div>
+        </div>
+        <div class="pr-step-body">
+          <div class="pr-step-title">Six Key Commodity Price Sources</div>
+          <div class="pr-step-sub">The industry's standard reference points</div>
+          <div class="pr-step-desc">
+            These are the six sources the metals industry relies on. Some are paid subscriptions, some are free with registration. Knowing which tier each falls into helps you allocate research time efficiently.
+          </div>
+          <div class="pr-sources">
+            <div class="pr-source-card paid">
+              <div class="pr-source-name">Fastmarkets</div>
+              <div class="pr-source-type">💳 Paid</div>
+              <div class="pr-source-note">Industry benchmark for steel, aluminium, and battery metals. Some historical files available publicly if you research well.</div>
+            </div>
+            <div class="pr-source-card paid">
+              <div class="pr-source-name">Argus Media</div>
+              <div class="pr-source-type">💳 Paid</div>
+              <div class="pr-source-note">Strong on ferrous, coal, and freight. Key for Asian flat steel assessments. Occasional free reports on website.</div>
+            </div>
+            <div class="pr-source-card paid">
+              <div class="pr-source-name">S&P Global</div>
+              <div class="pr-source-type">💳 Paid (Platts)</div>
+              <div class="pr-source-note">Platts iron ore (IODEX 62% Fe) is the global iron ore benchmark. Also covers LNG, crude, and metals.</div>
+            </div>
+            <div class="pr-source-card free">
+              <div class="pr-source-name">IACS / IAC Metal</div>
+              <div class="pr-source-type">✅ Free (register)</div>
+              <div class="pr-source-note">Create a free ID to access price indices. Good for base metals and scrap pricing in Asia.</div>
+            </div>
+            <div class="pr-source-card free">
+              <div class="pr-source-name">Clowney's</div>
+              <div class="pr-source-type">✅ Free (register)</div>
+              <div class="pr-source-note">Useful for scrap metal prices and secondary market data. Register for regular price updates.</div>
+            </div>
+            <div class="pr-source-card free">
+              <div class="pr-source-name">Scrap Monster</div>
+              <div class="pr-source-type">✅ Free (register)</div>
+              <div class="pr-source-note">Scrap metal prices across USA, UK, and Asia. Good for EAF raw material cost tracking and scrap premiums.</div>
+            </div>
+          </div>
+          <div class="pr-tip">
+            <strong>💡 Pro tip:</strong> For paid sources like Fastmarkets and Argus, search Google for filenames like <code style="font-family:var(--mono);color:var(--steel)">"fastmarkets HRC price filetype:pdf"</code> or <code style="font-family:var(--mono);color:var(--steel)">"argus metals 2025 report"</code> — historical price files are sometimes publicly indexed.
+          </div>
+        </div>
+      </div>
+
+      <div class="pr-connector"></div>
+
+      <!-- STEP 3 -->
+      <div class="pr-step">
+        <div class="pr-step-num">
+          <div class="pr-num-circle" style="background:${c}22;border:2px solid ${c};color:${c}">03</div>
+          <div class="pr-step-icon-big">🏛️</div>
+        </div>
+        <div class="pr-step-body">
+          <div class="pr-step-title">Government Statistics Websites</div>
+          <div class="pr-step-sub">Official data — most reliable for historical series</div>
+          <div class="pr-step-desc">
+            Government statistical agencies often publish commodity production, trade, and price data — sometimes for free. Always check the national statistics bureau of the key producing or consuming country for the metal you're researching.
+          </div>
+          <div class="pr-gov-grid">
+            <div class="pr-gov-row">
+              <div class="pr-gov-flag">🇨🇳</div>
+              <div><div class="pr-gov-name">National Bureau of Statistics China</div><div class="pr-gov-site">stats.gov.cn</div></div>
+            </div>
+            <div class="pr-gov-row">
+              <div class="pr-gov-flag">🇯🇵</div>
+              <div><div class="pr-gov-name">Statistics Bureau of Japan</div><div class="pr-gov-site">stat.go.jp</div></div>
+            </div>
+            <div class="pr-gov-row">
+              <div class="pr-gov-flag">🇮🇳</div>
+              <div><div class="pr-gov-name">Ministry of Steel, India</div><div class="pr-gov-site">steel.gov.in</div></div>
+            </div>
+            <div class="pr-gov-row">
+              <div class="pr-gov-flag">🇺🇸</div>
+              <div><div class="pr-gov-name">USGS Mineral Resources</div><div class="pr-gov-site">usgs.gov/minerals</div></div>
+            </div>
+            <div class="pr-gov-row">
+              <div class="pr-gov-flag">🇪🇺</div>
+              <div><div class="pr-gov-name">Eurostat</div><div class="pr-gov-site">ec.europa.eu/eurostat</div></div>
+            </div>
+            <div class="pr-gov-row">
+              <div class="pr-gov-flag">🌍</div>
+              <div><div class="pr-gov-name">World Steel Association</div><div class="pr-gov-site">worldsteel.org/data</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pr-connector"></div>
+
+      <!-- STEP 4 -->
+      <div class="pr-step">
+        <div class="pr-step-num">
+          <div class="pr-num-circle" style="background:${c}22;border:2px solid ${c};color:${c}">04</div>
+          <div class="pr-step-icon-big">🏭</div>
+        </div>
+        <div class="pr-step-body">
+          <div class="pr-step-title">Producer Company Websites</div>
+          <div class="pr-step-sub">Major exporters often publish their own price lists</div>
+          <div class="pr-step-desc">
+            Large producing companies that export at scale frequently publish <strong>indicative prices, annual reports with price data, and investor presentations</strong> that contain historical price trends. This is especially useful when commercial price services are paywalled. Look for the investor relations, press releases, or product catalogue sections.
+          </div>
+          <div class="pr-company-chips">
+            <div class="pr-company-chip"><strong>Hindalco</strong><span>Aluminium — India</span></div>
+            <div class="pr-company-chip"><strong>Tata Steel</strong><span>HRC/CRC — India</span></div>
+            <div class="pr-company-chip"><strong>POSCO</strong><span>Flat steel — Korea</span></div>
+            <div class="pr-company-chip"><strong>Baowu</strong><span>HRC/CRC/Tinplate — China</span></div>
+            <div class="pr-company-chip"><strong>Nippon Steel</strong><span>Flat products — Japan</span></div>
+            <div class="pr-company-chip"><strong>Nucor</strong><span>EAF steel — USA</span></div>
+            <div class="pr-company-chip"><strong>Norilsk Nickel</strong><span>Nickel/Palladium — Russia</span></div>
+            <div class="pr-company-chip"><strong>Hindustan Zinc</strong><span>Zinc/Lead — India</span></div>
+            <div class="pr-company-chip"><strong>Albemarle</strong><span>Lithium — USA/Chile</span></div>
+          </div>
+          <div class="pr-tip">
+            <strong>💡 Search formula:</strong> <code style="font-family:var(--mono);color:var(--steel)">[Company name] + annual report + price realization + [year]</code> — investor presentations often have average selling price (ASP) tables per quarter.
+          </div>
+        </div>
+      </div>
+
+      <div class="pr-connector"></div>
+
+      <!-- STEP 5 -->
+      <div class="pr-step" style="border-color:${c}33;background:linear-gradient(135deg,${c}08 0%,var(--surface) 50%)">
+        <div class="pr-step-num">
+          <div class="pr-num-circle" style="background:${c}22;border:2px solid ${c};color:${c}">05</div>
+          <div class="pr-step-icon-big">🌐</div>
+        </div>
+        <div class="pr-step-body">
+          <div class="pr-step-title">Search in the Local Language</div>
+          <div class="pr-step-sub">The most underused — and most powerful — technique</div>
+          <div class="pr-step-desc">
+            If you're researching prices for a product in a specific country, <strong>always search in that country's local language</strong>. Local industry publications, government releases, and trade portals are often never translated into English — but they contain the most granular, up-to-date pricing data available anywhere.
+            <br><br>
+            Use Google Translate or Chrome's auto-translate to read the results. Even just pasting the search query into the local language will return results you'd never find in English.
+          </div>
+          <div class="pr-lang-grid">
+            <div class="pr-lang-card">
+              <div class="pr-lang-flag">🇨🇳</div>
+              <div><div class="pr-lang-name">Chinese (Mandarin)</div><div class="pr-lang-kw">热轧卷板价格 2025</div></div>
+            </div>
+            <div class="pr-lang-card">
+              <div class="pr-lang-flag">🇯🇵</div>
+              <div><div class="pr-lang-name">Japanese</div><div class="pr-lang-kw">熱延コイル 価格 2025年</div></div>
+            </div>
+            <div class="pr-lang-card">
+              <div class="pr-lang-flag">🇰🇷</div>
+              <div><div class="pr-lang-name">Korean</div><div class="pr-lang-kw">열연코일 가격 2025</div></div>
+            </div>
+            <div class="pr-lang-card">
+              <div class="pr-lang-flag">🇩🇪</div>
+              <div><div class="pr-lang-name">German</div><div class="pr-lang-kw">Warmband Preis 2025</div></div>
+            </div>
+            <div class="pr-lang-card">
+              <div class="pr-lang-flag">🇧🇷</div>
+              <div><div class="pr-lang-name">Portuguese</div><div class="pr-lang-kw">bobina laminada a quente preço</div></div>
+            </div>
+            <div class="pr-lang-card">
+              <div class="pr-lang-flag">🇮🇳</div>
+              <div><div class="pr-lang-name">Hindi</div><div class="pr-lang-kw">हॉट रोल्ड कॉइल कीमत 2025</div></div>
+            </div>
+          </div>
+          <div class="pr-tip">
+            <strong>💡 Pro tip:</strong> Chrome browser auto-translates foreign pages — just enable "Always translate" for Chinese/Japanese. Sunsirs (上海有色) and Mysteel (我的钢铁) are China's premier price portals, only fully accessible in Chinese.
+          </div>
+        </div>
+      </div>
+
+    </div>
+    `;
+  }
+
   /* ── CALCULATOR ── */
   function calcUpdate() {
     const hrc = +document.getElementById('hrc-r').value;
@@ -3500,6 +3832,7 @@
     <button class="dtab" onclick="showDTab(3,this)">End-Use Industries</button>
     <button class="dtab" onclick="showDTab(4,this)">Production by Region</button>
     <button class="dtab" id="dtab5" onclick="showDTab(5,this)">Steel Deep Dive</button>
+    <button class="dtab" id="dtab6" onclick="showDTab(6,this)">🔍 How to Find Prices</button>
   </nav>
 
   <div class="detail-body">
@@ -3509,6 +3842,7 @@
     <div class="dpanel" id="dp3"></div>
     <div class="dpanel" id="dp4"></div>
     <div class="dpanel" id="dp5"></div>
+    <div class="dpanel" id="dp6"></div>
   </div>
 </div>
 
