@@ -385,54 +385,6 @@
     .source-note a:hover { text-decoration: underline; }
 
     /* ─── SECTION 3: Value Chain ─── */
-    .chain-row { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 0.5rem; margin-top: 1.5rem; }
-    .citem { flex: 1; min-width: 135px; cursor: pointer; }
-    .cbox {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1.1rem; height: 100%;
-      transition: all 0.2s; position: relative;
-    }
-    .cbox::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; border-radius: 2px 2px 0 0; opacity: 0; transition: opacity 0.2s;
-    }
-    .citem:nth-child(1) .cbox::before { background: var(--amber); }
-    .citem:nth-child(3) .cbox::before { background: var(--steel); }
-    .citem:nth-child(5) .cbox::before { background: var(--green); }
-    .citem:nth-child(7) .cbox::before { background: var(--gold); }
-
-    .citem.active .cbox, .citem:hover .cbox { border-color: var(--border-hover); }
-    .citem.active .cbox::before, .citem:hover .cbox::before { opacity: 1; }
-
-    .carr { display: flex; align-items: center; padding: 0 0.35rem; color: var(--text-faint); font-size: 0.9rem; flex-shrink: 0; }
-    .clabel { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.3rem; }
-    .cname { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.15rem; }
-    .cfullname { font-size: 0.7rem; color: var(--text-muted); }
-    .cprice { font-family: var(--mono); font-size: 0.68rem; color: var(--amber); margin-top: 0.55rem; }
-
-    .chain-panel {
-      margin-top: 1.25rem; background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.5rem; min-height: 130px;
-      transition: all 0.2s;
-    }
-    .cp-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.6rem; }
-    .cp-desc { font-size: 0.84rem; margin-bottom: 0.75rem; line-height: 1.75; }
-    .cp-meta { font-size: 0.75rem; color: var(--text-muted); line-height: 1.9; }
-    .cp-meta b { color: var(--text); font-weight: 600; }
-
-    /* ─── SECTION 4: Price Calculator ─── */
-    .formula-banner {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.1rem 1.4rem;
-      margin-bottom: 1.5rem;
-    }
-    .formula-label-text { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.5rem; }
-    .formula-eq { font-family: var(--mono); font-size: 0.85rem; line-height: 2.2; }
-    .fe-result { color: var(--amber); }
-    .fe-crc    { color: var(--steel); }
-    .fe-tin    { color: var(--green); }
-    .fe-proc   { color: var(--gold); }
-    .formula-note { font-size: 0.72rem; color: var(--text-faint); margin-top: 0.1rem; font-family: var(--mono); }
 
     .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .calc-card {
@@ -1031,6 +983,178 @@
     .pr-connector { width: 2px; height: 20px; background: linear-gradient(to bottom, var(--border), transparent); margin: 0 0 0 35px; }
 
 
+
+    /* ─── TINPLATE PRICE DETECTIVE ─── */
+    .tp-formula-banner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.1rem 1.5rem; margin-bottom: 1.5rem;
+    }
+    .tp-formula-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.85rem; }
+    .tp-formula-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .tp-f-block {
+      border-radius: 8px; padding: 0.6rem 0.9rem; display: flex; flex-direction: column;
+      gap: 0.2rem; flex: 1; min-width: 110px; text-align: center;
+    }
+    .tp-f-block { font-size: 0.8rem; font-weight: 700; color: var(--text); }
+    .tp-f-block span { font-size: 0.6rem; font-weight: 500; opacity: 0.7; font-family: var(--mono); }
+    .tp-f-crc    { background: rgba(42,184,168,0.12);  border: 1px solid rgba(42,184,168,0.25); color: var(--steel); }
+    .tp-f-tin    { background: rgba(212,168,67,0.12);  border: 1px solid rgba(212,168,67,0.25); color: var(--amber); }
+    .tp-f-proc   { background: rgba(40,200,138,0.12);  border: 1px solid rgba(40,200,138,0.25); color: var(--green); }
+    .tp-f-result { background: rgba(212,168,67,0.18);  border: 1px solid rgba(212,168,67,0.4);  color: var(--amber); }
+    .tp-f-plus, .tp-f-equals { font-size: 1.2rem; font-weight: 700; color: var(--text-faint); padding: 0 0.1rem; flex-shrink: 0; }
+    .tp-f-equals { color: var(--amber); }
+
+    /* Region tabs */
+    .tp-region-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tp-rtab {
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text-muted); padding: 0.5rem 1.25rem; border-radius: 8px;
+      font-family: var(--font); font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .tp-rtab:hover { border-color: var(--border-hover); color: var(--text); }
+    .tp-rtab.active { background: var(--amber-dim); border-color: var(--amber-border); color: var(--amber); }
+
+    /* Layout */
+    .tp-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start; }
+
+    /* Input cards */
+    .tp-input-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: 0.75rem;
+    }
+    .tp-input-hd { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.65rem; }
+    .tp-input-icon { font-size: 1.1rem; }
+    .tp-input-title { font-size: 0.82rem; font-weight: 700; color: var(--text); flex: 1; }
+    .tp-input-source { font-size: 0.6rem; font-family: var(--mono); color: var(--steel); background: var(--steel-dim); border-radius: 4px; padding: 0.1rem 0.4rem; white-space: nowrap; }
+    .tp-slider-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+    .tp-slider-row input[type=range] {
+      flex: 1; accent-color: var(--amber); height: 4px; cursor: pointer;
+    }
+    .tp-val-badge {
+      background: var(--amber-dim); border: 1px solid var(--amber-border);
+      color: var(--amber); font-family: var(--mono); font-size: 0.72rem;
+      font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 5px;
+      min-width: 80px; text-align: center; white-space: nowrap;
+    }
+    .tp-input-note { font-size: 0.68rem; color: var(--text-faint); line-height: 1.55; }
+    .tp-input-note strong { color: var(--text-muted); }
+
+    /* Result col */
+    .tp-stack-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin-bottom: 0.75rem;
+    }
+    .tp-stack-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.3rem; }
+    .tp-stack-region-note { font-size: 0.72rem; color: var(--steel); font-weight: 600; margin-bottom: 1rem; }
+
+    .tp-build { display: flex; flex-direction: column; gap: 0; margin-bottom: 1rem; }
+    .tp-brow { display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.5rem; padding: 0.55rem 0.6rem; border-radius: 6px; align-items: center; }
+    .tp-brow:hover { background: rgba(255,255,255,0.03); }
+    .tp-brow-plus { border-left: 2px solid rgba(42,184,168,0.2); margin-left: 0.5rem; padding-left: 0.6rem; }
+    .tp-brow-sub { background: rgba(40,200,138,0.06); border: 1px solid rgba(40,200,138,0.15); border-radius: 6px; }
+    .tp-brow-label { font-size: 0.75rem; font-weight: 700; color: var(--text); }
+    .tp-brow-formula { font-size: 0.62rem; font-family: var(--mono); color: var(--text-faint); }
+    .tp-brow-val { font-size: 0.82rem; font-weight: 700; font-family: var(--mono); color: var(--amber); text-align: right; white-space: nowrap; }
+    .tp-divider { border-top: 1px dashed var(--border); margin: 0.4rem 0; }
+
+    /* Waterfall */
+    .tp-waterfall { display: flex; height: 32px; border-radius: 6px; overflow: hidden; margin-bottom: 1rem; gap: 2px; }
+    .tp-wf-seg { display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 700; color: rgba(255,255,255,0.75); transition: width 0.4s ease; min-width: 2px; overflow: hidden; white-space: nowrap; }
+
+    /* Result box */
+    .tp-result-box { background: linear-gradient(135deg, rgba(212,168,67,0.12), rgba(212,168,67,0.06)); border: 1px solid var(--amber-border); border-radius: 10px; padding: 1.1rem; text-align: center; }
+    .tp-result-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.3rem; }
+    .tp-result-num { font-size: 2.4rem; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; margin-bottom: 0.2rem; }
+    .tp-result-sub { font-size: 0.65rem; color: var(--text-faint); }
+
+    /* Asia note */
+    .tp-asia-note { background: rgba(40,200,138,0.06); border: 1px solid rgba(40,200,138,0.2); border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: 0.75rem; }
+    .tp-asia-note-title { font-size: 0.78rem; font-weight: 700; color: var(--green); margin-bottom: 0.45rem; }
+    .tp-asia-note-body { font-size: 0.75rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.75rem; }
+    .tp-asia-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .tp-asia-country { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.85rem; text-align: center; }
+    .tp-asia-country-name { font-size: 0.7rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .tp-asia-country-val  { font-size: 1.1rem; font-weight: 700; font-family: var(--mono); color: var(--green); }
+    .tp-asia-country-sub  { font-size: 0.6rem; color: var(--text-faint); }
+
+    /* Method note */
+    .tp-method-note { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
+    .tp-method-title { font-size: 0.68rem; font-weight: 700; color: var(--text-faint); margin-bottom: 0.75rem; }
+    .tp-method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    .tp-method-item { font-size: 0.72rem; line-height: 1.6; }
+    .tp-method-item strong { display: block; color: var(--amber); font-size: 0.7rem; margin-bottom: 0.15rem; }
+    .tp-method-item span { color: var(--text-faint); }
+
+
+
+    /* ─── STEP CARD POPUP ─── */
+    .sdv-step { cursor: pointer; }
+    .sdv-step-popup {
+      position: fixed; z-index: 5000;
+      background: #0a1e24; border: 1px solid rgba(42,184,168,0.35);
+      border-radius: 12px; padding: 1.1rem 1.25rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(42,184,168,0.1);
+      max-width: 340px; min-width: 260px;
+      animation: popupIn 0.18s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none;
+    }
+    @keyframes popupIn { from { opacity:0; transform:scale(0.92) translateY(6px); } to { opacity:1; transform:scale(1) translateY(0); } }
+    .spu-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+    .spu-icon { font-size: 1.4rem; }
+    .spu-title { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .spu-badge { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.1rem 0.45rem; border-radius: 3px; margin-left: auto; white-space: nowrap; }
+    .spu-badge.hot  { background: rgba(232,85,85,0.15);  color: #e85555; }
+    .spu-badge.cold { background: rgba(82,169,232,0.15); color: #52a9e8; }
+    .spu-badge.chem { background: rgba(232,192,96,0.15); color: #e8c060; }
+    .spu-badge.out  { background: rgba(212,168,67,0.15); color: var(--amber); }
+    .spu-badge.eaf  { background: rgba(42,184,168,0.15); color: var(--steel); }
+    .spu-desc { font-size: 0.76rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.75rem; }
+    .spu-desc strong { color: var(--text); }
+    .spu-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .spu-spec { background: rgba(255,255,255,0.04); border-radius: 6px; padding: 0.35rem 0.5rem; }
+    .spu-spec-label { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.12rem; }
+    .spu-spec-val   { font-size: 0.72rem; font-weight: 700; color: var(--text); font-family: var(--mono); }
+    .spu-close-hint { font-size: 0.6rem; color: var(--text-faint); text-align: center; margin-top: 0.65rem; }
+
+
+    /* ─── SDV STEP POPUP ─── */
+    #sdvPopup {
+      position: fixed; z-index: 5000;
+      opacity: 0; transition: opacity 0.18s ease;
+      max-width: 320px; min-width: 240px;
+      display: none;
+    }
+    #sdvPopup.visible { opacity: 1; display: block; }
+    .sdvp-inner {
+      background: #071e26; border: 1px solid rgba(42,184,168,0.4);
+      border-radius: 12px; padding: 1.1rem 1.2rem 1rem;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.75), 0 0 0 1px rgba(42,184,168,0.08);
+      position: relative;
+    }
+    .sdvp-close {
+      position: absolute; top: 8px; right: 10px;
+      background: none; border: none; color: #3a6a70;
+      cursor: pointer; font-size: 1.1rem; line-height: 1;
+      transition: color 0.15s; padding: 0;
+    }
+    .sdvp-close:hover { color: #d8ecea; }
+    .sdvp-tag { display: inline-block; font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: rgba(42,184,168,0.15); color: #2ab8a8;
+      border-radius: 3px; padding: 0.1rem 0.45rem; margin-bottom: 0.5rem; }
+    .sdvp-title { font-size: 0.92rem; font-weight: 700; color: #d8ecea; margin-bottom: 0.5rem; }
+    .sdvp-body { font-size: 0.74rem; color: #5a8a88; line-height: 1.78; margin-bottom: 0.65rem; }
+    .sdvp-body strong { color: #b0cece; }
+    .sdvp-specs { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .sdvp-spec { font-size: 0.6rem; font-family: 'DM Mono', monospace;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: #3a6a70; padding: 0.15rem 0.5rem; border-radius: 3px; }
+    .sdv-step { cursor: pointer; }
+    .sdv-step:hover { border-color: rgba(42,184,168,0.5) !important;
+      background: rgba(42,184,168,0.07) !important; transform: translateY(-2px); }
+    .sdv-step:hover .sdv-step-name { color: #2ab8a8 !important; }
+
     /* ─── PRICE MODAL ─── */
     #priceModal {
       display: none; position: fixed; inset: 0; z-index: 2000;
@@ -1137,10 +1261,7 @@
     <span class="nav-pill">2</span> How Steel is Made
   </button>
   <button class="nav-btn" onclick="showSection(2)">
-    <span class="nav-pill">3</span> Flat Steel Value Chain
-  </button>
-  <button class="nav-btn" onclick="showSection(3)">
-    <span class="nav-pill">4</span> The Price Detective
+    <span class="nav-pill">3</span> The Price Detective
   </button>
 </nav>
 
@@ -1600,199 +1721,176 @@
   <!-- ──────────────────────────────────────
        SECTION 3 · FLAT STEEL VALUE CHAIN
   ────────────────────────────────────── -->
+  <!-- ──────────────────────────────────────
+       SECTION 3 · PRICE DETECTIVE (TINPLATE)
+  ────────────────────────────────────── -->
   <div class="section" id="s2">
     <div class="mod-header">
-      <div class="mod-eyebrow">Module 3 · ~7 min</div>
-      <div class="mod-title">The Flat Steel Value Chain</div>
-      <div class="mod-desc">HRC is the base price. Every downstream product adds a premium for further processing. Understanding this chain is fundamental to our pricing work — click each product below.</div>
-    </div>
-
-    <div class="chain-row" id="chainRow">
-      <div class="citem active" onclick="selectChain(0, this)">
-        <div class="cbox">
-          <div class="clabel">Base</div>
-          <div class="cname">HRC</div>
-          <div class="cfullname">Hot Rolled Coil</div>
-          <div class="cprice">Benchmark price</div>
-        </div>
-      </div>
-      <div class="carr">→</div>
-      <div class="citem" onclick="selectChain(1, this)">
-        <div class="cbox">
-          <div class="clabel">+1 process</div>
-          <div class="cname">CRC</div>
-          <div class="cfullname">Cold Rolled Coil</div>
-          <div class="cprice">HRC + $80–120/t</div>
-        </div>
-      </div>
-      <div class="carr">→</div>
-      <div class="citem" onclick="selectChain(2, this)">
-        <div class="cbox">
-          <div class="clabel">+2 processes</div>
-          <div class="cname">HDG</div>
-          <div class="cfullname">Hot-Dip Galvanized</div>
-          <div class="cprice">CRC + $50–80/t</div>
-        </div>
-      </div>
-      <div class="carr">→</div>
-      <div class="citem" onclick="selectChain(3, this)">
-        <div class="cbox">
-          <div class="clabel">+2 processes</div>
-          <div class="cname">Tinplate</div>
-          <div class="cfullname">Electrolytic Tin Coat</div>
-          <div class="cprice">CRC + tin + $130–160/t</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="chain-panel" id="chainPanel">
-      <div class="cp-title">HRC — Hot Rolled Coil</div>
-      <div class="cp-desc">The global ferrous benchmark. Every flat steel product price is built on top of HRC. Produced directly from a reheated slab through a hot rolling mill at ~1,200°C. The rough, scaled surface is characteristic — it's why you need further processing for premium applications.</div>
-      <div class="cp-meta">
-        <b>Thickness:</b> 1.5–12mm &nbsp;&nbsp;|&nbsp;&nbsp; <b>Surface:</b> Mill scale (rough) &nbsp;&nbsp;|&nbsp;&nbsp; <b>Uses:</b> Construction, structural, pipes, auto frames &nbsp;&nbsp;|&nbsp;&nbsp; <b>Quoted on:</b> CME, SGX, Platts, Fastmarkets, SHFE
-      </div>
-    </div>
-  </div>
-
-  <!-- ──────────────────────────────────────
-       SECTION 4 · PRICE DETECTIVE
-  ────────────────────────────────────── -->
-  <div class="section" id="s3">
-    <div class="mod-header">
-      <div class="mod-eyebrow">Module 4 · ~8 min</div>
+      <div class="mod-eyebrow">Module 3 · ~8 min</div>
       <div class="mod-title">The Price Detective: Deriving Tinplate</div>
-      <div class="mod-desc">Tinplate prices are not publicly published anywhere. But you can build them from first principles — using just HRC and LME Tin prices. This is exactly how we do it.</div>
+      <div class="mod-desc">Tinplate prices are never published — they must be derived. This calculator walks through the exact methodology used on the metals desk, broken down by region: Europe/Turkey, USA, and Asia (India + China average).</div>
     </div>
 
-    <div class="formula-banner">
-      <div class="formula-label-text">The Core Formula</div>
-      <div class="formula-eq">
-        <span class="fe-result">Tinplate Price</span>
-        &nbsp;=&nbsp; <span class="fe-crc">CRC Price</span>
-        &nbsp;+&nbsp; <span class="fe-tin">Tin Metal Cost</span>
-        &nbsp;+&nbsp; <span class="fe-proc">Electrolytic Processing Premium</span>
-      </div>
-      <div class="formula-note">where &nbsp; CRC = HRC + cold rolling premium &nbsp;&nbsp;|&nbsp;&nbsp; Tin Metal Cost = LME Tin ($/t) × coating weight (kg per tonne of steel) ÷ 1000</div>
-    </div>
-
-    <div class="steps-list">
-      <div class="step-row">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <div class="step-title">Get the HRC price</div>
-          <div class="step-body">Source from Fastmarkets, Platts (S&amp;P Global), or exchange data (CME, SGX, SHFE). Use the relevant regional benchmark — European HRC, US Midwest HRC, or Asian (CFR SE Asia) depending on your geography.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <div class="step-title">Add the cold rolling premium → CRC</div>
-          <div class="step-body">Cold rolling thins and smooths the strip. Then it's annealed to restore ductility. This adds $80–120/t over HRC. The spread varies with mill utilisation and regional supply/demand. CRC is also not always directly published — you may also need to derive this.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <div class="step-title">Get LME Tin price and calculate tin metal cost</div>
-          <div class="step-body">Tin is traded on the London Metal Exchange (LME) in $/tonne. Tinplate uses a thin coating of tin on both sides — typically 2.8 to 8.4 g/m² per side depending on grade. A standard T57 grade (2.8/2.8 g/m²) uses ~3.2–3.4 kg of tin per tonne of steel. Multiply by LME Tin price (converted to $/kg) to get the tin metal cost component.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <div class="step-title">Add the electrolytic tinning processing premium</div>
-          <div class="step-body">The electrolytic tinning line (ETL) applies tin in a controlled electroplating process. This adds $130–160/t for standard grades. Premium grades, narrow widths, or special surface finishes attract higher processing fees from mills.</div>
-        </div>
-      </div>
-      <div class="step-row">
-        <div class="step-num">5</div>
-        <div class="step-content">
-          <div class="step-title">Cross-check with mill offers and market intelligence</div>
-          <div class="step-body">The derived price is your model estimate. Cross-check with mill spot offers (where available), industry contacts, and trade publications. Actual traded prices may deviate due to contract terms, regional logistics, and supply tightness. Your estimate provides the baseline for negotiation and analysis.</div>
-        </div>
+    <!-- FORMULA EXPLAINER BANNER -->
+    <div class="tp-formula-banner">
+      <div class="tp-formula-title">The Tinplate Pricing Formula</div>
+      <div class="tp-formula-row">
+        <div class="tp-f-block tp-f-crc">CRC Cost<span>$/t · Fastmarkets</span></div>
+        <div class="tp-f-plus">+</div>
+        <div class="tp-f-block tp-f-tin">Tin Coating Cost<span>LME Tin × 3.93 kg/t</span></div>
+        <div class="tp-f-plus">+</div>
+        <div class="tp-f-block tp-f-proc">Processing &amp; Conversion<span>Energy + Labour + Overhead</span></div>
+        <div class="tp-f-equals">=</div>
+        <div class="tp-f-block tp-f-result">Tinplate Price<span>$/t indicative</span></div>
       </div>
     </div>
 
-    <div style="margin-top:2rem;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:1rem">Live Price Calculator</div>
+    <!-- REGION TABS -->
+    <div class="tp-region-tabs">
+      <button class="tp-rtab active" onclick="setRegion('eu',this)">🇪🇺 Europe &amp; Turkey</button>
+      <button class="tp-rtab" onclick="setRegion('us',this)">🇺🇸 USA</button>
+      <button class="tp-rtab" onclick="setRegion('asia',this)">🌏 Asia (India + China avg)</button>
+    </div>
 
-    <div class="calc-grid">
-      <div class="calc-card">
-        <div class="calc-card-title">Market Inputs</div>
+    <div class="tp-layout">
+      <!-- LEFT: INPUTS -->
+      <div class="tp-inputs-col">
 
-        <div class="igroup">
-          <div class="ilabel">HRC Price ($/tonne) <span class="ival" id="hrc-lbl">$600</span></div>
-          <input type="range" id="hrc-r" min="300" max="1100" value="600" step="10" oninput="calcUpdate()">
+        <div class="tp-input-card">
+          <div class="tp-input-hd">
+            <span class="tp-input-icon">📋</span>
+            <span class="tp-input-title">CRC Base Price</span>
+            <span class="tp-input-source" id="crc-source">Fastmarkets · Europe</span>
+          </div>
+          <div class="tp-slider-row">
+            <input type="range" id="tp-crc" min="350" max="900" value="550" step="5" oninput="tpCalc()">
+            <div class="tp-val-badge" id="tp-crc-val">$550/t</div>
+          </div>
+          <div class="tp-input-note">CRC (Cold Rolled Coil) is the substrate for tinplate. Price sourced from Fastmarkets for Europe, same index for all regions.</div>
         </div>
 
-        <div class="igroup">
-          <div class="ilabel">LME Tin Price ($/tonne) <span class="ival" id="tin-lbl">$25,000</span></div>
-          <input type="range" id="tin-r" min="15000" max="40000" value="25000" step="250" oninput="calcUpdate()">
+        <div class="tp-input-card">
+          <div class="tp-input-hd">
+            <span class="tp-input-icon">🔩</span>
+            <span class="tp-input-title">LME Tin Price</span>
+            <span class="tp-input-source">LME 3-Month · $/t</span>
+          </div>
+          <div class="tp-slider-row">
+            <input type="range" id="tp-tin" min="20000" max="60000" value="47000" step="500" oninput="tpCalc()">
+            <div class="tp-val-badge" id="tp-tin-val">$47,000/t</div>
+          </div>
+          <div class="tp-input-note">Tin coating weight = <strong>3.93 kg per tonne</strong> of tinplate (for 2.8 g/m² both sides — T57 grade). Tin coating cost = LME Tin × 3.93 ÷ 1,000.</div>
         </div>
 
-        <div class="igroup">
-          <div class="ilabel">Cold Rolling Premium ($/t) <span class="ival" id="cr-lbl">$100</span></div>
-          <input type="range" id="cr-r" min="60" max="160" value="100" step="5" oninput="calcUpdate()">
+        <div class="tp-input-card" id="energy-card">
+          <div class="tp-input-hd">
+            <span class="tp-input-icon" id="energy-icon">🔥</span>
+            <span class="tp-input-title" id="energy-title">Natural Gas Price</span>
+            <span class="tp-input-source" id="energy-source">TTF · Europe · €/MMBtu</span>
+          </div>
+          <div class="tp-slider-row">
+            <input type="range" id="tp-energy" min="3" max="60" value="12" step="0.5" oninput="tpCalc()">
+            <div class="tp-val-badge" id="tp-energy-val">$12/MMBtu</div>
+          </div>
+          <div class="tp-input-note" id="energy-note">Energy cost = <strong>3× energy price</strong> (gas or coal per tonne equivalent). The multiplier of 3 reflects the typical energy consumption per tonne of tinplate production.</div>
         </div>
 
-        <div class="igroup">
-          <div class="ilabel" style="margin-bottom:0.5rem">Tinplate Grade</div>
-          <select id="grade-sel" onchange="calcUpdate()">
-            <option value="3.4">T57 Standard — 2.8/2.8 g/m² (food &amp; beverage cans)</option>
-            <option value="5.6">T61 Medium — 5.6/5.6 g/m² (chemical, paint tins)</option>
-            <option value="8.5">T65 Heavy — 8.4/8.4 g/m² (aerosol, corrosive contents)</option>
-          </select>
-          <div class="ihelp" id="coat-note">Coating weight: ~3.4 kg tin per tonne of steel</div>
+        <div class="tp-input-card">
+          <div class="tp-input-hd">
+            <span class="tp-input-icon">👷</span>
+            <span class="tp-input-title">Labour &amp; Overhead Cost</span>
+            <span class="tp-input-source">Fixed · Annual review · $/t</span>
+          </div>
+          <div class="tp-slider-row">
+            <input type="range" id="tp-labour" min="20" max="120" value="55" step="5" oninput="tpCalc()">
+            <div class="tp-val-badge" id="tp-labour-val">$55/t</div>
+          </div>
+          <div class="tp-input-note">Labour cost changes with annual employment reviews. Overhead includes <strong>machinery depreciation, repair &amp; maintenance, utilities, and plant administration</strong>. Fixed per period.</div>
         </div>
 
-        <div class="igroup" style="margin-bottom:0">
-          <div class="ilabel">ETL Processing Premium ($/t) <span class="ival" id="pp-lbl">$145</span></div>
-          <input type="range" id="pp-r" min="100" max="220" value="145" step="5" oninput="calcUpdate()">
-        </div>
       </div>
 
-      <div class="calc-card">
-        <div class="calc-card-title">Price Build-Up</div>
+      <!-- RIGHT: BREAKDOWN + RESULT -->
+      <div class="tp-result-col">
 
-        <div class="build-rows">
-          <div class="brow">
-            <div class="brow-label">① HRC base price</div>
-            <div class="brow-val" id="b-hrc">$600/t</div>
+        <!-- Cost Stack Visual -->
+        <div class="tp-stack-card">
+          <div class="tp-stack-title">Cost Build-Up</div>
+          <div class="tp-stack-region-note" id="tp-region-note">🇪🇺 Europe / Turkey — Natural gas energy basis</div>
+
+          <div class="tp-build">
+            <div class="tp-brow">
+              <div class="tp-brow-label">① CRC Base Price</div>
+              <div class="tp-brow-formula" id="tp-b-crc-f">Fastmarkets assessment</div>
+              <div class="tp-brow-val" id="tp-b-crc">$550</div>
+            </div>
+            <div class="tp-brow tp-brow-plus">
+              <div class="tp-brow-label">② Tin Coating Cost</div>
+              <div class="tp-brow-formula" id="tp-b-tin-f">$47,000 × 3.93 ÷ 1,000</div>
+              <div class="tp-brow-val" id="tp-b-tin">+$185</div>
+            </div>
+            <div class="tp-brow tp-brow-plus">
+              <div class="tp-brow-label" id="tp-b-energy-label">③ Energy Cost</div>
+              <div class="tp-brow-formula" id="tp-b-energy-f">3 × $12 (nat. gas)</div>
+              <div class="tp-brow-val" id="tp-b-energy">+$36</div>
+            </div>
+            <div class="tp-brow tp-brow-plus">
+              <div class="tp-brow-label">④ Labour &amp; Overhead</div>
+              <div class="tp-brow-formula">Fixed cost per period</div>
+              <div class="tp-brow-val" id="tp-b-labour">+$55</div>
+            </div>
+            <div class="tp-divider"></div>
+            <div class="tp-brow tp-brow-sub">
+              <div class="tp-brow-label">Processing &amp; Conversion</div>
+              <div class="tp-brow-formula">(Energy + Labour + Overhead)</div>
+              <div class="tp-brow-val" id="tp-b-proc">$91</div>
+            </div>
           </div>
-          <div class="brow">
-            <div class="brow-label">② + Cold rolling premium</div>
-            <div class="brow-val pos" id="b-cr">+ $100/t</div>
-          </div>
-          <div class="brow subtotal">
-            <div class="brow-label">= CRC price</div>
-            <div class="brow-val" id="b-crc">$700/t</div>
-          </div>
-          <div class="brow">
-            <div class="brow-label">③ + Tin metal cost</div>
-            <div class="brow-val pos" id="b-tin">+ $85/t</div>
-          </div>
-          <div class="brow" style="padding-top:0">
-            <div class="brow-note" id="b-tin-note">LME $25,000/t × 3.4 kg ÷ 1,000</div>
-            <div></div>
-          </div>
-          <div class="brow">
-            <div class="brow-label">④ + ETL processing premium</div>
-            <div class="brow-val pos" id="b-pp">+ $145/t</div>
+
+          <!-- Waterfall bar -->
+          <div class="tp-waterfall" id="tp-waterfall"></div>
+
+          <!-- RESULT -->
+          <div class="tp-result-box">
+            <div class="tp-result-label">Indicative Tinplate Price</div>
+            <div class="tp-result-num" id="tp-result">$826/t</div>
+            <div class="tp-result-sub" id="tp-result-region">Europe / Turkey basis · $/MT</div>
           </div>
         </div>
 
-        <div class="result-box">
-          <div class="result-eyebrow">Estimated Tinplate Price</div>
-          <div class="result-num" id="result-num">$930/t</div>
-          <div class="result-unit">per metric tonne, indicative</div>
+        <!-- ASIA NOTE -->
+        <div class="tp-asia-note" id="tp-asia-note" style="display:none">
+          <div class="tp-asia-note-title">🌏 Asia Methodology</div>
+          <div class="tp-asia-note-body">In India and China, production is primarily <strong>coal-driven</strong> rather than gas-driven. Energy cost uses coal price as the basis. Final Asia price = average of <strong>(China calculation + India calculation) ÷ 2</strong>. Both countries use the same formula; only the energy cost basis differs (coal vs gas).</div>
+          <div class="tp-asia-split" id="tp-asia-split"></div>
         </div>
 
-        <div class="result-warn">
-          ⚠ Indicative estimate. Actual spreads vary by region, mill, grade and contract terms. Always cross-check with Fastmarkets / Platts assessments and mill offers.
+        <!-- METHODOLOGY NOTE -->
+        <div class="tp-method-note">
+          <div class="tp-method-title">📌 Methodology Notes</div>
+          <div class="tp-method-grid">
+            <div class="tp-method-item">
+              <strong>3.93 kg tin factor</strong>
+              <span>Calculated for 2.8 g/m² coating on both sides of the CRC strip. Client-specified coating weight. Different grades (T57/T61/T65) require different coating weights.</span>
+            </div>
+            <div class="tp-method-item">
+              <strong>Energy multiplier ×3</strong>
+              <span>Reflects typical gas/coal consumption per tonne of tinplate at an electrolytic tinning line (ETL). Includes annealing, pickling, and coating energy.</span>
+            </div>
+            <div class="tp-method-item">
+              <strong>Labour &amp; Overhead</strong>
+              <span>Fixed for the year; reviewed annually. Overhead = machinery depreciation + repair &amp; maintenance + utilities. Varies by country (higher in Europe, lower in Asia).</span>
+            </div>
+            <div class="tp-method-item">
+              <strong>CRC source</strong>
+              <span>Fastmarkets publishes CRC assessments for Europe, USA, and Asia. These are the reference prices used across all three regional calculations.</span>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
-
 </div><!-- /content -->
 
 <script>
@@ -2172,16 +2270,6 @@
     }
   ];
 
-  function selectChain(i, el) {
-    document.querySelectorAll('.citem').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    const d = chainData[i];
-    document.getElementById('chainPanel').innerHTML =
-      `<div class="cp-title">${d.title}</div>
-       <div class="cp-desc">${d.desc}</div>
-       <div class="cp-meta">${d.meta}</div>`;
-  }
-
   /* ── METAL DETAIL PAGE ── */
   function showDTab(n, btn) {
     document.querySelectorAll('.dpanel').forEach((p,i) => p.classList.toggle('active', i===n));
@@ -2298,47 +2386,47 @@
       <div class="sdv-process-wrap">
         <div class="sdv-route-label" style="color:#d4a843">🔶 Hot Rolled Coil (HRC) Route</div>
         <div class="sdv-flow">
-          <div class="sdv-step"><div class="sdv-step-icon">📦</div><div class="sdv-step-name">Steel Slab</div><div class="sdv-step-note">~200–250mm thick<br>from continuous caster</div></div>
+          <div class="sdv-step" data-step="steel_slab" onclick="openSdvPopup(this,'Steel Slab')""><div class="sdv-step-icon">📦</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Steel Slab')">Steel Slab</div><div class="sdv-step-note">~200–250mm thick<br>from continuous caster</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name">Reheat Furnace</div><div class="sdv-step-note">~1,200°C<br>slab softened</div></div>
+          <div class="sdv-step" data-step="reheat_furnace" onclick="openSdvPopup(this,'Reheat Furnace')" sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Reheat Furnace')">Reheat Furnace</div><div class="sdv-step-note">~1,200°C<br>slab softened</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Roughing Mill</div><div class="sdv-step-note">200mm → ~25mm<br>4–6 passes</div></div>
+          <div class="sdv-step" data-step="roughing_mill" onclick="openSdvPopup(this,'Roughing Mill')" sdv-hot"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Roughing Mill')">Roughing Mill</div><div class="sdv-step-note">200mm → ~25mm<br>4–6 passes</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Finishing Mill</div><div class="sdv-step-note">25mm → 1.5–12mm<br>6–7 stand tandem</div></div>
+          <div class="sdv-step" data-step="finishing_mill" onclick="openSdvPopup(this,'Finishing Mill')" sdv-hot"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Finishing Mill')">Finishing Mill</div><div class="sdv-step-note">25mm → 1.5–12mm<br>6–7 stand tandem</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step"><div class="sdv-step-icon">💧</div><div class="sdv-step-name">Runout Cooling</div><div class="sdv-step-note">Water spray<br>controls properties</div></div>
+          <div class="sdv-step" data-step="runout_cooling" onclick="openSdvPopup(this,'Runout Cooling')""><div class="sdv-step-icon">💧</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Runout Cooling')">Runout Cooling</div><div class="sdv-step-note">Water spray<br>controls properties</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name">HRC Coil</div><div class="sdv-step-note">1.5–12mm thick<br>mill scale surface</div></div>
+          <div class="sdv-step" data-step="hrc_coil" onclick="openSdvPopup(this,'HRC Coil')" sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name" onclick="openSdvPopup(this,'HRC Coil')">HRC Coil</div><div class="sdv-step-note">1.5–12mm thick<br>mill scale surface</div></div>
         </div>
 
         <div class="sdv-route-label" style="color:#2ab8a8; margin-top:1rem">🔵 Cold Rolled Coil (CRC) Route — starts from HRC</div>
         <div class="sdv-flow">
-          <div class="sdv-step sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name">HRC Input</div><div class="sdv-step-note">1.5–6mm hot rolled<br>mill scale on surface</div></div>
+          <div class="sdv-step" data-step="hrc_input" onclick="openSdvPopup(this,'HRC Input')" sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name" onclick="openSdvPopup(this,'HRC Input')">HRC Input</div><div class="sdv-step-note">1.5–6mm hot rolled<br>mill scale on surface</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step"><div class="sdv-step-icon">🧪</div><div class="sdv-step-name">Acid Pickling</div><div class="sdv-step-note">HCl bath removes<br>mill scale oxide</div></div>
+          <div class="sdv-step" data-step="acid_pickling" onclick="openSdvPopup(this,'Acid Pickling')""><div class="sdv-step-icon">🧪</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Acid Pickling')">Acid Pickling</div><div class="sdv-step-note">HCl bath removes<br>mill scale oxide</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-cold"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Tandem Cold Mill</div><div class="sdv-step-note">Room temp rolling<br>50–80% reduction</div></div>
+          <div class="sdv-step" data-step="tandem_cold_mill" onclick="openSdvPopup(this,'Tandem Cold Mill')" sdv-cold"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Tandem Cold Mill')">Tandem Cold Mill</div><div class="sdv-step-note">Room temp rolling<br>50–80% reduction</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name">Annealing Furnace</div><div class="sdv-step-note">~700°C restores<br>ductility (work hardening)</div></div>
+          <div class="sdv-step" data-step="annealing_furnace" onclick="openSdvPopup(this,'Annealing Furnace')" sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Annealing Furnace')">Annealing Furnace</div><div class="sdv-step-note">~700°C restores<br>ductility (work hardening)</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step"><div class="sdv-step-icon">✨</div><div class="sdv-step-name">Temper Rolling</div><div class="sdv-step-note">1–3% skin pass<br>improves flatness</div></div>
+          <div class="sdv-step" data-step="temper_rolling" onclick="openSdvPopup(this,'Temper Rolling')""><div class="sdv-step-icon">✨</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Temper Rolling')">Temper Rolling</div><div class="sdv-step-note">1–3% skin pass<br>improves flatness</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name">CRC Coil</div><div class="sdv-step-note">0.25–3mm thick<br>smooth bright surface</div></div>
+          <div class="sdv-step" data-step="crc_coil" onclick="openSdvPopup(this,'CRC Coil')" sdv-output"><div class="sdv-step-icon">🎯</div><div class="sdv-step-name" onclick="openSdvPopup(this,'CRC Coil')">CRC Coil</div><div class="sdv-step-note">0.25–3mm thick<br>smooth bright surface</div></div>
         </div>
 
         <div class="sdv-route-label" style="color:#e8c060; margin-top:1rem">✦ Stainless Steel HRC / CRC Route — AOD is the key difference</div>
         <div class="sdv-flow">
-          <div class="sdv-step"><div class="sdv-step-icon">⚡</div><div class="sdv-step-name">EAF Melt</div><div class="sdv-step-note">Scrap + ferro-alloys<br>melted at 3,000°C</div></div>
+          <div class="sdv-step" data-step="eaf_melt" onclick="openSdvPopup(this,'EAF Melt')""><div class="sdv-step-icon">⚡</div><div class="sdv-step-name" onclick="openSdvPopup(this,'EAF Melt')">EAF Melt</div><div class="sdv-step-note">Scrap + ferro-alloys<br>melted at 3,000°C</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🫧</div><div class="sdv-step-name">AOD Converter</div><div class="sdv-step-note">Argon-Oxygen<br>Decarburization<br>removes C without<br>losing Cr</div></div>
+          <div class="sdv-step" data-step="aod_converter" onclick="openSdvPopup(this,'AOD Converter')" sdv-hot"><div class="sdv-step-icon">🫧</div><div class="sdv-step-name" onclick="openSdvPopup(this,'AOD Converter')">AOD Converter</div><div class="sdv-step-note">Argon-Oxygen<br>Decarburization<br>removes C without<br>losing Cr</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step"><div class="sdv-step-icon">📦</div><div class="sdv-step-name">SS Slab</div><div class="sdv-step-note">Continuous cast<br>stainless slab</div></div>
+          <div class="sdv-step" data-step="ss_slab" onclick="openSdvPopup(this,'SS Slab')""><div class="sdv-step-icon">📦</div><div class="sdv-step-name" onclick="openSdvPopup(this,'SS Slab')">SS Slab</div><div class="sdv-step-note">Continuous cast<br>stainless slab</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name">Hot Rolling</div><div class="sdv-step-note">→ SS HRC<br>1,200°C</div></div>
+          <div class="sdv-step" data-step="hot_rolling" onclick="openSdvPopup(this,'Hot Rolling')" sdv-hot"><div class="sdv-step-icon">🔥</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Hot Rolling')">Hot Rolling</div><div class="sdv-step-note">→ SS HRC<br>1,200°C</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step"><div class="sdv-step-icon">🧪</div><div class="sdv-step-name">HF/HNO₃ Pickling</div><div class="sdv-step-note">Stronger acid mix<br>removes SS scale</div></div>
+          <div class="sdv-step" data-step="hf_pickling" onclick="openSdvPopup(this,'HF/HNO₃ Pickling')""><div class="sdv-step-icon">🧪</div><div class="sdv-step-name" onclick="openSdvPopup(this,'HF/HNO₃ Pickling')">HF/HNO₃ Pickling</div><div class="sdv-step-note">Stronger acid mix<br>removes SS scale</div></div>
           <div class="sdv-arrow">→</div>
-          <div class="sdv-step sdv-cold"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name">Cold Rolling</div><div class="sdv-step-note">→ SS CRC<br>bright annealed (BA)<br>or 2B finish</div></div>
+          <div class="sdv-step" data-step="cold_rolling" onclick="openSdvPopup(this,'Cold Rolling')" sdv-cold"><div class="sdv-step-icon">⚙️</div><div class="sdv-step-name" onclick="openSdvPopup(this,'Cold Rolling')">Cold Rolling</div><div class="sdv-step-note">→ SS CRC<br>bright annealed (BA)<br>or 2B finish</div></div>
         </div>
       </div>
 
@@ -4814,14 +4902,14 @@
               <div class="pr-source-note">Platts iron ore (IODEX 62% Fe) is the global iron ore benchmark. Also covers LNG, crude, and metals.</div>
             </div>
             <div class="pr-source-card free">
-              <div class="pr-source-name">IACS / IAC Metal</div>
+              <div class="pr-source-name">ISE Metal Quotes</div>
               <div class="pr-source-type">✅ Free (register)</div>
-              <div class="pr-source-note">Create a free ID to access price indices. Good for base metals and scrap pricing in Asia.</div>
+              <div class="pr-source-note">Create a free account to access metal price indices and quotes. Good for base metals and non-ferrous pricing across Asia and global markets.</div>
             </div>
-            <div class="pr-source-card free">
-              <div class="pr-source-name">Clowney's</div>
-              <div class="pr-source-type">✅ Free (register)</div>
-              <div class="pr-source-note">Useful for scrap metal prices and secondary market data. Register for regular price updates.</div>
+            <div class="pr-source-card paid">
+              <div class="pr-source-name">Kallanish</div>
+              <div class="pr-source-type">💳 Paid</div>
+              <div class="pr-source-note">Free registration gives access to daily steel and metals price news, market reports, and indicative pricing for flat steel products globally.</div>
             </div>
             <div class="pr-source-card free">
               <div class="pr-source-name">Scrap Monster</div>
@@ -4961,34 +5049,169 @@
     `;
   }
 
-  /* ── CALCULATOR ── */
-  function calcUpdate() {
-    const hrc = +document.getElementById('hrc-r').value;
-    const tin = +document.getElementById('tin-r').value;
-    const cr  = +document.getElementById('cr-r').value;
-    const pp  = +document.getElementById('pp-r').value;
-    const coatKg = +document.getElementById('grade-sel').value;
+  /* ── TINPLATE PRICE CALCULATOR ── */
+  let tpRegion = 'eu'; // 'eu' | 'us' | 'asia'
 
-    document.getElementById('hrc-lbl').textContent = '$' + hrc.toLocaleString();
-    document.getElementById('tin-lbl').textContent = '$' + tin.toLocaleString();
-    document.getElementById('cr-lbl').textContent  = '$' + cr;
-    document.getElementById('pp-lbl').textContent  = '$' + pp;
-    document.getElementById('coat-note').textContent = 'Coating weight: ~' + coatKg + ' kg tin per tonne of steel';
+  const regionConfig = {
+    eu:   { label:'🇪🇺 Europe / Turkey', energyLabel:'Natural Gas Price', energyIcon:'🔥', energySource:'TTF · Europe · $/MMBtu', energyUnit:'$/MMBtu', energyMin:3,  energyMax:60,  energyDefault:12, labourDefault:60, crcDefault:550 },
+    us:   { label:'🇺🇸 USA',             energyLabel:'Natural Gas Price', energyIcon:'🔥', energySource:'Henry Hub · USA · $/MMBtu', energyUnit:'$/MMBtu', energyMin:2, energyMax:20,  energyDefault:3,  labourDefault:70, crcDefault:550 },
+    asia: { label:'🌏 Asia (India + China avg)', energyLabel:'Coal Price', energyIcon:'⛏️', energySource:'Thermal Coal · Asia · $/t', energyUnit:'$/t', energyMin:60, energyMax:200, energyDefault:110, labourDefault:35, crcDefault:520 }
+  };
 
-    const crc     = hrc + cr;
-    const tinCost = Math.round(tin * coatKg / 1000);
-    const total   = crc + tinCost + pp;
+  function setRegion(region, btn) {
+    tpRegion = region;
+    document.querySelectorAll('.tp-rtab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-    document.getElementById('b-hrc').textContent   = '$' + hrc.toLocaleString() + '/t';
-    document.getElementById('b-cr').textContent    = '+ $' + cr + '/t';
-    document.getElementById('b-crc').textContent   = '$' + crc.toLocaleString() + '/t';
-    document.getElementById('b-tin').textContent   = '+ $' + tinCost + '/t';
-    document.getElementById('b-tin-note').textContent = 'LME $' + tin.toLocaleString() + '/t × ' + coatKg + ' kg ÷ 1,000';
-    document.getElementById('b-pp').textContent    = '+ $' + pp + '/t';
-    document.getElementById('result-num').textContent = '$' + total.toLocaleString() + '/t';
+    const cfg = regionConfig[region];
+    // Update energy input
+    const energySlider = document.getElementById('tp-energy');
+    energySlider.min   = cfg.energyMin;
+    energySlider.max   = cfg.energyMax;
+    energySlider.value = cfg.energyDefault;
+    document.getElementById('energy-title').textContent  = cfg.energyLabel;
+    document.getElementById('energy-icon').textContent   = cfg.energyIcon;
+    document.getElementById('energy-source').textContent = cfg.energySource;
+    document.getElementById('energy-note').innerHTML     = `Energy cost = <strong>3× energy price</strong> (${region === 'asia' ? 'coal' : 'natural gas'} per tonne equivalent). ${region === 'asia' ? 'Asia (India &amp; China) production is primarily <strong>coal-driven</strong>.' : 'Multiplier of 3 reflects ETL energy consumption per tonne.'}`;
+
+    // Update CRC default
+    document.getElementById('tp-crc').value = cfg.crcDefault;
+    // Update labour
+    document.getElementById('tp-labour').value = cfg.labourDefault;
+
+    // Show/hide Asia note
+    document.getElementById('tp-asia-note').style.display = region === 'asia' ? 'block' : 'none';
+
+    tpCalc();
   }
 
-  calcUpdate(); // init
+  function tpCalc() {
+    const cfg = regionConfig[tpRegion];
+    const crc    = +document.getElementById('tp-crc').value;
+    const tin    = +document.getElementById('tp-tin').value;
+    const energy = +document.getElementById('tp-energy').value;
+    const labour = +document.getElementById('tp-labour').value;
+
+    // Tin coating cost: LME Tin ($/t) × 3.93 kg ÷ 1000
+    const tinCost = Math.round(tin * 3.93 / 1000);
+
+    // Energy cost: 3 × energy price
+    const energyCost = Math.round(3 * energy);
+
+    // Processing & Conversion = energy + labour
+    const procCost = energyCost + labour;
+
+    // Final tinplate price
+    const total = crc + tinCost + procCost;
+
+    // Update input badges
+    document.getElementById('tp-crc-val').textContent    = '$' + crc.toLocaleString() + '/t';
+    document.getElementById('tp-tin-val').textContent    = '$' + tin.toLocaleString() + '/t';
+    document.getElementById('tp-energy-val').textContent = '$' + energy + ' ' + cfg.energyUnit;
+    document.getElementById('tp-labour-val').textContent = '$' + labour + '/t';
+
+    // Update build rows
+    document.getElementById('tp-b-crc').textContent       = '$' + crc.toLocaleString();
+    document.getElementById('tp-b-crc-f').textContent     = 'Fastmarkets ' + (tpRegion === 'eu' ? 'Europe' : tpRegion === 'us' ? 'USA' : 'Asia');
+    document.getElementById('tp-b-tin').textContent       = '+$' + tinCost.toLocaleString();
+    document.getElementById('tp-b-tin-f').textContent     = '$' + tin.toLocaleString() + ' × 3.93 ÷ 1,000';
+    document.getElementById('tp-b-energy-label').textContent = '③ ' + cfg.energyLabel.replace(' Price','') + ' Cost';
+    document.getElementById('tp-b-energy').textContent    = '+$' + energyCost.toLocaleString();
+    document.getElementById('tp-b-energy-f').textContent  = '3 × $' + energy + ' (' + (tpRegion === 'asia' ? 'coal' : 'nat. gas') + ')';
+    document.getElementById('tp-b-labour').textContent    = '+$' + labour;
+    document.getElementById('tp-b-proc').textContent      = '$' + procCost.toLocaleString();
+    document.getElementById('tp-result').textContent      = '$' + total.toLocaleString() + '/t';
+    document.getElementById('tp-region-note').textContent = cfg.label + ' — ' + (tpRegion === 'asia' ? 'Coal energy basis' : 'Natural gas energy basis');
+    document.getElementById('tp-result-region').textContent = cfg.label + ' basis · $/MT';
+    document.getElementById('crc-source').textContent     = 'Fastmarkets · ' + (tpRegion === 'eu' ? 'Europe' : tpRegion === 'us' ? 'USA' : 'Asia');
+
+    // Waterfall bar
+    const segs = [
+      { val: crc,      color: '#2ab8a8', label: 'CRC' },
+      { val: tinCost,  color: '#d4a843', label: 'Tin' },
+      { val: energyCost, color: '#28c88a', label: 'Energy' },
+      { val: labour,   color: '#e8c060', label: 'Labour' }
+    ];
+    const wf = document.getElementById('tp-waterfall');
+    wf.innerHTML = segs.map(s => {
+      const pct = (s.val / total * 100).toFixed(1);
+      return `<div class="tp-wf-seg" style="width:${pct}%;background:${s.color}" title="${s.label}: $${s.val} (${pct}%)">${pct > 8 ? s.label : ''}</div>`;
+    }).join('');
+
+    // Asia split view
+    if (tpRegion === 'asia') {
+      // China: slightly lower labour, same coal energy
+      const chinaLabour = Math.round(labour * 0.85);
+      const chinaTotal  = crc + tinCost + energyCost + chinaLabour;
+      const indiaLabour = Math.round(labour * 1.15);
+      const indiaTotal  = crc + tinCost + energyCost + indiaLabour;
+      const avgTotal    = Math.round((chinaTotal + indiaTotal) / 2);
+      document.getElementById('tp-asia-split').innerHTML =
+        '<div class="tp-asia-country"><div class="tp-asia-country-name">🇨🇳 China</div><div class="tp-asia-country-val">$' + chinaTotal.toLocaleString() + '/t</div><div class="tp-asia-country-sub">Labour: $' + chinaLabour + '/t</div></div>' +
+        '<div class="tp-asia-country"><div class="tp-asia-country-name">🇮🇳 India</div><div class="tp-asia-country-val">$' + indiaTotal.toLocaleString() + '/t</div><div class="tp-asia-country-sub">Labour: $' + indiaLabour + '/t</div></div>';
+    }
+  }
+
+  tpCalc(); // init
+
+  /* ── SDV STEP POPUP ── */
+  const sdvStepData = {
+    'Steel Slab': { tag:'BF-BOF/EAF Output · HRC Route', body:'The <strong>semi-finished starting point</strong> for all flat steel products. Slabs exit the continuous caster at 200–250mm thick at ~900°C. Chemical composition — C, Mn, Si — is locked in from the furnace. Any chemistry deviation propagates through all downstream products.', specs:['200–250mm thick','Width: 800–2,000mm','~900°C at exit','C: 0.02–0.20% typical'] },
+    'Reheat Furnace': { tag:'Heating Stage · HRC Route', body:'Slabs reheated to <strong>1,150–1,250°C</strong> in a walking-beam furnace for uniform plastic deformability. Insufficient soaking creates temperature gradients → uneven rolling and flatness defects. Natural gas consumption ~1–1.5 GJ/t is a major cost driver.', specs:['Temp: 1,150–1,250°C','Soak: 1.5–3 hrs','Fuel: natural gas / BFG','~1.2 GJ/t energy input'] },
+    'Roughing Mill': { tag:'Thickness Reduction · HRC Route', body:'<strong>200mm → 25mm in 4–7 reversing passes</strong> at ~1,100°C. High-pressure scale breakers remove iron oxide between passes. Sets the width and length of the transfer bar entering the finishing mill.', specs:['200mm → 25mm','4–7 reversing passes','~1,100°C entry temp','High-pressure descaling'] },
+    'Finishing Mill': { tag:'Final Gauge Control · HRC Route', body:'A <strong>tandem 6–7 stand mill</strong> where AGC (Automatic Gauge Control) sensors maintain thickness to ±0.01mm. Exit temperature 860–900°C determines grain structure and mechanical properties — metallurgically critical for grade compliance.', specs:['6–7 tandem stands','Exit gauge: 1.5–12mm','AGC accuracy: ±0.01mm','Exit temp: 860–900°C','Speed: up to 15 m/s'] },
+    'Runout Cooling': { tag:'Metallurgical Control · HRC Route', body:'<strong>Laminar water cooling</strong> controls coiling temperature (580–720°C), which determines final microstructure — ferrite grain size, pearlite distribution — and therefore yield strength, tensile strength, and elongation. Critical for HSLA and dual-phase grades.', specs:['Laminar water cooling','Coiling temp: 580–720°C','Controls YS, UTS, elongation','Critical for HSLA / DP grades'] },
+    'HRC Coil': { tag:'Global Benchmark Product · HRC Route', body:'Finished HRC has a characteristic <strong>mill scale (magnetite Fe₃O₄) surface</strong> and is the pricing anchor for all downstream flat products. <strong>CME HRC futures</strong> (US) and <strong>SGX TSI HRC</strong> (Asia) are the tradeable benchmarks. Every CRC, galvanized, and tinplate price is derived from HRC.', specs:['Thickness: 1.5–12mm','Surface: mill scale','Coil weight: 15–35t','Benchmarks: CME / SGX / Platts'] },
+    'HRC Input': { tag:'CRC Upstream Feedstock · CRC Route', body:'CRC starts with <strong>HRPO (hot rolled pickled and oiled)</strong> coil. Gauge consistency from the HRC mill is critical — thickness deviations propagate into the cold mill. Incoming chemistry directly determines final CRC mechanical properties after annealing.', specs:['HRPO: pickled + oiled HR','Gauge: 1.5–6mm typical','Tightly specified chemistry','Mill scale pre-removed'] },
+    'Acid Pickling': { tag:'Surface Preparation · CRC Route', body:'Strip passes through <strong>HCl tanks at 65–85°C</strong> to dissolve iron oxide mill scale. Residual scale would act as an abrasive in the cold mill, damaging rolls and causing surface defects. <strong>HCl regeneration</strong> plants recycle spent acid.', specs:['HCl: 10–18%','Tank temp: 65–85°C','Speed: 80–250 m/min','Output: bright metallic surface'] },
+    'Tandem Cold Mill': { tag:'Primary Value-Add · CRC Route', body:'50–85% thickness reduction in a single pass through <strong>4–6 tandem stands at room temperature</strong>. Cold work hardens the steel — dislocations multiply, raising strength but eliminating ductility (<strong>full-hard, unformable</strong> state). The ~$60–120/t CRC premium over HRC is earned at this stage.', specs:['Reduction: 50–85%','4–6 tandem stands','Speed: up to 1,800 m/min','Output: full-hard strip'] },
+    'Annealing Furnace': { tag:'Metallurgical Recovery · CRC Route', body:'Cold-worked steel annealed at <strong>680–720°C in H₂/N₂ atmosphere</strong> to recrystallise the microstructure and restore ductility. <strong>BAF</strong>: 20–40 hrs, fine grain, high formability (preferred for tinplate). <strong>CAL</strong>: inline minutes, preferred for automotive panels.', specs:['Recrystallisation: 680–720°C','BAF: 20–40 hrs / CAL: minutes','H₂/N₂ atmosphere','Tinplate prefers BAF'] },
+    'Temper Rolling': { tag:'Final Conditioning · CRC Route', body:'Light cold reduction (0.5–3%) to: (1) <strong>eliminate Lüders bands</strong> (stretcher-strain surface marks), (2) improve flatness, (3) set final <strong>Ra surface roughness</strong>. For tinplate, Ra 0.4–0.9 μm is specified. Temper extent defines tinplate grade (T2.5, T3, T4, T5).', specs:['Reduction: 0.5–3%','Eliminates Lüders bands','Ra 0.4–0.9 μm for tinplate','Sets T2.5–T5 temper grade'] },
+    'CRC Coil': { tag:'Premium Flat Substrate · CRC Route', body:'<strong>Substrate for all metallic-coated flat products</strong> — tinplate, galvanized, pre-painted. Tinplate-grade CRC requires tighter tolerances (±0.01mm), specific surface roughness, and precise temper control. CRC price = HRC + cold rolling premium.', specs:['Thickness: 0.20–3.0mm','Tolerances: ±0.01mm (tinplate)','Surface: smooth, degreased','Temper T2.5–T5 for packaging'] },
+    'EAF Melt': { tag:'Stainless Steelmaking · SS Route', body:'<strong>EAF charged with SS scrap + ferrochrome + ferronickel</strong>. Unlike carbon EAF, the goal is to melt without excessive Cr oxidation — carbon is removed in the next AOD step. The alloy charge (especially high-grade ferrochrome) is the largest cost driver in stainless production.', specs:['Charge: SS scrap + FeCr + FeNi','Carbon at tap: ~1.0–1.5%','Power: 400–600 kWh/t','Main cost: ferrochrome price'] },
+    'AOD Converter': { tag:'THE Critical SS Step · SS Route', body:'<strong>The defining technology of stainless steelmaking.</strong> In a BOF, burning carbon also burns chromium. The AOD solves this by injecting <strong>Ar/O₂ mixture</strong> — argon dilutes CO partial pressure, making carbon oxidation thermodynamically preferred over Cr oxidation. Carbon drops to <0.05% while retaining >99% of Cr. The "L" in 316L means carbon was further controlled to <0.03% here.', specs:['Ar/O₂ injection at base','C: 1.0% → <0.05% (→<0.03% for L)','Cr retention: >99%','Temp: 1,600–1,700°C'] },
+    'SS Slab': { tag:'Stainless Semi-Finished · SS Route', body:'Continuously cast at <strong>lower speed</strong> (0.5–0.9 m/min vs carbon 1.2–2.5) due to lower thermal conductivity and higher crack sensitivity. Ferrite/austenite balance during solidification determines hot workability. Chromium and nickel segregation must be minimised.', specs:['Casting speed: 0.5–0.9 m/min','Tighter temp control: ±10°C','Ferrite/austenite balance critical','Higher crack sensitivity'] },
+    'Hot Rolling': { tag:'SS Hot Rolling · SS Route', body:'Requires <strong>higher rolling forces</strong>, lower finishing temperatures (1,050–1,150°C), and produces a <strong>tenacious Cr-oxide scale</strong> (FeCr₂O₄ spinel) that HCl alone cannot dissolve — requiring the HF/HNO₃ mixed acid system downstream. Special high-Cr work rolls required.', specs:['Rolling temp: 1,050–1,150°C','Scale: Cr-oxide spinel','Higher roll forces vs carbon','HR band coiled at ~800°C'] },
+    'HF/HNO₃ Pickling': { tag:'Hazardous Descaling · SS Route', body:'Stainless scale contains <strong>refractory chromium spinel (FeCr₂O₄)</strong> that HCl alone cannot dissolve. Mixed acid: <strong>HF (2–8%) dissolves scale; HNO₃ (10–20%) passivates surface</strong>. HF is systemically toxic; NOx requires scrubbing. Alternative: <strong>bright annealing (BA)</strong> in H₂ atmosphere eliminates scale entirely.', specs:['HF: 2–8% + HNO₃: 10–20%','Shot blast pre-treatment common','NOx scrubbing mandatory','BA alternative avoids pickling'] },
+    'Cold Rolling': { tag:'SS Final Processing · SS Route', body:'Produces <strong>2B finish</strong> (standard dull-silver) or <strong>BA finish</strong> (mirror-bright, H₂ furnace). <strong>316L:</strong> "L" = Low Carbon (<0.03%) prevents sensitisation — during welding, standard 316 precipitates chromium carbides at grain boundaries, depleting Cr and causing intergranular corrosion (weld decay). 316L is ~$50–100/t more.', specs:['2B: Ra 0.1–0.5 μm standard','BA: Ra <0.1 μm mirror','316L: C <0.03% weld-safe','316L premium: ~$50–100/t over 316'] }
+  };
+
+  window.openSdvPopup = function(el, stepName) {
+    const d = sdvStepData[stepName];
+    if (!d) return;
+    document.getElementById('sdvp-tag').textContent   = d.tag;
+    document.getElementById('sdvp-title').textContent = stepName;
+    document.getElementById('sdvp-body').innerHTML    = d.body;
+    document.getElementById('sdvp-specs').innerHTML   = d.specs.map(s => '<span class="sdvp-spec">' + s + '</span>').join('');
+
+    const popup = document.getElementById('sdvPopup');
+    popup.style.display = 'block';
+    popup.classList.add('visible');
+
+    const rect = el.getBoundingClientRect();
+    const pw = 320, ph = 280;
+    let left = rect.left + window.scrollX;
+    let top  = rect.bottom + window.scrollY + 10;
+    if (left + pw > window.innerWidth - 10) left = window.innerWidth - pw - 10;
+    if (left < 10) left = 10;
+    if (top + ph > window.scrollY + window.innerHeight) top = rect.top + window.scrollY - ph - 10;
+    popup.style.left = left + 'px';
+    popup.style.top  = top + 'px';
+
+    setTimeout(function() { document.addEventListener('click', sdvOutsideClose, { once: true }); }, 80);
+  };
+
+  window.closeSdvPopup = function() {
+    const p = document.getElementById('sdvPopup');
+    if (p) { p.classList.remove('visible'); p.style.display = 'none'; }
+    document.removeEventListener('click', sdvOutsideClose);
+  };
+
+  function sdvOutsideClose(e) {
+    const popup = document.getElementById('sdvPopup');
+    if (popup && !popup.contains(e.target)) { closeSdvPopup(); }
+    else { setTimeout(function(){ document.addEventListener('click', sdvOutsideClose, { once: true }); }, 80); }
+  }
 </script>
 
 
@@ -5147,5 +5370,18 @@
   </div>
 </div>
 
+
+<div id="stepPopup" class="sdv-step-popup" style="display:none"></div>
+
+<!-- SDV STEP POPUP -->
+<div id="sdvPopup">
+  <div class="sdvp-inner">
+    <button class="sdvp-close" onclick="closeSdvPopup()">&#215;</button>
+    <div class="sdvp-tag" id="sdvp-tag"></div>
+    <div class="sdvp-title" id="sdvp-title"></div>
+    <div class="sdvp-body" id="sdvp-body"></div>
+    <div class="sdvp-specs" id="sdvp-specs"></div>
+  </div>
+</div>
 </body>
 </html>
