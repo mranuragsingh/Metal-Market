@@ -1120,12 +1120,12 @@
 
     /* ─── SDV STEP POPUP ─── */
     #sdvPopup {
-      position: fixed; z-index: 5000;
+      position: fixed; z-index: 9999;
       opacity: 0; transition: opacity 0.18s ease;
       max-width: 320px; min-width: 240px;
-      display: none;
+      display: none; pointer-events: none;
     }
-    #sdvPopup.visible { opacity: 1; display: block; }
+    #sdvPopup.visible { opacity: 1; display: block; pointer-events: auto; }
     .sdvp-inner {
       background: #071e26; border: 1px solid rgba(42,184,168,0.4);
       border-radius: 12px; padding: 1.1rem 1.2rem 1rem;
@@ -1154,6 +1154,47 @@
     .sdv-step:hover { border-color: rgba(42,184,168,0.5) !important;
       background: rgba(42,184,168,0.07) !important; transform: translateY(-2px); }
     .sdv-step:hover .sdv-step-name { color: #2ab8a8 !important; }
+
+
+    /* ─── DETAIL HERO WIDGETS ─── */
+    .detail-hero-inner { display: flex; align-items: flex-start; gap: 2rem; }
+    .detail-hero-left  { flex: 1; min-width: 0; }
+    .detail-hero-right { flex-shrink: 0; width: 420px; display: flex; flex-direction: column; gap: 0.85rem; padding-bottom: 1.5rem; }
+
+    /* Sparkline widget */
+    .dhw-spark { background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.85rem 1rem; }
+    .dhw-spark-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+    .dhw-spark-name { font-size: 0.68rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.06em; }
+    .dhw-spark-price { font-size: 1.05rem; font-weight: 700; font-family: var(--mono); }
+    .dhw-spark-change { font-size: 0.65rem; font-weight: 700; font-family: var(--mono); padding: 0.1rem 0.4rem; border-radius: 4px; }
+    .dhw-spark-change.up   { background: rgba(40,200,138,0.2); color: #28c88a; }
+    .dhw-spark-change.down { background: rgba(232,85,85,0.2);  color: #e85555; }
+    .dhw-spark-svg { width: 100%; height: 42px; display: block; }
+    .dhw-spark-months { display: flex; justify-content: space-between; margin-top: 0.2rem; }
+    .dhw-spark-months span { font-size: 0.55rem; font-family: var(--mono); color: var(--text-faint); }
+
+    /* Facts carousel */
+    .dhw-facts { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.75rem 1rem; overflow: hidden; position: relative; min-height: 52px; }
+    .dhw-facts-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.35rem; }
+    .dhw-fact-slide { font-size: 0.76rem; color: var(--text-muted); line-height: 1.55; font-style: italic; transition: opacity 0.4s ease, transform 0.4s ease; }
+    .dhw-fact-slide.fade-out { opacity: 0; transform: translateY(-8px); }
+    .dhw-fact-slide.fade-in  { opacity: 0; transform: translateY(8px); }
+    .dhw-facts-dots { display: flex; gap: 4px; margin-top: 0.45rem; }
+    .dhw-fact-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.12); transition: background 0.3s; }
+    .dhw-fact-dot.active { background: var(--text-faint); }
+
+    /* Rings widget */
+    .dhw-rings { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 0.85rem 1rem; }
+    .dhw-rings-label { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 0.7rem; }
+    .dhw-rings-row { display: flex; justify-content: space-around; align-items: center; gap: 0.5rem; }
+    .dhw-ring-item { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+    .dhw-ring-svg { width: 64px; height: 64px; }
+    .dhw-ring-track { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 5; }
+    .dhw-ring-fill  { fill: none; stroke-width: 5; stroke-linecap: round;
+      transform: rotate(-90deg); transform-origin: 32px 32px;
+      transition: stroke-dashoffset 1.2s cubic-bezier(0.34,1.56,0.64,1); }
+    .dhw-ring-text-val  { font-size: 11px; font-weight: 700; font-family: 'DM Mono',monospace; fill: #d8ecea; dominant-baseline: central; text-anchor: middle; }
+    .dhw-ring-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); text-align: center; max-width: 64px; line-height: 1.3; }
 
     /* ─── PRICE MODAL ─── */
     #priceModal {
@@ -2309,6 +2350,7 @@
     const t5 = document.getElementById('dtab5');
     if (t5) t5.style.display = d.steel_grades ? '' : 'none';
     // Show
+    buildHeroWidgets(key, d.color);
     document.getElementById('metalDetail').classList.add('active');
     document.getElementById('metalDetail').scrollTop = 0;
     document.body.style.overflow = 'hidden';
@@ -5176,6 +5218,193 @@
     'Cold Rolling': { tag:'SS Final Processing · SS Route', body:'Produces <strong>2B finish</strong> (standard dull-silver) or <strong>BA finish</strong> (mirror-bright, H₂ furnace). <strong>316L:</strong> "L" = Low Carbon (<0.03%) prevents sensitisation — during welding, standard 316 precipitates chromium carbides at grain boundaries, depleting Cr and causing intergranular corrosion (weld decay). 316L is ~$50–100/t more.', specs:['2B: Ra 0.1–0.5 μm standard','BA: Ra <0.1 μm mirror','316L: C <0.03% weld-safe','316L premium: ~$50–100/t over 316'] }
   };
 
+
+  /* ── DETAIL HERO WIDGETS ── */
+  const heroWidgetData = {
+    ferrous: {
+      spark: { name:'Hot Rolled Coil (HRC)', unit:'$/MT', vals:[472,468,470,475,477,478,479], color:'#d4a843' },
+      facts: [
+        '⚙️ China produced <strong>54% of global crude steel</strong> in 2023 — more than the next 10 countries combined.',
+        '♻️ Steel is <strong>recycled more than all other materials combined</strong> — over 85% is recovered at end of life.',
+        '🌬️ One offshore wind turbine requires approximately <strong>150–200 tonnes of steel</strong> for its tower alone.',
+        '📦 A standard food tin (tinplate) has <strong>wall thickness of just 0.2mm</strong> — thinner than a human hair × 2.',
+        '⚡ The steel industry accounts for <strong>~7–8% of global CO₂ emissions</strong>, driving the H₂-DRI green steel push.'
+      ],
+      rings: [
+        { label:'China Share', pct:54, color:'#de2910' },
+        { label:'Recyclability', pct:85, color:'#28c88a' },
+        { label:'Infra Demand', pct:72, color:'#d4a843' }
+      ]
+    },
+    nf: {
+      spark: { name:'Copper (LME)', unit:'$/MT', vals:[10747,10872,11761,13011,13033,12609,12499], color:'#2ab8a8' },
+      facts: [
+        '⚡ Copper is the <strong>world&#39;s best electrical conductor</strong> after silver — used in virtually every wire and motor.',
+        '🚗 One electric vehicle requires <strong>3–4× more copper</strong> than a conventional ICE car (~83kg vs ~23kg).',
+        '🌎 Chile holds <strong>~28% of global copper reserves</strong> — the Atacama Desert is the world&#39;s copper heartland.',
+        '♻️ Aluminium recycling uses only <strong>5% of the energy</strong> needed for primary production from bauxite.',
+        '🔵 LME Zinc is our desk&#39;s <strong>direct input for galvanized steel pricing</strong> — every $100/t move shifts HDG ~$3–4/t.'
+      ],
+      rings: [
+        { label:'China Smelting', pct:58, color:'#de2910' },
+        { label:'LME Liquidity', pct:90, color:'#2ab8a8' },
+        { label:'EV Growth', pct:85, color:'#28c88a' }
+      ]
+    },
+    precious: {
+      spark: { name:'Gold (LBMA)', unit:'$/troy oz', vals:[4037,4078,4201,4709,5034,4882,4753], color:'#e8c060' },
+      facts: [
+        '🟡 All the gold <strong>ever mined in human history</strong> would fit inside a cube just 22 metres on each side.',
+        '🏦 Central banks bought a record <strong>1,037 tonnes of gold in 2023</strong> — the highest annual purchase ever recorded.',
+        '☀️ Silver is used in approximately <strong>80% of all solar photovoltaic cells</strong> as a conductive paste for contacts.',
+        '🚗 South Africa&#39;s Bushveld Complex holds <strong>~75% of global platinum group metal reserves</strong> (Pt, Pd, Rh).',
+        '💰 Gold&#39;s price is driven as much by <strong>real interest rates and USD strength</strong> as by physical supply and demand.'
+      ],
+      rings: [
+        { label:'Store of Value', pct:95, color:'#e8c060' },
+        { label:'S. Africa PGM', pct:75, color:'#d4a843' },
+        { label:'CB Demand', pct:78, color:'#2ab8a8' }
+      ]
+    },
+    battery: {
+      spark: { name:'Lithium Carbonate', unit:'$/MT', vals:[10518,12298,14485,21543,21252,22605,23111], color:'#28c88a' },
+      facts: [
+        '🔋 One EV battery pack (75 kWh) requires approximately <strong>8–10 kg of lithium</strong> and ~50 kg of graphite.',
+        '🇨🇩 The DRC (Congo) supplies <strong>~70% of global cobalt</strong> — mostly as a byproduct of copper mining.',
+        '🇨🇳 China processes <strong>over 60% of global lithium</strong> into battery-grade material, even when mined elsewhere.',
+        '📉 Lithium prices <strong>fell 85% from their 2022 peak</strong> to 2024 lows — then recovered strongly into 2025–26.',
+        '♻️ Battery recycling can recover <strong>95%+ of lithium and cobalt</strong> — EU mandates minimum recycled content by 2027.'
+      ],
+      rings: [
+        { label:'EV Growth', pct:92, color:'#28c88a' },
+        { label:'China Processing', pct:62, color:'#de2910' },
+        { label:'Supply Risk', pct:85, color:'#e85555' }
+      ]
+    }
+  };
+
+  // Fact carousel state
+  const factTimers = {};
+
+  function buildHeroWidgets(key, color) {
+    const d = heroWidgetData[key];
+    if (!d) return;
+    const el = document.getElementById('detailHeroRight');
+    if (!el) return;
+
+    // ── SPARKLINE ──
+    const vals = d.spark.vals;
+    const months = ['Oct','Nov','Dec','Jan','Feb','Mar','Apr'];
+    const minV = Math.min(...vals) * 0.99;
+    const maxV = Math.max(...vals) * 1.01;
+    const W = 380, H = 42, PL = 2, PR = 2, PT = 4, PB = 4;
+    const xOf = i => PL + (i/(vals.length-1))*(W-PL-PR);
+    const yOf = v => PT + (H-PT-PB) - ((v-minV)/(maxV-minV))*(H-PT-PB);
+    const pts = vals.map((v,i) => xOf(i)+','+yOf(v)).join(' ');
+    const areaPath = `M ${xOf(0)},${yOf(minV)} L ${pts} L ${xOf(vals.length-1)},${yOf(minV)} Z`;
+    const linePath = `M ${pts}`;
+    const current = vals[vals.length-1];
+    const first   = vals[0];
+    const pct     = ((current-first)/first*100);
+    const isUp    = pct >= 0;
+    const fmt     = v => v >= 1000 ? '$'+v.toLocaleString('en-US',{maximumFractionDigits:0}) : '$'+v.toFixed(1);
+
+    const dotSvg = vals.map((v,i) => {
+      const isLast = i===vals.length-1;
+      return `<circle cx="${xOf(i)}" cy="${yOf(v)}" r="${isLast?4:2}" fill="${isLast?color:'rgba(255,255,255,0.3)'}" stroke="${color}" stroke-width="${isLast?1.5:0.5}"/>`;
+    }).join('');
+
+    const sparkHtml = `
+      <div class="dhw-spark">
+        <div class="dhw-spark-header">
+          <span class="dhw-spark-name">${d.spark.name} · ${d.spark.unit}</span>
+          <span>
+            <span class="dhw-spark-price" style="color:${color}">${fmt(current)}</span>
+            <span class="dhw-spark-change ${isUp?'up':'down'}">${isUp?'▲':'▼'} ${Math.abs(pct).toFixed(1)}%</span>
+          </span>
+        </div>
+        <svg class="dhw-spark-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="sg-${key}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="${color}" stop-opacity="0.02"/>
+            </linearGradient>
+          </defs>
+          <path d="${areaPath}" fill="url(#sg-${key})"/>
+          <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+          ${dotSvg}
+        </svg>
+        <div class="dhw-spark-months">${months.map(m=>`<span>${m}</span>`).join('')}</div>
+      </div>`;
+
+    // ── FACTS CAROUSEL ──
+    const dots = d.facts.map((_,i) => `<div class="dhw-fact-dot${i===0?' active':''}"></div>`).join('');
+    const factsHtml = `
+      <div class="dhw-facts" id="dhw-facts-${key}">
+        <div class="dhw-facts-label">💡 Did you know?</div>
+        <div class="dhw-fact-slide" id="dhw-fact-text-${key}">${d.facts[0]}</div>
+        <div class="dhw-facts-dots" id="dhw-fact-dots-${key}">${dots}</div>
+      </div>`;
+
+    // ── METRIC RINGS ──
+    const R = 27, CX = 32, CY = 32;
+    const circumference = 2 * Math.PI * R;
+    const ringsHtml = `
+      <div class="dhw-rings">
+        <div class="dhw-rings-label">Market Metrics</div>
+        <div class="dhw-rings-row">
+          ${d.rings.map((r,i) => {
+            const offset = circumference * (1 - r.pct/100);
+            return `<div class="dhw-ring-item">
+              <svg class="dhw-ring-svg" viewBox="0 0 64 64">
+                <circle class="dhw-ring-track" cx="${CX}" cy="${CY}" r="${R}"/>
+                <circle class="dhw-ring-fill" cx="${CX}" cy="${CY}" r="${R}"
+                  stroke="${r.color}"
+                  stroke-dasharray="${circumference}"
+                  stroke-dashoffset="${circumference}"
+                  id="ring-${key}-${i}"/>
+                <text x="${CX}" y="${CY}" class="dhw-ring-text-val" style="fill:${r.color}">${r.pct}%</text>
+              </svg>
+              <div class="dhw-ring-label" style="color:${r.color}">${r.label}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+
+    el.innerHTML = sparkHtml + factsHtml + ringsHtml;
+
+    // Animate rings after render
+    setTimeout(() => {
+      d.rings.forEach((r,i) => {
+        const circ = 2 * Math.PI * R;
+        const offset = circ * (1 - r.pct/100);
+        const el2 = document.getElementById(`ring-${key}-${i}`);
+        if (el2) el2.style.strokeDashoffset = offset;
+      });
+    }, 150);
+
+    // Start facts carousel
+    if (factTimers[key]) clearInterval(factTimers[key]);
+    let factIdx = 0;
+    factTimers[key] = setInterval(() => {
+      const textEl = document.getElementById(`dhw-fact-text-${key}`);
+      const dotsEl = document.getElementById(`dhw-fact-dots-${key}`);
+      if (!textEl) { clearInterval(factTimers[key]); return; }
+      textEl.classList.add('fade-out');
+      setTimeout(() => {
+        factIdx = (factIdx + 1) % d.facts.length;
+        textEl.innerHTML = d.facts[factIdx];
+        textEl.classList.remove('fade-out');
+        textEl.classList.add('fade-in');
+        if (dotsEl) {
+          [...dotsEl.children].forEach((dot,i) => dot.classList.toggle('active', i===factIdx));
+        }
+        requestAnimationFrame(() => requestAnimationFrame(() => textEl.classList.remove('fade-in')));
+      }, 380);
+    }, 3500);
+  }
+
+
   window.openSdvPopup = function(el, stepName) {
     const d = sdvStepData[stepName];
     if (!d) return;
@@ -5188,13 +5417,19 @@
     popup.style.display = 'block';
     popup.classList.add('visible');
 
+    // Use pure viewport coords (fixed positioning — no scroll offset needed)
     const rect = el.getBoundingClientRect();
-    const pw = 320, ph = 280;
-    let left = rect.left + window.scrollX;
-    let top  = rect.bottom + window.scrollY + 10;
+    const pw = 320, ph = 300;
+    let left = rect.left;
+    let top  = rect.bottom + 8;
+
+    // Keep inside viewport
     if (left + pw > window.innerWidth - 10) left = window.innerWidth - pw - 10;
     if (left < 10) left = 10;
-    if (top + ph > window.scrollY + window.innerHeight) top = rect.top + window.scrollY - ph - 10;
+    // If not enough space below, flip above
+    if (top + ph > window.innerHeight - 10) top = rect.top - ph - 8;
+    if (top < 10) top = 10;
+
     popup.style.left = left + 'px';
     popup.style.top  = top + 'px';
 
@@ -5223,10 +5458,15 @@
   </div>
 
   <div class="detail-hero" id="detailHero" data-symbol="Fe">
-    <div class="detail-eyebrow" id="detailEyebrow">Metal Family · Deep Dive</div>
-    <div class="detail-title" id="detailTitle">Ferrous Metals</div>
-    <div class="detail-subtitle" id="detailSubtitle">Iron-based metals that form the backbone of global industry.</div>
-    <div class="detail-stats" id="detailStats"></div>
+    <div class="detail-hero-inner">
+      <div class="detail-hero-left">
+        <div class="detail-eyebrow" id="detailEyebrow">Metal Family · Deep Dive</div>
+        <div class="detail-title" id="detailTitle">Ferrous Metals</div>
+        <div class="detail-subtitle" id="detailSubtitle">Iron-based metals that form the backbone of global industry.</div>
+        <div class="detail-stats" id="detailStats"></div>
+      </div>
+      <div class="detail-hero-right" id="detailHeroRight"></div>
+    </div>
   </div>
 
   <nav class="detail-tabs">
