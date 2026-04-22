@@ -1197,77 +1197,6 @@
     .dhw-ring-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); text-align: center; max-width: 64px; line-height: 1.3; }
 
 
-    /* ─── DETAIL PAGE ELEMENT TILES ─── */
-    .detail-elem-row { display: flex; align-items: center; gap: 0.55rem; margin-top: 1.5rem; flex-wrap: wrap; }
-    .detail-elem {
-      width: 74px; height: 82px; border-radius: 9px;
-      border: 1px solid rgba(255,255,255,0.1);
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-      position: relative; text-align: center; padding: 0.3rem;
-      opacity: 0.5;
-    }
-    .detail-elem:hover { transform: translateY(-3px); opacity: 1; }
-    .detail-elem.delem-active { opacity: 1; transform: translateY(-3px); }
-
-    .delem-fe  { background: linear-gradient(145deg,#1a2a14,#0e1a0a); }
-    .delem-fe.delem-active, .delem-fe:hover { border-color: var(--amber); box-shadow: 0 6px 20px rgba(212,168,67,0.3); }
-    .delem-fe .delem-sym  { color: var(--amber); }
-    .delem-fe .delem-cat  { color: rgba(212,168,67,0.6); }
-
-    .delem-nf  { background: linear-gradient(145deg,#0a1e28,#061218); }
-    .delem-nf.delem-active, .delem-nf:hover { border-color: var(--steel); box-shadow: 0 6px 20px rgba(42,184,168,0.3); }
-    .delem-nf .delem-sym  { color: var(--steel); }
-    .delem-nf .delem-cat  { color: rgba(42,184,168,0.6); }
-
-    .delem-au  { background: linear-gradient(145deg,#1e1808,#120e04); }
-    .delem-au.delem-active, .delem-au:hover { border-color: #e8c060; box-shadow: 0 6px 20px rgba(232,192,96,0.3); }
-    .delem-au .delem-sym  { color: #e8c060; }
-    .delem-au .delem-cat  { color: rgba(232,192,96,0.6); }
-
-    .delem-li  { background: linear-gradient(145deg,#0a1e18,#06120e); }
-    .delem-li.delem-active, .delem-li:hover { border-color: var(--green); box-shadow: 0 6px 20px rgba(40,200,138,0.3); }
-    .delem-li .delem-sym  { color: var(--green); }
-    .delem-li .delem-cat  { color: rgba(40,200,138,0.6); }
-
-    .delem-num  { font-size: 0.55rem; font-family: var(--mono); color: rgba(255,255,255,0.3); position: absolute; top: 5px; left: 7px; }
-    .delem-sym  { font-size: 1.75rem; font-weight: 700; line-height: 1; margin-bottom: 0.1rem; }
-    .delem-name { font-size: 0.52rem; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.03em; }
-    .delem-cat  { font-size: 0.46rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.1rem; }
-    .delem-hint { font-size: 0.58rem; color: var(--text-faint); margin-left: 0.25rem; font-style: italic; }
-
-
-    /* ─── MCARD PRICE TICKER ─── */
-    .mcard-top-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.9rem; }
-    .mcard-pill-row { display: flex; flex-wrap: wrap; gap: 0.25rem; justify-content: flex-end; }
-    .mcard-pill {
-      font-size: 0.58rem; font-weight: 700; font-family: var(--mono);
-      padding: 0.12rem 0.4rem; border-radius: 3px; cursor: pointer;
-      border: 1px solid transparent; opacity: 0.45; transition: opacity 0.2s;
-    }
-    .mcard-pill.active { opacity: 1; }
-    .mcard.ferrous  .mcard-pill         { background: var(--amber-dim);  color: var(--amber);  border-color: var(--amber-border); }
-    .mcard.nf       .mcard-pill         { background: var(--steel-dim);  color: var(--steel);  border-color: var(--steel-border); }
-    .mcard.precious .mcard-pill         { background: rgba(232,192,96,0.12); color: #e8c060; border-color: rgba(232,192,96,0.3); }
-    .mcard.battery  .mcard-pill         { background: var(--green-dim);  color: var(--green);  border-color: rgba(40,200,138,0.3); }
-
-    .mcard-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.3rem 0 0.5rem; }
-    .mcard-price-val { font-size: 1.4rem; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; }
-    .mcard-price-chg { font-size: 0.7rem; font-weight: 700; font-family: var(--mono); padding: 0.15rem 0.4rem; border-radius: 4px; }
-    .mcard-price-chg.up   { background: rgba(40,200,138,0.15); color: #28c88a; }
-    .mcard-price-chg.down { background: rgba(232,85,85,0.15);  color: #e85555; }
-
-    .mcard-mini-spark { margin-top: 0.6rem; height: 36px; }
-    .mcard-mini-spark svg { width: 100%; height: 36px; display: block; }
-
-    .mcard-title, .mcard-sub, .mcard-desc, .mcard-price-row, .mcard-mini-spark {
-      transition: opacity 0.25s ease;
-    }
-    .mcard.fading .mcard-title,
-    .mcard.fading .mcard-sub,
-    .mcard.fading .mcard-price-row,
-    .mcard.fading .mcard-mini-spark { opacity: 0; }
 
     /* ─── PRICE MODAL ─── */
     #priceModal {
@@ -1464,72 +1393,41 @@
 
     </div>
 
-    <div class="metal-grid" id="metalGrid">
+    <div class="metal-grid">
 
-      <div class="mcard ferrous" data-num="Fe" data-cat="ferrous" data-idx="0" onclick="mCardClick(this)">
-        <div class="mcard-top-row">
-          <div class="mcard-icon">⚙️</div>
-          <div class="mcard-pill-row" id="mcpills-ferrous"></div>
-        </div>
-        <div class="mcard-title" id="mctitle-ferrous">Ferrous Metals</div>
-        <div class="mcard-sub" id="mcsub-ferrous">Iron-based · ~90% of all metals used globally</div>
-        <div class="mcard-price-row" id="mcprice-ferrous" style="display:none">
-          <span class="mcard-price-val" id="mcpriceval-ferrous"></span>
-          <span class="mcard-price-chg" id="mcpricechg-ferrous"></span>
-        </div>
-        <div class="mcard-desc" id="mcdesc-ferrous">Any metal with iron (Fe) as its primary ingredient. The backbone of construction, automotive manufacturing, and industrial infrastructure worldwide.</div>
-        <div class="mcard-mini-spark" id="mcspark-ferrous"></div>
-        <div class="hint" id="mchint-ferrous">↓ Click to explore · ↻ Cycles in 3s</div>
+      <div class="mcard ferrous" data-num="Fe" onclick="openDetail('ferrous')">
+        <div class="mcard-icon">⚙️</div>
+        <div class="mcard-title">Ferrous Metals</div>
+        <div class="mcard-sub">Iron-based · ~90% of all metals used globally</div>
+        <div class="mcard-desc">Any metal with iron (Fe) as its primary ingredient. The backbone of construction, automotive manufacturing, and industrial infrastructure worldwide.</div>
+        <div class="hint">↓ Click to deep dive</div>
       </div>
 
-      <div class="mcard nf" data-num="Al" data-cat="nf" data-idx="0" onclick="mCardClick(this)">
-        <div class="mcard-top-row">
-          <div class="mcard-icon">🔵</div>
-          <div class="mcard-pill-row" id="mcpills-nf"></div>
-        </div>
-        <div class="mcard-title" id="mctitle-nf">Non-Ferrous Metals</div>
-        <div class="mcard-sub" id="mcsub-nf">No iron · Lightweight · Corrosion-resistant</div>
-        <div class="mcard-price-row" id="mcprice-nf" style="display:none">
-          <span class="mcard-price-val" id="mcpriceval-nf"></span>
-          <span class="mcard-price-chg" id="mcpricechg-nf"></span>
-        </div>
-        <div class="mcard-desc" id="mcdesc-nf">Metals containing no significant iron. Lighter, non-magnetic, and naturally resistant to corrosion. Critical for packaging, electronics, wiring, and corrosion protection.</div>
-        <div class="mcard-mini-spark" id="mcspark-nf"></div>
-        <div class="hint" id="mchint-nf">↓ Click to explore · ↻ Cycles in 3s</div>
+      <div class="mcard nf" data-num="Al" onclick="openDetail('nf')">
+        <div class="mcard-icon">🔵</div>
+        <div class="mcard-title">Non-Ferrous Metals</div>
+        <div class="mcard-sub">No iron · Lightweight · Corrosion-resistant</div>
+        <div class="mcard-desc">Metals containing no significant iron. Lighter, non-magnetic, and naturally resistant to corrosion. Critical for packaging, electronics, wiring, and corrosion protection.</div>
+        <div class="hint">↓ Click to deep dive</div>
       </div>
 
-      <div class="mcard precious" data-num="Au" data-cat="precious" data-idx="0" onclick="mCardClick(this)">
-        <div class="mcard-top-row">
-          <div class="mcard-icon">✦</div>
-          <div class="mcard-pill-row" id="mcpills-precious"></div>
-        </div>
-        <div class="mcard-title" id="mctitle-precious">Precious Metals</div>
-        <div class="mcard-sub" id="mcsub-precious">Rare · High unit value · Store of wealth</div>
-        <div class="mcard-price-row" id="mcprice-precious" style="display:none">
-          <span class="mcard-price-val" id="mcpriceval-precious"></span>
-          <span class="mcard-price-chg" id="mcpricechg-precious"></span>
-        </div>
-        <div class="mcard-desc" id="mcdesc-precious">Scarce metals with high economic value per unit. Used in jewellery, as financial instruments, in electronics, and as catalysts in auto and chemical industries.</div>
-        <div class="mcard-mini-spark" id="mcspark-precious"></div>
-        <div class="hint" id="mchint-precious">↓ Click to explore · ↻ Cycles in 3s</div>
+      <div class="mcard precious" data-num="Au" onclick="openDetail('precious')">
+        <div class="mcard-icon">✦</div>
+        <div class="mcard-title">Precious Metals</div>
+        <div class="mcard-sub">Rare · High unit value · Store of wealth</div>
+        <div class="mcard-desc">Scarce metals with high economic value per unit. Used in jewellery, as financial instruments, in electronics, and as catalysts in auto and chemical industries.</div>
+        <div class="hint">↓ Click to deep dive</div>
       </div>
 
-      <div class="mcard battery" data-num="Li" data-cat="battery" data-idx="0" onclick="mCardClick(this)">
-        <div class="mcard-top-row">
-          <div class="mcard-icon">⚡</div>
-          <div class="mcard-pill-row" id="mcpills-battery"></div>
-        </div>
-        <div class="mcard-title" id="mctitle-battery">Battery Materials</div>
-        <div class="mcard-sub" id="mcsub-battery">EV-critical · Energy transition · Fast-growing</div>
-        <div class="mcard-price-row" id="mcprice-battery" style="display:none">
-          <span class="mcard-price-val" id="mcpriceval-battery"></span>
-          <span class="mcard-price-chg" id="mcpricechg-battery"></span>
-        </div>
-        <div class="mcard-desc" id="mcdesc-battery">Metals powering the energy transition. Demand tightly linked to electric vehicle production, energy storage systems, and consumer electronics.</div>
-        <div class="mcard-mini-spark" id="mcspark-battery"></div>
-        <div class="hint" id="mchint-battery">↓ Click to explore · ↻ Cycles in 3s</div>
+      <div class="mcard battery" data-num="Li" onclick="openDetail('battery')">
+        <div class="mcard-icon">⚡</div>
+        <div class="mcard-title">Battery Materials</div>
+        <div class="mcard-sub">EV-critical · Energy transition · Fast-growing</div>
+        <div class="mcard-desc">Metals powering the energy transition. Demand tightly linked to electric vehicle production, energy storage systems, and consumer electronics.</div>
+        <div class="hint">↓ Click to deep dive</div>
       </div>
 
+    </div>
     </div>
   </div>
 
@@ -2390,28 +2288,8 @@
     document.getElementById('detailEyebrow').textContent = d.eyebrow;
     document.getElementById('detailHero').setAttribute('data-symbol', d.symbol);
     document.getElementById('detailHero').style.borderBottom = `1px solid ${d.color}33`;
-    // Replace stats with periodic element tiles
-    document.getElementById('detailStats').innerHTML = `
-      <div class="detail-elem-row">
-        <div class="detail-elem ${key==='ferrous'?'delem-active':''} delem-fe" onclick="openDetail('ferrous')">
-          <div class="delem-num">26</div><div class="delem-sym">Fe</div>
-          <div class="delem-name">Iron</div><div class="delem-cat">Ferrous</div>
-        </div>
-        <div class="detail-elem ${key==='nf'?'delem-active':''} delem-nf" onclick="openDetail('nf')">
-          <div class="delem-num">13</div><div class="delem-sym">Al</div>
-          <div class="delem-name">Aluminium</div><div class="delem-cat">Non-Ferrous</div>
-        </div>
-        <div class="detail-elem ${key==='precious'?'delem-active':''} delem-au" onclick="openDetail('precious')">
-          <div class="delem-num">79</div><div class="delem-sym">Au</div>
-          <div class="delem-name">Gold</div><div class="delem-cat">Precious</div>
-        </div>
-        <div class="detail-elem ${key==='battery'?'delem-active':''} delem-li" onclick="openDetail('battery')">
-          <div class="delem-num">3</div><div class="delem-sym">Li</div>
-          <div class="delem-name">Lithium</div><div class="delem-cat">Battery</div>
-        </div>
-        <div class="delem-hint">Switch family ↑</div>
-      </div>
-    `;
+    // Build family-specific material KPI cards
+    buildDetailKpiCards(key, d.color);
     // Panels
     document.getElementById('dp0').innerHTML = d.definition;
     document.getElementById('dp1').innerHTML = d.properties;
@@ -3165,145 +3043,8 @@
 
   function priceValue(key) { const d = priceDB[key]; return d ? d.vals[d.vals.length-1] : 0; }
 
-  /* ── METAL CARD PRICE TICKER ── */
-  const mcardFamilyMats = {
-    ferrous:  ['hrc','crc','mild_steel','stainless'],
-    nf:       ['copper','zinc','nickel','tin','lead'],
-    precious: ['gold','silver','platinum','palladium'],
-    battery:  ['lithium','cobalt','nickel_b']
-  };
 
-  const mcardState = { ferrous:0, nf:0, precious:0, battery:0 };
 
-  function mCardClick(card) {
-    const cat = card.getAttribute('data-cat');
-    const idx = parseInt(card.getAttribute('data-idx') || 0);
-    const mats = mcardFamilyMats[cat];
-    if (!mats) return;
-    if (idx === 0) {
-      // On family view → open detail
-      openDetail(cat);
-    } else {
-      // On a material view → open price modal
-      const matKey = mats[idx - 1];
-      openPriceModal(cat);
-      setTimeout(() => renderPriceModal(matKey, cat), 60);
-    }
-  }
-
-  function mcardSetMaterial(cat, matIdx) {
-    // matIdx 0 = family overview, 1+ = material
-    const card = document.querySelector('.mcard.' + cat);
-    if (!card) return;
-    const mats = mcardFamilyMats[cat];
-    card.setAttribute('data-idx', matIdx);
-
-    card.classList.add('fading');
-    setTimeout(() => {
-      if (matIdx === 0) {
-        // Family overview mode
-        const familyNames = { ferrous:'Ferrous Metals', nf:'Non-Ferrous Metals', precious:'Precious Metals', battery:'Battery Materials' };
-        const familySubs  = { ferrous:'Iron-based · ~90% of all metals used globally', nf:'No iron · Lightweight · Corrosion-resistant', precious:'Rare · High unit value · Store of wealth', battery:'EV-critical · Energy transition · Fast-growing' };
-        const familyDescs = {
-          ferrous:'Any metal with iron (Fe) as its primary ingredient. The backbone of construction, automotive manufacturing, and industrial infrastructure worldwide.',
-          nf:'Metals containing no significant iron. Lighter, non-magnetic, and naturally resistant to corrosion. Critical for packaging, electronics, wiring, and corrosion protection.',
-          precious:'Scarce metals with high economic value per unit. Used in jewellery, as financial instruments, in electronics, and as catalysts in auto and chemical industries.',
-          battery:'Metals powering the energy transition. Demand tightly linked to electric vehicle production, energy storage systems, and consumer electronics.'
-        };
-        document.getElementById('mctitle-'+cat).textContent = familyNames[cat];
-        document.getElementById('mcsub-'+cat).textContent   = familySubs[cat];
-        document.getElementById('mcdesc-'+cat).textContent  = familyDescs[cat];
-        document.getElementById('mcprice-'+cat).style.display = 'none';
-        document.getElementById('mcspark-'+cat).innerHTML = '';
-        document.getElementById('mchint-'+cat).textContent = '↓ Click to explore · ↻ Cycles in 3s';
-      } else {
-        // Specific material mode
-        const key = mats[matIdx - 1];
-        const d   = priceDB[key];
-        if (!d) return;
-        const current = d.vals[d.vals.length-1];
-        const first   = d.vals[0];
-        const pct     = ((current-first)/first*100);
-        const isUp    = pct >= 0;
-        const fmt     = v => v >= 1000 ? '$' + Math.round(v).toLocaleString() : '$' + v.toFixed(1);
-
-        document.getElementById('mctitle-'+cat).textContent = d.name;
-        document.getElementById('mcsub-'+cat).textContent   = d.unit + ' · ' + d.source;
-        document.getElementById('mcdesc-'+cat).textContent  = '';
-        document.getElementById('mchint-'+cat).textContent  = '↑ Click to open price chart';
-
-        const priceRow = document.getElementById('mcprice-'+cat);
-        priceRow.style.display = 'flex';
-        document.getElementById('mcpriceval-'+cat).textContent = fmt(current);
-        const chgEl = document.getElementById('mcpricechg-'+cat);
-        chgEl.textContent = (isUp?'▲ +':'▼ ') + Math.abs(pct).toFixed(1)+'%';
-        chgEl.className = 'mcard-price-chg ' + (isUp?'up':'down');
-
-        // Mini sparkline
-        const vals = d.vals;
-        const W = 200, H = 36, minV = Math.min(...vals)*0.99, maxV = Math.max(...vals)*1.01;
-        const xOf = i => (i/(vals.length-1))*W;
-        const yOf = v => H - ((v-minV)/(maxV-minV))*(H-4) - 2;
-        const pts  = vals.map((v,i)=>xOf(i)+','+yOf(v)).join(' ');
-        const area = 'M '+xOf(0)+','+H+' L '+pts+' L '+xOf(vals.length-1)+','+H+' Z';
-        document.getElementById('mcspark-'+cat).innerHTML = `
-          <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
-            <defs><linearGradient id="mcg-${cat}" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="${d.color}" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="${d.color}" stop-opacity="0.02"/>
-            </linearGradient></defs>
-            <path d="${area}" fill="url(#mcg-${cat})"/>
-            <polyline points="${pts}" fill="none" stroke="${d.color}" stroke-width="1.8" stroke-linejoin="round"/>
-            <circle cx="${xOf(vals.length-1)}" cy="${yOf(vals[vals.length-1])}" r="3" fill="${d.color}"/>
-          </svg>`;
-      }
-
-      // Update pills
-      const pillsEl = document.getElementById('mcpills-'+cat);
-      if (pillsEl) {
-        const allPills = [null, ...mats]; // index 0 = family, 1+ = materials
-        pillsEl.innerHTML = mats.map((mk, i) => {
-          const pd = priceDB[mk];
-          const active = (i+1) === matIdx;
-          return `<span class="mcard-pill${active?' active':''}" onclick="event.stopPropagation();mcardGoTo('${cat}',${i+1})">${pd ? pd.name.split(' ')[0] : mk}</span>`;
-        }).join('');
-      }
-
-      card.classList.remove('fading');
-    }, 220);
-  }
-
-  function mcardGoTo(cat, idx) {
-    mcardState[cat] = idx;
-    mcardSetMaterial(cat, idx);
-    // Reset timer
-    clearInterval(mcardTimers[cat]);
-    mcardTimers[cat] = setInterval(() => mcardAdvance(cat), 3200);
-  }
-
-  function mcardAdvance(cat) {
-    const card = document.querySelector('.mcard.' + cat);
-    if (card && card.matches(':hover')) return;
-    const mats = mcardFamilyMats[cat];
-    const total = mats.length + 1; // +1 for family view
-    mcardState[cat] = (mcardState[cat] + 1) % total;
-    mcardSetMaterial(cat, mcardState[cat]);
-  }
-
-  const mcardTimers = {};
-
-  function initMcardTickers() {
-    Object.keys(mcardFamilyMats).forEach(cat => {
-      mcardSetMaterial(cat, 0); // init family view
-      mcardTimers[cat] = setInterval(() => mcardAdvance(cat), 3200);
-    });
-  }
-
-  // Remove old card onclick bindings and init tickers
-  document.querySelectorAll('.mcard').forEach(card => {
-    // onclick is set in HTML via mCardClick
-  });
-  setTimeout(initMcardTickers, 400);
 
 
   // ESC to close price modal
@@ -5542,6 +5283,68 @@
         requestAnimationFrame(() => requestAnimationFrame(() => textEl.classList.remove('fade-in')));
       }, 380);
     }, 3500);
+  }
+
+
+
+  /* ── DETAIL PAGE KPI CARDS ── */
+  const detailKpiMats = {
+    ferrous:  ['hrc','crc','mild_steel','stainless'],
+    nf:       ['copper','zinc','nickel','tin','lead'],
+    precious: ['gold','silver','platinum','palladium'],
+    battery:  ['lithium','cobalt','nickel_b']
+  };
+
+  function buildDetailKpiCards(catKey, accentColor) {
+    const mats = detailKpiMats[catKey] || [];
+    const el = document.getElementById('detailStats');
+    if (!el) return;
+
+    const cards = mats.map(key => {
+      const d = priceDB[key];
+      if (!d) return '';
+      const current = d.vals[d.vals.length - 1];
+      const first   = d.vals[0];
+      const pct     = ((current - first) / first * 100);
+      const isUp    = pct >= 0;
+      const fmt     = v => v >= 1000 ? '$' + Math.round(v).toLocaleString() : '$' + v.toFixed(1);
+
+      // Mini sparkline
+      const vals = d.vals;
+      const W = 160, H = 32;
+      const minV = Math.min(...vals) * 0.99;
+      const maxV = Math.max(...vals) * 1.01;
+      const xOf  = i => (i / (vals.length - 1)) * W;
+      const yOf  = v => H - ((v - minV) / (maxV - minV)) * (H - 4) - 2;
+      const pts  = vals.map((v, i) => xOf(i) + ',' + yOf(v)).join(' ');
+      const area = 'M ' + xOf(0) + ',' + H + ' L ' + pts + ' L ' + xOf(vals.length - 1) + ',' + H + ' Z';
+
+      return `<div class="dkpi-card" onclick="dkpiOpen('${key}','${catKey}')">
+        <div class="dkpi-name">${d.name}</div>
+        <div class="dkpi-price-row">
+          <span class="dkpi-price" style="color:${d.color}">${fmt(current)}</span>
+          <span class="dkpi-chg ${isUp ? 'up' : 'down'}">${isUp ? '▲' : '▼'} ${Math.abs(pct).toFixed(1)}%</span>
+        </div>
+        <div class="dkpi-unit">${d.unit} · ${d.source.split('·')[0].trim()}</div>
+        <svg class="dkpi-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+          <defs><linearGradient id="dkg-${key}" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="${d.color}" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="${d.color}" stop-opacity="0.02"/>
+          </linearGradient></defs>
+          <path d="${area}" fill="url(#dkg-${key})"/>
+          <polyline points="${pts}" fill="none" stroke="${d.color}" stroke-width="1.8" stroke-linejoin="round"/>
+          <circle cx="${xOf(vals.length-1)}" cy="${yOf(vals[vals.length-1])}" r="3" fill="${d.color}"/>
+        </svg>
+        <div class="dkpi-hint">Click to open chart →</div>
+      </div>`;
+    }).join('');
+
+    el.innerHTML = `<div class="dkpi-grid">${cards}</div>`;
+  }
+
+  function dkpiOpen(matKey, catKey) {
+    openPriceModal(catKey);
+    setTimeout(() => renderPriceModal(matKey, catKey), 60);
   }
 
 
