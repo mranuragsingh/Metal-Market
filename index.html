@@ -1237,6 +1237,38 @@
     .delem-cat  { font-size: 0.46rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.1rem; }
     .delem-hint { font-size: 0.58rem; color: var(--text-faint); margin-left: 0.25rem; font-style: italic; }
 
+
+    /* ─── MCARD PRICE TICKER ─── */
+    .mcard-top-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.9rem; }
+    .mcard-pill-row { display: flex; flex-wrap: wrap; gap: 0.25rem; justify-content: flex-end; }
+    .mcard-pill {
+      font-size: 0.58rem; font-weight: 700; font-family: var(--mono);
+      padding: 0.12rem 0.4rem; border-radius: 3px; cursor: pointer;
+      border: 1px solid transparent; opacity: 0.45; transition: opacity 0.2s;
+    }
+    .mcard-pill.active { opacity: 1; }
+    .mcard.ferrous  .mcard-pill         { background: var(--amber-dim);  color: var(--amber);  border-color: var(--amber-border); }
+    .mcard.nf       .mcard-pill         { background: var(--steel-dim);  color: var(--steel);  border-color: var(--steel-border); }
+    .mcard.precious .mcard-pill         { background: rgba(232,192,96,0.12); color: #e8c060; border-color: rgba(232,192,96,0.3); }
+    .mcard.battery  .mcard-pill         { background: var(--green-dim);  color: var(--green);  border-color: rgba(40,200,138,0.3); }
+
+    .mcard-price-row { display: flex; align-items: baseline; gap: 0.5rem; margin: 0.3rem 0 0.5rem; }
+    .mcard-price-val { font-size: 1.4rem; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; }
+    .mcard-price-chg { font-size: 0.7rem; font-weight: 700; font-family: var(--mono); padding: 0.15rem 0.4rem; border-radius: 4px; }
+    .mcard-price-chg.up   { background: rgba(40,200,138,0.15); color: #28c88a; }
+    .mcard-price-chg.down { background: rgba(232,85,85,0.15);  color: #e85555; }
+
+    .mcard-mini-spark { margin-top: 0.6rem; height: 36px; }
+    .mcard-mini-spark svg { width: 100%; height: 36px; display: block; }
+
+    .mcard-title, .mcard-sub, .mcard-desc, .mcard-price-row, .mcard-mini-spark {
+      transition: opacity 0.25s ease;
+    }
+    .mcard.fading .mcard-title,
+    .mcard.fading .mcard-sub,
+    .mcard.fading .mcard-price-row,
+    .mcard.fading .mcard-mini-spark { opacity: 0; }
+
     /* ─── PRICE MODAL ─── */
     #priceModal {
       display: none; position: fixed; inset: 0; z-index: 2000;
@@ -1432,88 +1464,70 @@
 
     </div>
 
-    <div class="metal-grid">
+    <div class="metal-grid" id="metalGrid">
 
-      <div class="mcard ferrous" data-num="Fe">
-        <div class="mcard-icon">⚙️</div>
-        <div class="mcard-title">Ferrous Metals</div>
-        <div class="mcard-sub">Iron-based · ~90% of all metals used globally</div>
-        <div class="mcard-desc">Any metal with iron (Fe) as its primary ingredient. The backbone of construction, automotive manufacturing, and industrial infrastructure worldwide.</div>
-        <div class="mcard-detail">
-          <div class="mcard-detail-inner">
-            <div class="tags">
-              <span class="tag">Steel (HRC/CRC)</span>
-              <span class="tag">Tinplate</span>
-              <span class="tag">Galvanized</span>
-              <span class="tag">Cast Iron</span>
-              <span class="tag">Stainless Steel</span>
-              <span class="tag">Alloy Steel</span>
-            </div>
-            <div class="mcard-stat">Key driver: Iron ore and coking coal costs set the floor. The carbon content in the iron-carbon mix determines hardness vs. ductility. Pure iron is soft — add carbon to get steel, more carbon to get cast iron. Ferrous metals rust, which is why coatings (tinplate, galvanized) exist — and why they trade at a premium to HRC.</div>
-          </div>
+      <div class="mcard ferrous" data-num="Fe" data-cat="ferrous" data-idx="0" onclick="mCardClick(this)">
+        <div class="mcard-top-row">
+          <div class="mcard-icon">⚙️</div>
+          <div class="mcard-pill-row" id="mcpills-ferrous"></div>
         </div>
-        <div class="hint">↓ Tap to expand</div>
+        <div class="mcard-title" id="mctitle-ferrous">Ferrous Metals</div>
+        <div class="mcard-sub" id="mcsub-ferrous">Iron-based · ~90% of all metals used globally</div>
+        <div class="mcard-price-row" id="mcprice-ferrous" style="display:none">
+          <span class="mcard-price-val" id="mcpriceval-ferrous"></span>
+          <span class="mcard-price-chg" id="mcpricechg-ferrous"></span>
+        </div>
+        <div class="mcard-desc" id="mcdesc-ferrous">Any metal with iron (Fe) as its primary ingredient. The backbone of construction, automotive manufacturing, and industrial infrastructure worldwide.</div>
+        <div class="mcard-mini-spark" id="mcspark-ferrous"></div>
+        <div class="hint" id="mchint-ferrous">↓ Click to explore · ↻ Cycles in 3s</div>
       </div>
 
-      <div class="mcard nf" data-num="Al">
-        <div class="mcard-icon">🔵</div>
-        <div class="mcard-title">Non-Ferrous Metals</div>
-        <div class="mcard-sub">No iron · Lightweight · Corrosion-resistant</div>
-        <div class="mcard-desc">Metals that contain no significant iron content. Generally lighter, non-magnetic, and naturally resistant to corrosion. Critical for packaging, electronics, transport, and wire.</div>
-        <div class="mcard-detail">
-          <div class="mcard-detail-inner">
-            <div class="tags">
-              <span class="tag">Aluminum (Al)</span>
-              <span class="tag">Copper (Cu)</span>
-              <span class="tag">Zinc (Zn)</span>
-              <span class="tag">Tin (Sn)</span>
-              <span class="tag">Lead (Pb)</span>
-              <span class="tag">Nickel (Ni)</span>
-            </div>
-            <div class="mcard-stat">Directly linked to our work: <b>Tin</b> coats steel to make tinplate. <b>Zinc</b> coats steel to make galvanized. Both are traded on the LME and their prices directly feed into our downstream steel product pricing. This is the bridge between ferrous and non-ferrous markets.</div>
-          </div>
+      <div class="mcard nf" data-num="Al" data-cat="nf" data-idx="0" onclick="mCardClick(this)">
+        <div class="mcard-top-row">
+          <div class="mcard-icon">🔵</div>
+          <div class="mcard-pill-row" id="mcpills-nf"></div>
         </div>
-        <div class="hint">↓ Tap to expand</div>
+        <div class="mcard-title" id="mctitle-nf">Non-Ferrous Metals</div>
+        <div class="mcard-sub" id="mcsub-nf">No iron · Lightweight · Corrosion-resistant</div>
+        <div class="mcard-price-row" id="mcprice-nf" style="display:none">
+          <span class="mcard-price-val" id="mcpriceval-nf"></span>
+          <span class="mcard-price-chg" id="mcpricechg-nf"></span>
+        </div>
+        <div class="mcard-desc" id="mcdesc-nf">Metals containing no significant iron. Lighter, non-magnetic, and naturally resistant to corrosion. Critical for packaging, electronics, wiring, and corrosion protection.</div>
+        <div class="mcard-mini-spark" id="mcspark-nf"></div>
+        <div class="hint" id="mchint-nf">↓ Click to explore · ↻ Cycles in 3s</div>
       </div>
 
-      <div class="mcard precious" data-num="Au">
-        <div class="mcard-icon">✦</div>
-        <div class="mcard-title">Precious Metals</div>
-        <div class="mcard-sub">Rare · High unit value · Store of wealth</div>
-        <div class="mcard-desc">Scarce metals with high economic value per unit. Used in jewellery, as financial instruments, in electronics, and as catalysts in auto and chemical industries.</div>
-        <div class="mcard-detail">
-          <div class="mcard-detail-inner">
-            <div class="tags">
-              <span class="tag">Gold (Au)</span>
-              <span class="tag">Silver (Ag)</span>
-              <span class="tag">Platinum (Pt)</span>
-              <span class="tag">Palladium (Pd)</span>
-              <span class="tag">Rhodium (Rh)</span>
-            </div>
-            <div class="mcard-stat">Priced in troy oz (Gold, Silver, Pt) or $/oz. Platinum group metals (PGMs) are critical for automotive catalytic converters. Gold is macro-sensitive — moves on USD, interest rates, and geopolitical risk. Very different demand dynamics from industrial metals.</div>
-          </div>
+      <div class="mcard precious" data-num="Au" data-cat="precious" data-idx="0" onclick="mCardClick(this)">
+        <div class="mcard-top-row">
+          <div class="mcard-icon">✦</div>
+          <div class="mcard-pill-row" id="mcpills-precious"></div>
         </div>
-        <div class="hint">↓ Tap to expand</div>
+        <div class="mcard-title" id="mctitle-precious">Precious Metals</div>
+        <div class="mcard-sub" id="mcsub-precious">Rare · High unit value · Store of wealth</div>
+        <div class="mcard-price-row" id="mcprice-precious" style="display:none">
+          <span class="mcard-price-val" id="mcpriceval-precious"></span>
+          <span class="mcard-price-chg" id="mcpricechg-precious"></span>
+        </div>
+        <div class="mcard-desc" id="mcdesc-precious">Scarce metals with high economic value per unit. Used in jewellery, as financial instruments, in electronics, and as catalysts in auto and chemical industries.</div>
+        <div class="mcard-mini-spark" id="mcspark-precious"></div>
+        <div class="hint" id="mchint-precious">↓ Click to explore · ↻ Cycles in 3s</div>
       </div>
 
-      <div class="mcard battery" data-num="Li">
-        <div class="mcard-icon">⚡</div>
-        <div class="mcard-title">Battery Materials</div>
-        <div class="mcard-sub">EV-critical · Energy transition · Fast-growing</div>
-        <div class="mcard-desc">Metals powering the energy transition. Demand tightly linked to electric vehicle production, energy storage systems, and consumer electronics.</div>
-        <div class="mcard-detail">
-          <div class="mcard-detail-inner">
-            <div class="tags">
-              <span class="tag">Lithium (Li)</span>
-              <span class="tag">Cobalt (Co)</span>
-              <span class="tag">Nickel (Ni)</span>
-              <span class="tag">Manganese (Mn)</span>
-              <span class="tag">Graphite (C)</span>
-            </div>
-            <div class="mcard-stat">Supply is geographically concentrated and politically sensitive — DRC (cobalt), Chile/Australia (lithium). Prices highly volatile, driven by EV adoption forecasts, Chinese policy, and mine supply disruptions. Fastest-growing segment in metals analysis.</div>
-          </div>
+      <div class="mcard battery" data-num="Li" data-cat="battery" data-idx="0" onclick="mCardClick(this)">
+        <div class="mcard-top-row">
+          <div class="mcard-icon">⚡</div>
+          <div class="mcard-pill-row" id="mcpills-battery"></div>
         </div>
-        <div class="hint">↓ Tap to expand</div>
+        <div class="mcard-title" id="mctitle-battery">Battery Materials</div>
+        <div class="mcard-sub" id="mcsub-battery">EV-critical · Energy transition · Fast-growing</div>
+        <div class="mcard-price-row" id="mcprice-battery" style="display:none">
+          <span class="mcard-price-val" id="mcpriceval-battery"></span>
+          <span class="mcard-price-chg" id="mcpricechg-battery"></span>
+        </div>
+        <div class="mcard-desc" id="mcdesc-battery">Metals powering the energy transition. Demand tightly linked to electric vehicle production, energy storage systems, and consumer electronics.</div>
+        <div class="mcard-mini-spark" id="mcspark-battery"></div>
+        <div class="hint" id="mchint-battery">↓ Click to explore · ↻ Cycles in 3s</div>
       </div>
 
     </div>
@@ -3151,80 +3165,146 @@
 
   function priceValue(key) { const d = priceDB[key]; return d ? d.vals[d.vals.length-1] : 0; }
 
-  /* ── STAT CARD SHUFFLE (header only) ── */
-  const statShuffleConfig = [
-    { idx:0, cat:'ferrous',  materials:['hrc','crc','mild_steel','stainless'],
-      icons:['⚙️','⚙️','⚙️','⚙️'],
-      labels:['HRC · $/MT','CRC · $/MT','Mild Steel · $/MT','Stainless · $/MT'] },
-    { idx:1, cat:'nf',  materials:['copper','zinc','tin','nickel','lead'],
-      icons:['🔵','🔵','🔵','🔵','🔵'],
-      labels:['Copper · $/MT','Zinc · $/MT','Tin · $/MT','Nickel · $/MT','Lead · $/MT'] },
-    { idx:2, cat:'precious',  materials:['gold','silver','platinum','palladium'],
-      icons:['✦','✦','✦','✦'],
-      labels:['Gold · $/troy oz','Silver · $/troy oz','Platinum · $/troy oz','Palladium · $/troy oz'] },
-    { idx:3, cat:'battery',  materials:['lithium','cobalt','nickel_b'],
-      icons:['⚡','⚡','⚡'],
-      labels:['Li₂CO₃ · $/MT','Cobalt · $/MT','Nickel (Battery) · $/MT'] }
-  ];
+  /* ── METAL CARD PRICE TICKER ── */
+  const mcardFamilyMats = {
+    ferrous:  ['hrc','crc','mild_steel','stainless'],
+    nf:       ['copper','zinc','nickel','tin','lead'],
+    precious: ['gold','silver','platinum','palladium'],
+    battery:  ['lithium','cobalt','nickel_b']
+  };
 
-  const statIdxState = [0, 0, 0, 0];
-  const statCards = () => document.querySelectorAll('.mu-stat-card');
+  const mcardState = { ferrous:0, nf:0, precious:0, battery:0 };
 
-  function updateStatCard(cardEl, cfg, matIdx) {
-    const key  = cfg.materials[matIdx];
-    const d    = priceDB[key];
-    if (!d || !cardEl) return;
-    const current = d.vals[d.vals.length-1];
-    const first   = d.vals[0];
-    const pct     = ((current - first) / first * 100);
-    const isUp    = pct >= 0;
-    const fmt     = v => v >= 10000 ? '$'+Math.round(v/1000)+'k' : v >= 1000 ? '$'+Math.round(v).toLocaleString() : '$'+v.toFixed(1);
+  function mCardClick(card) {
+    const cat = card.getAttribute('data-cat');
+    const idx = parseInt(card.getAttribute('data-idx') || 0);
+    const mats = mcardFamilyMats[cat];
+    if (!mats) return;
+    if (idx === 0) {
+      // On family view → open detail
+      openDetail(cat);
+    } else {
+      // On a material view → open price modal
+      const matKey = mats[idx - 1];
+      openPriceModal(cat);
+      setTimeout(() => renderPriceModal(matKey, cat), 60);
+    }
+  }
 
-    const valEl = cardEl.querySelector('.mu-stat-val');
-    const lblEl = cardEl.querySelector('.mu-stat-lbl');
-    const subEl = cardEl.querySelector('.mu-stat-sub');
+  function mcardSetMaterial(cat, matIdx) {
+    // matIdx 0 = family overview, 1+ = material
+    const card = document.querySelector('.mcard.' + cat);
+    if (!card) return;
+    const mats = mcardFamilyMats[cat];
+    card.setAttribute('data-idx', matIdx);
 
-    // Fade out
-    [valEl, lblEl, subEl].forEach(el => el && (el.style.transition='opacity 0.25s', el.style.opacity='0'));
-
+    card.classList.add('fading');
     setTimeout(() => {
-      if (valEl) valEl.textContent = fmt(current);
-      if (lblEl) lblEl.textContent = cfg.labels[matIdx];
-      if (subEl) subEl.innerHTML   = `${isUp?'<span style="color:#28c88a">▲ +':'<span style="color:#e85555">▼ '}${Math.abs(pct).toFixed(1)}%</span> over 7M`;
-      cardEl.onclick = () => { openPriceModal(cfg.cat); setTimeout(()=>renderPriceModal(key, cfg.cat), 50); };
-      [valEl, lblEl, subEl].forEach(el => el && (el.style.opacity='1'));
-    }, 260);
+      if (matIdx === 0) {
+        // Family overview mode
+        const familyNames = { ferrous:'Ferrous Metals', nf:'Non-Ferrous Metals', precious:'Precious Metals', battery:'Battery Materials' };
+        const familySubs  = { ferrous:'Iron-based · ~90% of all metals used globally', nf:'No iron · Lightweight · Corrosion-resistant', precious:'Rare · High unit value · Store of wealth', battery:'EV-critical · Energy transition · Fast-growing' };
+        const familyDescs = {
+          ferrous:'Any metal with iron (Fe) as its primary ingredient. The backbone of construction, automotive manufacturing, and industrial infrastructure worldwide.',
+          nf:'Metals containing no significant iron. Lighter, non-magnetic, and naturally resistant to corrosion. Critical for packaging, electronics, wiring, and corrosion protection.',
+          precious:'Scarce metals with high economic value per unit. Used in jewellery, as financial instruments, in electronics, and as catalysts in auto and chemical industries.',
+          battery:'Metals powering the energy transition. Demand tightly linked to electric vehicle production, energy storage systems, and consumer electronics.'
+        };
+        document.getElementById('mctitle-'+cat).textContent = familyNames[cat];
+        document.getElementById('mcsub-'+cat).textContent   = familySubs[cat];
+        document.getElementById('mcdesc-'+cat).textContent  = familyDescs[cat];
+        document.getElementById('mcprice-'+cat).style.display = 'none';
+        document.getElementById('mcspark-'+cat).innerHTML = '';
+        document.getElementById('mchint-'+cat).textContent = '↓ Click to explore · ↻ Cycles in 3s';
+      } else {
+        // Specific material mode
+        const key = mats[matIdx - 1];
+        const d   = priceDB[key];
+        if (!d) return;
+        const current = d.vals[d.vals.length-1];
+        const first   = d.vals[0];
+        const pct     = ((current-first)/first*100);
+        const isUp    = pct >= 0;
+        const fmt     = v => v >= 1000 ? '$' + Math.round(v).toLocaleString() : '$' + v.toFixed(1);
+
+        document.getElementById('mctitle-'+cat).textContent = d.name;
+        document.getElementById('mcsub-'+cat).textContent   = d.unit + ' · ' + d.source;
+        document.getElementById('mcdesc-'+cat).textContent  = '';
+        document.getElementById('mchint-'+cat).textContent  = '↑ Click to open price chart';
+
+        const priceRow = document.getElementById('mcprice-'+cat);
+        priceRow.style.display = 'flex';
+        document.getElementById('mcpriceval-'+cat).textContent = fmt(current);
+        const chgEl = document.getElementById('mcpricechg-'+cat);
+        chgEl.textContent = (isUp?'▲ +':'▼ ') + Math.abs(pct).toFixed(1)+'%';
+        chgEl.className = 'mcard-price-chg ' + (isUp?'up':'down');
+
+        // Mini sparkline
+        const vals = d.vals;
+        const W = 200, H = 36, minV = Math.min(...vals)*0.99, maxV = Math.max(...vals)*1.01;
+        const xOf = i => (i/(vals.length-1))*W;
+        const yOf = v => H - ((v-minV)/(maxV-minV))*(H-4) - 2;
+        const pts  = vals.map((v,i)=>xOf(i)+','+yOf(v)).join(' ');
+        const area = 'M '+xOf(0)+','+H+' L '+pts+' L '+xOf(vals.length-1)+','+H+' Z';
+        document.getElementById('mcspark-'+cat).innerHTML = `
+          <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+            <defs><linearGradient id="mcg-${cat}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${d.color}" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="${d.color}" stop-opacity="0.02"/>
+            </linearGradient></defs>
+            <path d="${area}" fill="url(#mcg-${cat})"/>
+            <polyline points="${pts}" fill="none" stroke="${d.color}" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="${xOf(vals.length-1)}" cy="${yOf(vals[vals.length-1])}" r="3" fill="${d.color}"/>
+          </svg>`;
+      }
+
+      // Update pills
+      const pillsEl = document.getElementById('mcpills-'+cat);
+      if (pillsEl) {
+        const allPills = [null, ...mats]; // index 0 = family, 1+ = materials
+        pillsEl.innerHTML = mats.map((mk, i) => {
+          const pd = priceDB[mk];
+          const active = (i+1) === matIdx;
+          return `<span class="mcard-pill${active?' active':''}" onclick="event.stopPropagation();mcardGoTo('${cat}',${i+1})">${pd ? pd.name.split(' ')[0] : mk}</span>`;
+        }).join('');
+      }
+
+      card.classList.remove('fading');
+    }, 220);
   }
 
-  function startStatShuffle() {
-    setInterval(() => {
-      const cards = [...statCards()];
-      statShuffleConfig.forEach((cfg, i) => {
-        const card = cards[i];
-        if (!card || card.matches(':hover')) return;
-        statIdxState[i] = (statIdxState[i] + 1) % cfg.materials.length;
-        updateStatCard(card, cfg, statIdxState[i]);
-      });
-    }, 2800);
+  function mcardGoTo(cat, idx) {
+    mcardState[cat] = idx;
+    mcardSetMaterial(cat, idx);
+    // Reset timer
+    clearInterval(mcardTimers[cat]);
+    mcardTimers[cat] = setInterval(() => mcardAdvance(cat), 3200);
   }
 
-  // Restore main category cards to fixed state (never shuffle)
+  function mcardAdvance(cat) {
+    const card = document.querySelector('.mcard.' + cat);
+    if (card && card.matches(':hover')) return;
+    const mats = mcardFamilyMats[cat];
+    const total = mats.length + 1; // +1 for family view
+    mcardState[cat] = (mcardState[cat] + 1) % total;
+    mcardSetMaterial(cat, mcardState[cat]);
+  }
+
+  const mcardTimers = {};
+
+  function initMcardTickers() {
+    Object.keys(mcardFamilyMats).forEach(cat => {
+      mcardSetMaterial(cat, 0); // init family view
+      mcardTimers[cat] = setInterval(() => mcardAdvance(cat), 3200);
+    });
+  }
+
+  // Remove old card onclick bindings and init tickers
   document.querySelectorAll('.mcard').forEach(card => {
-    const key = card.classList.contains('ferrous')  ? 'ferrous'  :
-                card.classList.contains('nf')       ? 'nf'       :
-                card.classList.contains('precious') ? 'precious' : 'battery';
-    card.onclick = () => openDetail(key);
+    // onclick is set in HTML via mCardClick
   });
+  setTimeout(initMcardTickers, 400);
 
-  // Init: wire element tiles to price modal
-  document.querySelectorAll('.mu-elem').forEach(el => {
-    const cat = el.classList.contains('mu-elem-fe') ? 'ferrous' :
-                el.classList.contains('mu-elem-al') ? 'nf' :
-                el.classList.contains('mu-elem-au') ? 'precious' : 'battery';
-    el.onclick = () => openPriceModal(cat);
-  });
-
-  setTimeout(startStatShuffle, 2500);
 
   // ESC to close price modal
   document.addEventListener('keydown', e => { if (e.key==='Escape') closePriceModal(); });
